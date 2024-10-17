@@ -18,6 +18,6 @@ export class UserProfileComponent {
   rejected = this.usersService.getNumAppRejected();
 
   get profilePicPath(){
-    return 'profile-pics'+this.usersService.getUser().photo;
+    return 'profile-pics/'+this.usersService.getUser().photo;
   }
 }

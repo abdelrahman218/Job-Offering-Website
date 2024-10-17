@@ -5,6 +5,7 @@
     color:#2f4156;
     font-size: 120%;
     border-bottom: 1px solid #2f4156;
+    z-index: 100;
 }
 .choices{
     display: flex;
