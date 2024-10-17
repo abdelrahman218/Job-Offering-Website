@@ -1,5 +1,24 @@
-<img src="wazafny-branding/png/logo-no-background-inverted.png" alt="LOGO">
-<a routerLink="/admin" class="choices">Dashboard</a>
-<a routerLink="/user" class="choices">Find a Job</a>
-<a routerLink="/" class="choices">My Applications</a>
-<button id="my-profile"><img src="" alt="pfp"></button>
+<a routerLink="/">
+    <img src="wazafny-branding/png/logo-no-background-inverted.png" alt="Company logo">
+</a>
+
+@switch (userType) {
+    @case ('User'){
+        <a routerLink="/user/dashboard" class="choices">Dashboard</a>
+        <a routerLink="/user/find-a-job" class="choices">Find a Job</a>
+        <a routerLink="/user/applications" class="choices">My Applications</a>
+    }
+    @case ('Company') {
+        <!--Company Links-->
+    }
+    @case ('Admin') {
+        <!--Admin Links-->
+    }
+    @default{
+        <!--If No one is Signed In-->
+    }
+}
+
+@if (userType!=undefined) {
+    <button id="my-profile"><img src="" alt="pfp"></button>
+}

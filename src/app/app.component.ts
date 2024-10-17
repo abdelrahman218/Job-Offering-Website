@@ -1,7 +1,13 @@
+//Angular Imports
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
+//Components
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
+
+//Models
+import { UserType } from './navigating-user.model';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +17,5 @@ import { FooterComponent } from "./footer/footer.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Job-Offering-Website';
+  userType: UserType = 'User';
 }
