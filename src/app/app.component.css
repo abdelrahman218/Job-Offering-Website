@@ -1,4 +1,11 @@
-main{
+header,main,footer{
     display: block;
-    height: 100%;
+    margin: 0px;
+}
+header{
+    position: sticky;
+    top:0;
+}
+main{
+    height: fit-content;
 }
