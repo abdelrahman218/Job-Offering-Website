@@ -4,3 +4,8 @@
     padding-top: 5%;
     height: fit-content;
 }
+
+div{
+    display: grid;
+    grid-template-columns: 60% 40%;
+}

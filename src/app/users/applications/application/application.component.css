@@ -11,15 +11,3 @@ img{
     width:50%;
     margin-bottom: 3%;
 }
-button{
-    color: inherit;
-    position: relative;
-    left: -25%;
-    background-color: #ffffff00;
-    border: 5px solid #f5efeb;
-    border-radius: 10px;
-}
-button:hover{
-    background-color: #f5efeb48;
-    cursor: pointer;
-}

@@ -42,6 +42,8 @@ export const dummyUsers: User[] = [
         state: "Submitted"
       }
     ],
+    professionalTitle: "Software Engineer",
+    skills: ["JavaScript", "React", "Node.js", "MongoDB"],
     username: 'johndoe',
     password: 'password123',
   },
@@ -86,6 +88,8 @@ export const dummyUsers: User[] = [
         state: "Rejected"
       },
     ],
+    professionalTitle: "Data Scientist",
+    skills: ["Python", "Machine Learning", "Data Visualization", "Pandas"],
     username: 'janesmith',
     password: 'password456',
   },
@@ -130,6 +134,8 @@ export const dummyUsers: User[] = [
         state: "In Review"
       },
     ],
+    professionalTitle: "UI/UX Designer",
+    skills: ["Figma", "Sketch", "Adobe XD", "User Research"],
     username: 'alicejohnson',
     password: 'password789',
   },
@@ -174,6 +180,8 @@ export const dummyUsers: User[] = [
         state: "Rejected"
       },
     ],
+    professionalTitle: "DevOps Engineer",
+    skills: [],
     username: 'bobbrown',
     password: 'password101',
   },
@@ -217,6 +225,19 @@ export const dummyUsers: User[] = [
         companyLogo: "https://logo.com/healthplus.png",
         state: "Accepted"
       }
+    ],
+    professionalTitle: "Full Stack Developer",
+    skills: [
+      "HTML", "CSS", "JavaScript", "PHP", "MySQL", 
+      "React", "Node.js", "MongoDB", "Angular", "TypeScript",
+      "Python", "Django", "Flask", "PostgreSQL", "GraphQL",
+      "Java", "Spring Boot", "Hibernate", "Kotlin", "Swift",
+      "Objective-C", "Ruby", "Ruby on Rails", "C#", ".NET",
+      "C++", "Rust", "Go", "Kubernetes", "Docker",
+      "AWS", "Azure", "Google Cloud", "Terraform", "Linux",
+      "Shell Scripting", "Git", "Jenkins", "CI/CD", "Webpack",
+      "Gulp", "SASS", "LESS", "Babel", "Bootstrap",
+      "Vue.js", "Redis", "Elasticsearch", "RabbitMQ", "Nginx"
     ],
     username: 'charliedavis',
     password: 'password202',

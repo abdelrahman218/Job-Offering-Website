@@ -1,12 +1,12 @@
 :host{
     display: block;
-    background-color: #c8d9e6;
+    background-color: #f5efeb;
     color: #2f4156;
     width: 90%;
     height: fit-content;
     margin: 0% 2% 5% 2%;
-    padding: 3%;
+    padding: 1% 2%;
     border-radius: 14px;
-    box-shadow: 0px 0px 5px black;
+    box-shadow: 0px 0px 5px #565c62;
     overflow-x: hidden;
 }

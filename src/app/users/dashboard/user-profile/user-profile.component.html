@@ -1,21 +1,30 @@
 <div>
     <h1>
-        {{user.name}}'s Profile
+        {{user.name}}
     </h1>
-    <ul>
-        Total Applications: 
-        <li>
-            Applied for: {{submitted}}
-        </li>
-        <li>
-            In review:  {{inReview}}
-        </li>
-        <li>
-            Accepted: {{accepted}}
-        </li>
-        <li>
-            Rejected: {{rejected}}
-        </li>
-    </ul>
+    <h2>
+       {{user.professionalTitle}} 
+    </h2>
+    <h3>
+        Total Applications:
+    </h3>
+    <div class="counters">
+        <ul> 
+            <li>
+                Applied for: {{submitted}}
+            </li>
+            <li>
+                In review:  {{inReview}}
+            </li>
+        </ul>
+        <ul>
+            <li>
+                Accepted: {{accepted}}
+            </li>
+            <li>
+                Rejected: {{rejected}}
+            </li>
+        </ul>
+    </div>
 </div>
 <img [src]="profilePicPath" alt="your profile pic">
