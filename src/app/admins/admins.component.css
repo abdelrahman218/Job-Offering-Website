@@ -1,64 +1,67 @@
-.adminMainDiv{
-<<<<<<< Updated upstream
-    background-color: #F5EFEB;
+.adminMainDiv {
     width: 100%;
     height: 650px;
-}
-.title{
-    font-size: 24px;
-    text-align: center;
-    color: #000000  ;
-    font-weight: 850;
-    font-size: 50px;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
-    padding-top: 200px;
-    padding-right: 200px;
-}
-=======
-    width: 100%;
-    height: 650px;
-    display:flex;
+    display: flex;
     flex-direction: row;
 }
-.adminNav{
+
+.adminNav {
     position: fixed;
     left: 20px;
     top: 352px;
     width: 60px;
-    height: 156px;
+    height: 190px;
     background-color: rgba(47, 65, 87, 1);
     border-radius: 45px;
 }
+
 .adminNav svg {
     position: absolute; 
-    width: 37px;       /* Set size for all SVG icons */
+    width: 37px; /* Set size for all SVG icons */
     height: 37px;
     margin-bottom: 20px; /* Space between the icons */
+    transition: transform 0.3s ease; /* Add transition for zoom effect */
 }
+
+/* Adjust the hover effect for all icons */
+.companyIcon:hover, 
+.personIcon:hover, 
+.homeIcon:hover {
+ background-color: rgba(218, 221, 217, 0.5); 
+    transform: scale(1.1); /* Zoom in effect */
+}
+
 .companyIcon {
     left: 6px; 
     top: 80px;
     padding: 5px;
     border-radius: 17px;
 }
+
 .personIcon {
     left: 6px; 
     top: 15px;
     padding: 5px;
     border-radius: 17px;
 }
-.title{
+
+.homeIcon {
+    left: 6px;
+    top: 145px; /* Adjusted top position for consistency */
+    padding: 5px;
+    border-radius: 17px;
+    stroke-width: 2px;
+    stroke: white;
+}
+
+.title {
     text-align: center;
-    
-    color: #000000  ;
+    color: #000000;
     font-weight: 850;
     font-size: 40px;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
-    
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     padding-top: 200px;
     padding-right: 200px;
-
     margin-left: 100px;
     margin-top: 100px;
 }
->>>>>>> Stashed changes
