@@ -1,5 +1,4 @@
 .adminMainDiv{
-<<<<<<< Updated upstream
     background-color: #F5EFEB;
     width: 100%;
     height: 650px;
@@ -14,12 +13,7 @@
     padding-top: 200px;
     padding-right: 200px;
 }
-=======
-    width: 100%;
-    height: 650px;
-    display:flex;
-    flex-direction: row;
-}
+  
 .adminNav{
     position: fixed;
     left: 20px;
@@ -61,4 +55,3 @@
     margin-left: 100px;
     margin-top: 100px;
 }
->>>>>>> Stashed changes
