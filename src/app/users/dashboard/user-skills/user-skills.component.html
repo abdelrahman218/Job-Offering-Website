@@ -1,0 +1,14 @@
+<div>
+    @for (skill of userSkills; track $index) {
+        <label>
+            {{skill}}
+        </label>
+    }
+    @empty {
+        You can add your skills for better job recommendations
+    }
+</div>
+
+<a routerLink="" appButton>
+    Add Skills
+</a>

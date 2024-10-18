@@ -1,0 +1,17 @@
+:host{
+    display: inline-block;
+    background-color: #00000000;
+    text-align: center;
+    color: inherit;
+    text-decoration: none;
+    border: 3px solid #2f4156;
+    border-radius: 20px;
+    width: fit-content;
+    padding: 2%;
+}
+
+:host:hover{
+    background-color: #2f4156c4;
+    cursor: pointer;
+    color: #f5efeb;
+}
