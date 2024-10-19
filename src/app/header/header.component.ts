@@ -1,6 +1,7 @@
-import { Component,Input } from '@angular/core';
+import { Component,inject,Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserType } from '../navigating-user.model';
+import { UserService } from '../users/users.service';
 
 @Component({
   selector: 'app-header',
@@ -11,4 +12,6 @@ import { UserType } from '../navigating-user.model';
 })
 export class HeaderComponent {
   @Input({required: true}) userType !: UserType;
+  private userService=inject(UserService);
+  profilePicture='profile-pics/'+this.userService.getUser().photo;
 }

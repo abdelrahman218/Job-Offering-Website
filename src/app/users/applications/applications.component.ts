@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { UserService } from '../users.service';
 
 @Component({
   selector: 'app-applications',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './applications.component.css'
 })
 export class ApplicationsComponent {
-
+  private userService=inject(UserService);
+  applications=this.userService.getUser().applications;
 }

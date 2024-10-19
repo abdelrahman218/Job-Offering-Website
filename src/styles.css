@@ -2,3 +2,14 @@
 body{
     margin:0px;
 }
+::-webkit-scrollbar{
+    background-color: #f5e5eb6c;
+    border: 3px solid #f5e5eb;
+    border-radius: 20px;
+    z-index: 100;
+    cursor: pointer;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #f5e5eb;
+    border-radius: 20px;
+}

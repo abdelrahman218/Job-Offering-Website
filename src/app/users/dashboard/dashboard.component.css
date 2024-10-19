@@ -1,11 +1,18 @@
 :host{
-    display: block;
+    display: grid;
+    grid-template-rows: 22% 40% 31%;
+    row-gap: 50px;
     background-color: #f5efeb;
-    padding-top: 5%;
-    height: fit-content;
+    padding: 1%;
+    height: 70%;
 }
 
 div{
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 69% 30%;
+    column-gap: 15px;
+}
+.skills{
+    width: 96%;
+    height: 94.5%;
 }

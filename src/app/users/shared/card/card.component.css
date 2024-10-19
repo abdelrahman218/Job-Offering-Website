@@ -1,11 +1,12 @@
 :host{
-    display: inline-block;
-    padding: 1%;
-    margin-right: 7%;
-    width: fit-content;
-    height: fit-content;
     overflow: hidden;
-    background-color: #567c8d;
+    display: inline-block;
+    padding: 3%;
+    width: fit-content;
+    height: 79%;
+    margin-right: 7%;
+    overflow: hidden;
+    background-color: #f5efeb;
     border-radius: 5px;
     box-shadow: 0px 0px 5px black;
 }

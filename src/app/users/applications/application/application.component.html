@@ -1,10 +1,23 @@
-<img [src]="companylogoPath" [alt]="companylogoAltText">
-<div>
-    {{application.companyname}}<br>
-    {{application.jobTitle}}
+<div [ngClass]="{'accepted': application.state==='Accepted','rejected': application.state==='Rejected','status':true}">
+    {{application.state}}
 </div>
-@if (application.state==='Submitted') {
-    <button type="button" appButton>
-        Withdraw
-    </button>
-}
+<div class="application">
+    <div>
+        <img [src]="companylogoPath" [alt]="companylogoAltText">
+    </div>
+    <div>
+        <h1>
+            {{application.companyname}}
+        </h1>
+        <h2>
+            {{application.jobTitle}}
+        </h2>
+    </div>
+        @if (application.state==='Submitted') {
+            <div>
+                <button type="button" appButton>
+                    Withdraw
+                </button>
+            </div>
+        }
+</div>
