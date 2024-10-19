@@ -5,7 +5,7 @@
     display: grid;
     grid-template-rows: 40% 50% auto;
     width: 100%;
-    height: 78%;
+    height: 350px;
 }
 h1,h2{
     font-size: 1.5em;
@@ -42,7 +42,7 @@ button:hover{
     width: 150%;
     color: white;
     position: relative;
-    top:-3%;
+    top:3%;
     right: -10%;
     transform:rotate(30deg);
     

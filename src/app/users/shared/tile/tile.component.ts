@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './tile.component.css'
 })
 export class TileComponent {
-
+  
 }

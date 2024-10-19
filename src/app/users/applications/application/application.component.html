@@ -1,4 +1,4 @@
-<div [ngClass]="{'accepted': application.state==='Accepted','rejected': application.state==='Rejected','status':true}">
+<div [class]="{'accepted': application.state==='Accepted','rejected': application.state==='Rejected','status':true}">
     {{application.state}}
 </div>
 <div class="application">
@@ -15,7 +15,7 @@
     </div>
         @if (application.state==='Submitted') {
             <div>
-                <button type="button" appButton>
+                <button type="button" (click)='withdrawApp(application.id)' appButton>
                     Withdraw
                 </button>
             </div>

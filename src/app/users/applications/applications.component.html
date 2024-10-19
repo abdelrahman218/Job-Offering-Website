@@ -1,8 +1,19 @@
-@for (application of applications; track application.id) {
-
-}
-@empty {
-    <article>
-        You H
-    </article>
-}
+<div class="buttons">
+    <button type="button" (click)="switchTo('active')" [class]="{'activeMenu' : currentMenu==='active'}">
+        Active
+    </button>
+    |
+    <button type="button" (click)="switchTo('archived')" [class]="{'activeMenu' : currentMenu==='archived'}">
+        Archive
+    </button>
+</div>
+<div class="applications">
+    @for (application of applications; track application.id) {
+        <app-card class="app">
+            <app-application [application]="application"/>
+        </app-card>
+    }
+    @empty {
+        You Have no {{currentMenu}} applications
+    }
+</div>

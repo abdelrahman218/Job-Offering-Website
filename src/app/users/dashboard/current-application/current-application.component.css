@@ -1,7 +1,6 @@
 :host{
     display: block;
-    height: 90%;
-    padding: 1%;
+    height: 96%;
     overflow: auto;
     white-space: nowrap;
 }
