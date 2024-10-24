@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { Application } from '../applications.model';
+import { type ApplicationType as Application} from '../../../app.model';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { UserService } from '../../users.service';
 

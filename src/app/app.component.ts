@@ -7,7 +7,7 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 
 //Models
-import { UserType } from './navigating-user.model';
+import { type UserType } from './app.model';
 
 @Component({
   selector: 'app-root',

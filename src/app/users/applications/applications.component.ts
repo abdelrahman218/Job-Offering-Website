@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../users.service';
 import { ApplicationComponent } from './application/application.component';
-import { Application } from './applications.model';
+import { type ApplicationType as Application} from '../../app.model';
 import { CardComponent } from "../shared/card/card.component";
 
 type ToggleType = 'active' | 'archived';
@@ -37,7 +37,7 @@ export class ApplicationsComponent implements OnInit {
           );
         break;
       default:
-        this.applications == this.userService.getUser().applications;
+        this.applications = this.userService.getUser().applications;
     }
     this.toggle = target;
   }

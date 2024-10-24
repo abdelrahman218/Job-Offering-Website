@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ApplicationState } from './applications/applications.model';
+import { type ApplicationStateType } from '../app.model';
 import { dummyUsers } from './dummy-users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private user = dummyUsers[0];
+  private user = dummyUsers[3];
   
-  private filterAccordingToAppState(state : ApplicationState){
+  private filterAccordingToAppState(state : ApplicationStateType){
     return this.user.applications.filter((app)=>{app.state===state}).length;
   }
 

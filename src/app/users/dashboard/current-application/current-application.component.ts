@@ -12,6 +12,5 @@ import { UserService } from '../../users.service';
 })
 export class CurrentApplicationComponent {
   private userService=inject(UserService);
-  private user=this.userService.getUser();
-  applications=this.user.applications;
+  applications=this.userService.getUser().applications;
 }

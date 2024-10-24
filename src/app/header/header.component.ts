@@ -1,6 +1,6 @@
 import { Component,inject,Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UserType } from '../navigating-user.model';
+import { UserType } from '../app.model';
 import { UserService } from '../users/users.service';
 
 @Component({
