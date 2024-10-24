@@ -1,19 +1,17 @@
-import { Injectable } from '@angular/core';
-import { type ApplicationStateType } from '../app.model';
+import { Injectable , signal} from '@angular/core';
+import { User, type ApplicationStateType } from '../app.model';
 import { dummyUsers } from './dummy-users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private user = dummyUsers[3];
-  
-  private filterAccordingToAppState(state : ApplicationStateType){
-    return this.user.applications.filter((app)=>{app.state===state}).length;
-  }
+  private userSignal = signal<User>(dummyUsers[0]);
 
-  getUser(){
-    return this.user;
+  user=this.userSignal.asReadonly();
+
+  private filterAccordingToAppState(state : ApplicationStateType){
+    return this.userSignal().applications.filter((app)=>app.state===state).length;
   }
 
   getNumAppSubmitted(){
@@ -33,8 +31,13 @@ export class UserService {
   }
 
   withdrawApp(appId : string){
-    const apps=this.user.applications.filter((app)=> app.id!==appId);
-    this.user={...this.user,applications: apps};
+    const apps=this.userSignal().applications.filter((app)=> app.id!==appId);
+    this.userSignal.update((prev)=>{return {...prev,applications: apps}})
     //Delete it from database
+  }
+
+  addSkill(skill: string){
+    const oldSkills=this.userSignal().skills;
+    this.userSignal.update((prev)=>{return {...prev,skills: [...oldSkills,skill]}})
   }
 }

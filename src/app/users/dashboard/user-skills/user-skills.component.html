@@ -2,7 +2,7 @@
     Skills
 </h1>
 <div>
-    @for (skill of userSkills; track $index) {
+    @for (skill of userSkills(); track $index) {
         <label>
             {{skill}}
         </label>
@@ -12,6 +12,6 @@
     }
 </div>
 
-<a routerLink="" appButton>
+<a [routerLink]="null" (click)="addSkill()" appButton>
     Add Skills
 </a>

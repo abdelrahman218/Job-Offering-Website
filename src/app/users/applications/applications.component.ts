@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit , Signal ,computed} from '@angular/core';
 import { UserService } from '../users.service';
 import { ApplicationComponent } from './application/application.component';
 import { type ApplicationType as Application} from '../../app.model';
@@ -15,7 +15,7 @@ type ToggleType = 'active' | 'archived';
 export class ApplicationsComponent implements OnInit {
   private toggle!: ToggleType;
   private userService = inject(UserService);
-  applications!: Application[];
+  applications!: Signal<Application[]>;
   ngOnInit(): void {
     this.switchTo('active');
   }
@@ -23,21 +23,21 @@ export class ApplicationsComponent implements OnInit {
   switchTo(target: ToggleType) {
     switch (target) {
       case 'active':
-        this.applications = this.userService
-          .getUser()
-          .applications.filter(
-            (app) => app.state === 'Submitted' || app.state === 'In Review'
-          );
+        this.applications = computed(()=>this.userService
+        .user()
+        .applications.filter(
+          (app) => app.state === 'Submitted' || app.state === 'In Review'
+        )); 
         break;
       case 'archived':
-        this.applications = this.userService
-          .getUser()
-          .applications.filter(
-            (app) => app.state === 'Accepted' || app.state === 'Rejected'
-          );
+        this.applications = computed(()=>this.userService
+        .user()
+        .applications.filter(
+          (app) => app.state === 'Accepted' || app.state === 'Rejected'
+        ));
         break;
       default:
-        this.applications = this.userService.getUser().applications;
+        this.applications = computed(()=>this.userService.user().applications)
     }
     this.toggle = target;
   }

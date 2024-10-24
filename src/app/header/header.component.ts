@@ -13,5 +13,5 @@ import { UserService } from '../users/users.service';
 export class HeaderComponent {
   @Input({required: true}) userType !: UserType;
   private userService=inject(UserService);
-  profilePicture='profile-pics/'+this.userService.getUser().photo;
+  profilePicture='profile-pics/'+this.userService.user().photo;
 }
