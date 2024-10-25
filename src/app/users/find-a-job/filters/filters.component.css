@@ -1,0 +1,22 @@
+:host{
+    background-color: #FFFFFF;
+    margin:0;
+}
+.dropdown {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+  }
+  .down{
+    transition: transform 0.2s ease-in-out;
+  }
+  .rotate {
+    transform: rotate(180deg);
+  }
+  .displayit{
+    display: none;
+  }

@@ -1,6 +1,6 @@
 :host{
     display:grid;
-    grid-template-columns: 30% 12% 12% 13% 20%;
+    grid-template-columns: 30% 12% 12% 12% 20%;
     background-color: #F5EFEB;
     color:#2f4156;
     font-size: 120%;
@@ -31,6 +31,9 @@
 
 a:visited{
     color: inherit;
+}
+a{
+    color:inherit;
 }
 
 img{
