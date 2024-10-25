@@ -25,6 +25,9 @@
 a:visited{
     color: inherit;
 }
+a{
+    color:inherit;
+}
 
 img{
     padding: 5px;
