@@ -19,7 +19,7 @@
   } 
    .list{
     display: grid;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
   }
   .displayit{

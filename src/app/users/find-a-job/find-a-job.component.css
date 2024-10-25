@@ -1,8 +1,12 @@
 :host{
-    display: grid;
-    grid-template-columns: 15% auto;
-    background-color: #F5EFEB;
-    padding:3%;
+  display: block;
+  background-color: #F5EFEB;
+  padding:3%;
+}
+.inside{
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding:3%;
 }
 #search{
     background-color: #2f4156e0;
