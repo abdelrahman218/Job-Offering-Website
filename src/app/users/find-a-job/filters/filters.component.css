@@ -1,6 +1,13 @@
 :host{
-    background-color: #FFFFFF;
-    margin:0;
+  background-color: #FFFFFF;
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  display: grid;
+}
+#text{
+  justify-content: center;
+  align-items: center;
 }
 .dropdown {
     width: 200px;
@@ -19,12 +26,14 @@
   } 
    .list{
     display: grid;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
+    margin-top: 5%;
+    margin-bottom: 20%;
   }
   .displayit{
     display: none;
   }
   .label{
-    margin-bottom: 5%;
+    margin: 5% 0;
   }
