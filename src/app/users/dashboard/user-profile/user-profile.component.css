@@ -1,6 +1,8 @@
 :host{
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 65% 31%;
+    column-gap: 7.5%;
+    height: 100%;
 }
 
 h1{
@@ -18,6 +20,7 @@ h3{
 .counters{
     display: grid;
     grid-template-columns: 50% 50%;
+    padding: 0px;
 }
 
 ul{
@@ -25,15 +28,14 @@ ul{
 }
 
 li{
+    font-size: 1.3em;
     margin-left: 5%;
     margin-top: 5%;
     padding: 0.2% 0%;
 }
 img{
-    position: relative;
-    right: -30%;
-    width: 70%;
-    border: 5px double #2f4156aa;
+    width: 85%;
+    border: 5px double #f5e5eb89;
     border-radius: 6px;
     overflow: hidden;
 }

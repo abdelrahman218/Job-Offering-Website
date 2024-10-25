@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject , computed} from '@angular/core';
 import { CardComponent } from "../../shared/card/card.component";
 import { ApplicationComponent } from "../../applications/application/application.component";
 import { UserService } from '../../users.service';
@@ -12,5 +12,5 @@ import { UserService } from '../../users.service';
 })
 export class CurrentApplicationComponent {
   private userService=inject(UserService);
-  applications=this.userService.getUser().applications;
+  applications=computed(()=>this.userService.user().applications);
 }

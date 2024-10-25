@@ -1,9 +1,9 @@
 <div>
     <h1>
-        {{user.name}}
+        {{user().name}}
     </h1>
     <h2>
-       {{user.professionalTitle}} 
+       {{user().professionalTitle}} 
     </h2>
     <h3>
         Total Applications:
@@ -11,7 +11,7 @@
     <div class="counters">
         <ul> 
             <li>
-                Applied for: {{submitted}}
+                Applied for: {{submitted()}}
             </li>
             <li>
                 In review:  {{inReview}}
@@ -27,4 +27,6 @@
         </ul>
     </div>
 </div>
-<img [src]="profilePicPath" alt="your profile pic">
+<div>
+    <img [src]="profilePicPath" alt="your profile pic">
+</div>
