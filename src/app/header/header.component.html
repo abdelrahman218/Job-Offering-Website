@@ -9,16 +9,21 @@
         <a routerLink="/user/applications" class="choices">My Applications</a>
     }
     @case ('Company') {
-        <!--Company Links-->
+        <a routerLink="/company/dashboard" class="choices">Dashboard</a>
+        <a routerLink="/company/post" class="choices">Add Post</a>
+        <a routerLink="/company/post/posts" class="choices">View Posts</a>
     }
-    @case ('Admin') {
-        <!--Admin Links-->
-    }
+    @case ('Admin') {}
     @default{
-        <!--If No one is Signed In-->
+        <a routerLink="/" class="choices">Home</a>
+        <a routerLink="/find-a-job" class="choices">Find a Job</a>
+        <a [routerLink]="null" class="choices" (click)="scrollToAboutUs()">About us</a>
     }
 }
 
-@if (userType!=undefined) {
-    <button id="my-profile"><img [src]="profilePicture" alt="Profile Picture"></button>
+@if (userType===undefined) {
+    <div>
+        <a [routerLink]="null" id="login">Login</a>
+        <a [routerLink]="null" id="signup">Sign Up</a>  
+    </div>
 }

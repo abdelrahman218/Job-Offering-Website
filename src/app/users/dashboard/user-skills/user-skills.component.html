@@ -3,7 +3,7 @@
 </h1>
 <div>
     @for (skill of userSkills(); track $index) {
-        <label>
+        <label (click)="removeSkill(skill)">
             {{skill}}
         </label>
     }
@@ -13,5 +13,5 @@
 </div>
 
 <a [routerLink]="null" (click)="addSkill()" appButton>
-    Add Skills
+    Add Skill
 </a>

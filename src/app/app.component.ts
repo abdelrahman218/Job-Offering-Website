@@ -17,5 +17,5 @@ import { type UserType } from './app.model';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  userType: UserType = 'User';
+  userType: UserType = "User";
 }
