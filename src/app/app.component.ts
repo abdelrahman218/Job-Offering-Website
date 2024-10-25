@@ -1,5 +1,5 @@
 //Angular Imports
-import { Component } from '@angular/core';
+import { Component, signal, Signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 //Components
@@ -17,5 +17,6 @@ import { type UserType } from './app.model';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  userType: UserType = "User";
+  private userTypeSinal=signal<UserType>(undefined);
+  userType=this.userTypeSinal.asReadonly();
 }
