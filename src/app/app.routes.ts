@@ -14,6 +14,7 @@ import { companyRoutes } from './companies/companies.routes';
 import { adminRoutes } from './admins/admins.routes';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { CardComponent } from './users/shared/card/card.component';
 
 export const routes: Routes = [
     {
@@ -50,6 +51,11 @@ export const routes: Routes = [
         path: 'signup',
         component: SignupComponent,
         title: 'Signup'
+    },
+    {
+        path: 'card',
+        component: CardComponent,
+        title: 'Card'
     },
     {
         path: '**',

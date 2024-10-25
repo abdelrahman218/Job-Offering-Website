@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FiltersComponent } from './filters/filters.component';
+import { CardComponent } from './card/card.component';
 @Component({
   selector: 'app-find-a-job',
   standalone: true,
-  imports: [FiltersComponent],
+  imports: [FiltersComponent,CardComponent],
   templateUrl: './find-a-job.component.html',
   styleUrl: './find-a-job.component.css'
 })
