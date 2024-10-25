@@ -17,6 +17,7 @@
     align-items: center;   
     width:75%;
     justify-self: center; 
+    max-height: fit-content;
 
 }
 #job-input{

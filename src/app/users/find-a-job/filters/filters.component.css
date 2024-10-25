@@ -16,7 +16,15 @@
   }
   .rotate {
     transform: rotate(180deg);
+  } 
+   .list{
+    display: grid;
+    justify-content: center;
+    align-items: center;
   }
   .displayit{
     display: none;
+  }
+  .label{
+    margin-bottom: 5%;
   }
