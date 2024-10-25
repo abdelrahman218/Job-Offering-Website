@@ -12,6 +12,8 @@ import { Error404Component } from './error404/error404.component';
 import { userRoutes } from './users/users.routes';
 import { companyRoutes } from './companies/companies.routes';
 import { adminRoutes } from './admins/admins.routes';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 export const routes: Routes = [
     {
@@ -37,6 +39,17 @@ export const routes: Routes = [
         path: 'unauthorized',
         component: UnauthorizedComponent,
         title: 'Unauthorized Access'
+    },
+    {
+        path: 'login',
+        component:  LoginComponent,
+        title: 'Login'
+
+    },
+    {
+        path: 'signup',
+        component: SignupComponent,
+        title: 'Signup'
     },
     {
         path: '**',
