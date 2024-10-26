@@ -27,6 +27,11 @@
     </div>
     <div class="apply-section">
         <span class="posted-date">Posted 1 hour ago</span>
-        <button class="apply-btn">Apply Now</button>
+        @if (userType===undefined) {
+            <button class="apply-btn" (click)="login()">Login to Apply</button>
+        }@else{
+            <button class="apply-btn">Apply Now</button>
+        }
+        
     </div>
 </div>

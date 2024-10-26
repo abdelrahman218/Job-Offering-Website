@@ -1,25 +1,59 @@
-<p id="text">Filters</p>
-<button class="dropdown" (click)="rotate(); displayit();">WorkPlace <i class="fa-solid fa-caret-down down rotate" [class.rotate]="isRotated"></i></button>
-<div class="displayit list" [class.displayit]="isDisplayed">
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
+<h2 id="text">Filters</h2>
+
+<div class="filter-section">
+  <button class="dropdown" (click)="toggleDisplay('workplace')">
+    WorkPlace
+    <span class="down" [class.rotate]="!isWorkplaceDisplayed">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </span>
+  </button>
+
+  <div class="list" [class.displayit]="isWorkplaceDisplayed">
+    @for (option of workplaceOptions; track $index) {
+        <label class="label">
+            <input type="checkbox">  {{ option }}
+        </label>
+    }
+  </div>
 </div>
-<button class="dropdown" (click)="rotate(); displayit();">WorkPlace <i class="fa-solid fa-caret-down down rotate" [class.rotate]="isRotated"></i></button>
-<div class="displayit list" [class.displayit]="isDisplayed">
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
+
+<div class="filter-section">
+  <button class="dropdown" (click)="toggleDisplay('experience')">
+    Experience Level
+    <span class="down" [class.rotate]="!isExperienceDisplayed">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </span>
+  </button>
+
+  <div class="list" [class.displayit]="isExperienceDisplayed">
+        @for (option of  experienceOptions; track $index) {
+
+            <label class="label">
+                <input type="checkbox">  {{ option }}
+            </label>
+        }
+  </div>
 </div>
-<button class="dropdown" (click)="rotate(); displayit();">WorkPlace <i class="fa-solid fa-caret-down down rotate" [class.rotate]="isRotated"></i></button>
-<div class="displayit list" [class.displayit]="isDisplayed">
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
-    <label for="check-1" class="label"><input type="checkbox" name="" id="check-1">Remote</label>
+
+<div class="filter-section">
+  <button class="dropdown" (click)="toggleDisplay('location')">
+    Location
+    <span class="down" [class.rotate]="!isLocationDisplayed">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </span>
+  </button>
+
+  <div class="list" [class.displayit]="isLocationDisplayed">
+    @for (option of locationOptions; track $index) {
+        <label class="label">
+            <input type="checkbox">  {{ option }}
+        </label>
+    }
+  </div>
 </div>

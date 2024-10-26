@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
+import { UserType } from '../../../app.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -8,5 +10,9 @@ import { Component } from '@angular/core';
   styleUrl: './card.component.css'
 })
 export class CardComponent {
-
+  @Input({required: true}) userType !: UserType;
+  constructor(private router: Router) {}
+  login(){
+    this.router.navigate(["/login"]);
+  }
 }
