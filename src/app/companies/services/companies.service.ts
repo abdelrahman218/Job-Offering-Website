@@ -14,7 +14,6 @@ export class CompaniesService {
   private loadPosts(): any[] {
     return JSON.parse(localStorage.getItem('jobPosts') || '[]');
   }
-
   addPost(post: any) {
     const existingPosts = this.loadPosts();
     existingPosts.push(post);

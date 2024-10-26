@@ -12,5 +12,6 @@ export const newCompany: Company[] = [{
       jobCategory: "Full time",
       workplace: "On-site" ,
       description: "technical engineer full time job",
-      companyId: '1'}]
+      companyId: '1',
+      jobRequirements:"bachelor degree"}]
   }];

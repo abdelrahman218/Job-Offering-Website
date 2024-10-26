@@ -10,14 +10,17 @@ import { posts } from './posts.model';
   styleUrl: './posts.component.css'
 })
 export class PostsComponent implements OnInit {
-  jobPosts: posts[]=[];
+  jobPosts: posts[] = [];
 
   constructor(private companyService: CompaniesService) { }
 
   ngOnInit(): void {
     this.companyService.jobPosts$.subscribe(posts => {
-      this.jobPosts = posts; 
-      console.log("Updated Job Posts:", this.jobPosts); 
+      this.jobPosts = posts;
+      console.log("Updated Job Posts:", this.jobPosts);
     });
+  }
+  Delete(id:number){
+this.companyService.deletePost(id);
   }
 }

@@ -1,6 +1,8 @@
+
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
     color: #ffffff;
     background-color: #567cbd;
+  
 }
 .nav-pills>li>a:focus, .nav-pills>li>a:hover {
 background-color: #F5EfEb;
@@ -22,12 +24,18 @@ a{
     padding: 3%;
     border-radius: 2%;
     box-shadow:0px 0px 5px black ;
+    max-width:50% ;
 }
 .text-center{
-    padding-bottom:7% ;
+    padding-bottom:3% ;
 }
 .form-control{
     width: 40%;
+}
+.fc{
+    width: 70%;
+}
+#usr{ margin-left: 26.6%;
 }
 h5{
     padding: 1%;
@@ -35,9 +43,40 @@ h5{
 #lb{
     margin-left: 0.5rem;
 }
-#lab{
-    font-weight: bold;
-}
 h2{
     margin-top: 4%;
+    
 }
+#ft{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 170px auto;
+    gap:15px;
+    margin-bottom: 30px;
+    font-weight: bolder;
+}
+#ust{
+    margin-left: 10%;
+}
+#lab{
+    display: grid;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 15px;
+    grid-template-columns: 170px auto;
+    gap:15px;
+    margin-bottom: 7px;
+}
+.radio{
+   display: flex;
+   justify-content: center;
+   margin-right: 9%;
+}
+.form-label{
+    
+    font-size: 20px;
+}
+
+

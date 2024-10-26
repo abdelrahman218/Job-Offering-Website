@@ -7,15 +7,15 @@
             <li id="job" class="active"><a data-toggle="pill">Job</a></li>
         </ul>
         <div id="job-det">
-            <h5>Job details</h5>
+            <h2 id="ft">Job details</h2>
             <div class="form-group">
-                <label id="lab" for="usr">Job Title:</label>
+                <label id="lab" for="usr"><h4 id="ust">Job Title:</h4></label>
                 <input formControlName="jobTitle" type="text" class="form-control" id="usr">
                 <div *ngIf="postForm.get('jobTitle')?.invalid && postForm.get('jobTitle')?.touched">
                     <small class="text-danger">Job Title is required.</small>
                 </div>
             </div>
-            <label id="lab">Career Level:</label>
+            <label id="lab"><h4>Career Level:</h4></label>
             <div class="radio">
                 <input formControlName="careerLevel" id="rd2" type="radio" name="careerLevel" value="internship">
                 <label id="lb" for="rd7">Internship</label>
@@ -39,24 +39,23 @@
             <div *ngIf="postForm.get('careerLevel')?.invalid && postForm.get('careerLevel')?.touched">
                 <small class="text-danger">Career Level is required.</small>
             </div>
-            <label id="lab">Job Category:</label>
-            <div class="checkbox">
-                <input formControlName="FullTime" type="checkbox" id="ch1" value="FullTime">
-                <label for="ch1">Full time</label>
-              </div>
-              <div class="checkbox">
-                <input formControlName="PartTime" type="checkbox" id="ch2" value="PartTime">
-                <label for="ch2">Part time</label>
-              </div>
-              <div class="checkbox">
-                <input formControlName="Freelance" type="checkbox" id="ch3" value="Freelance">
-                <label for="ch3">Freelance/Project</label>
-              </div>
-            
-              <div *ngIf="jobCategoryInvalid() && isSubmitted">
-                <small class="text-danger">At least one Job Category is required.</small>
-              </div>
-            <label id="lab">Workplace:</label>
+            <label id="lab"><h4>Job Category:</h4></label>
+            <div class="radio">
+                <input formControlName="jobCategory" type="radio" name="jobCategory" id="rd1" value="Full Time">
+                <label id="lb" for="rd1">Full Time</label>
+            </div>
+            <div class="radio">
+                <input formControlName="jobCategory" id="rd2" type="radio" name="jobCategory" value="Remote">
+                <label id="lb" for="rd2">Part-Time</label>
+            </div>
+            <div class="radio ">
+                <input formControlName="jobCategory" id="rd3" type="radio" name="jobCategory" value="Freelance/Project" >
+                <label id="lb" for="rd3">Freelance/Project</label>
+            </div>
+            <div *ngIf="postForm.get('jobCategory')?.invalid && postForm.get('jobCategory')?.touched">
+                <small class="text-danger">Job Category is required.</small>
+            </div>
+            <label id="lab"><h4>Workplace:</h4></label>
             <div class="radio">
                 <input formControlName="workplace" type="radio" name="workplace" id="rd1" value="On-site">
                 <label id="lb" for="rd1">On-site</label>
@@ -75,10 +74,18 @@
         </div>
     </div>
     <div class="container mt-5">
-        <h5>About Job</h5>
+        <h3>About Job</h3>
+        <div class="mb-3">
+            <label for="feedbackTextarea" class="form-label">Job Requirements</label>
+            <textarea formControlName="jobRequirements" class="form-control fc" id="feedbackTextarea" rows="5"
+                placeholder="Write your Description here..."></textarea>
+                <div *ngIf="postForm.get('jobRequirements')?.invalid && postForm.get('jobRequirements')?.touched">
+                    <small class="text-danger">Job Requirements is required.</small>
+                </div>
+        </div>
         <div class="mb-3">
             <label for="feedbackTextarea" class="form-label">Job description</label>
-            <textarea formControlName="jobDescription" class="form-control" id="feedbackTextarea" rows="5"
+            <textarea formControlName="jobDescription" class="form-control fc" id="feedbackTextarea" rows="5"
                 placeholder="Write your Description here..."></textarea>
                 <div *ngIf="postForm.get('jobDescription')?.invalid && postForm.get('jobDescription')?.touched">
                     <small class="text-danger">Job description is required.</small>

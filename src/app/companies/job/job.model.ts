@@ -6,5 +6,6 @@ export type Job = {
     workplace: "On-site" | "Remote" | "Hybrid";
     description: string;
     companyId: string;
+    jobRequirements:string;
   };
   
