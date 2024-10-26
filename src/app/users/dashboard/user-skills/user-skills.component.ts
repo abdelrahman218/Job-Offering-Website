@@ -22,4 +22,7 @@ export class UserSkillsComponent {
       this.usersService.addSkill(newSkill);
     }
   }
+  removeSkill(skill: string){
+    this.usersService.removeSkill(skill);
+  }
 }

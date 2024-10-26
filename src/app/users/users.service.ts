@@ -40,4 +40,10 @@ export class UserService {
     const oldSkills=this.userSignal().skills;
     this.userSignal.update((prev)=>{return {...prev,skills: [...oldSkills,skill]}})
   }
+  
+  removeSkill(skill: string){
+    const skills=this.userSignal().skills.filter((Sk)=> Sk!==skill);
+    this.userSignal.update((prev)=>{return {...prev,skills: skills}})
+    //Delete it from database
+  }
 }
