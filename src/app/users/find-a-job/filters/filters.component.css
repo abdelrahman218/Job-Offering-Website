@@ -19,7 +19,7 @@
     background-color: transparent;
     display: grid;
     grid-template-columns: auto auto;
-    justify-self: center;
+    justify-self: end;
   }
   .down{
     transition: transform 0.2s ease-in-out;
@@ -29,7 +29,7 @@
   } 
    .list{
     display: grid;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     margin-top: 5%;
     margin-bottom: 20%;
