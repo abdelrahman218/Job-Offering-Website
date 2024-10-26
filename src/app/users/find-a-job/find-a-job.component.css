@@ -59,3 +59,7 @@ background-color: transparent;
     justify-self: start;
     align-self: center;
 }
+#filter{
+  display: block;
+  max-height: min-content;
+}
