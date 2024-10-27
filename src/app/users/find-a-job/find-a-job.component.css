@@ -1,8 +1,12 @@
 :host{
-    display: grid;
-    grid-template-columns: 15% auto;
-    background-color: #F5EFEB;
-    padding:3%;
+  display: block;
+  background-color: #F5EFEB;
+  padding:3%;
+}
+.inside{
+  display: grid;
+  grid-template-columns: 20% 80%;
+  padding:3%;
 }
 #search{
     background-color: #2f4156e0;
@@ -17,6 +21,7 @@
     align-items: center;   
     width:75%;
     justify-self: center; 
+    max-height: fit-content;
 
 }
 #job-input{
@@ -53,4 +58,8 @@ background-color: transparent;
     font-size: 200%;
     justify-self: start;
     align-self: center;
+}
+#filter{
+  display: block;
+  max-height: min-content;
 }

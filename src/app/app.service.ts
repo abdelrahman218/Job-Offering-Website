@@ -10,7 +10,7 @@ import { UserService } from "./users/users.service";
 export class AppService{
     private routerService = inject(Router);
     private userServices = inject(UserService);
-    userTypeSinal=signal<UserType | undefined>(undefined);
+    userTypeSinal=signal<UserType | undefined>('Admin');
     private dummyUserRouter: routingType[]=[
         {
             username: 'johndoe',
@@ -37,7 +37,15 @@ export class AppService{
             password: 'password202',
             userType: 'User'
         },
-        
+        {
+            username: 'admin',
+            password: '123',
+            userType: 'Admin'
+        },{
+            username: 'techCorp',
+            password: '123',
+            userType: 'Company'
+        }
     ];
     login(username: string, password: string){
         let loginReq = this.dummyUserRouter.find((user) => { return user.username === username && user.password === password; });
@@ -55,7 +63,7 @@ export class AppService{
             case 'Admin':
                 this.userServices.login(loginReq.username, loginReq.password);
                 this.userTypeSinal.set('Admin');
-                this.routerService.navigate(['admin', '']);
+                this.routerService.navigate(['admin', 'dashboard']);
                 break;
         }
         return loginReq;

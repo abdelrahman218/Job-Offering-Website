@@ -40,6 +40,8 @@ export type Company = {
     industry: string;
     location: string;
     description: string;
+    username: string,
+    password: string,
     jobs: Job[];
 }
 
@@ -55,11 +57,13 @@ export type Job = {
 };
 
 export type posts={
+    id: number;
     jobTitle: string;
     careerLevel: CareerLevelType;
     jobCategory: JobCategoryType;
     workplace: WorkplaceType;
     jobDescription: string;
+    jobRequirements:string;
 }
 
 //Admin Datatype
