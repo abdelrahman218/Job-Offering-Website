@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+//Angular Imports
+import { Component, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
+//Components
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +15,6 @@ import { FooterComponent } from "./footer/footer.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Job-Offering-Website';
+  private loginService=inject(AppService);
+  userType=this.loginService.userTypeSinal.asReadonly();
 }

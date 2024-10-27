@@ -1,0 +1,17 @@
+<h1>
+    Skills
+</h1>
+<div>
+    @for (skill of userSkills(); track $index) {
+        <label (click)="removeSkill(skill)">
+            {{skill}}
+        </label>
+    }
+    @empty {
+        You can add your skills for better job recommendations
+    }
+</div>
+
+<a [routerLink]="null" (click)="addSkill()" appButton>
+    Add Skill
+</a>
