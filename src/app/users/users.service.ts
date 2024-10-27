@@ -10,6 +10,15 @@ export class UserService {
 
   user=this.userSignal.asReadonly();
 
+  login(username: string,password: string) : boolean{
+    const loginReq=dummyUsers.find((user)=>{return user.username===username&&user.password===password});
+    if(loginReq){
+      this.userSignal.set(loginReq);
+      return true;
+    }else{
+      return false;
+    }
+  }
   private filterAccordingToAppState(state : ApplicationStateType){
     return this.userSignal().applications.filter((app)=>app.state===state).length;
   }

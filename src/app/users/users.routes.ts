@@ -5,6 +5,11 @@ import { ApplicationsComponent } from './applications/applications.component';
 
 export const userRoutes: Routes =[
     {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+    },
+    {
         path: 'dashboard',
         component: DashboardComponent,
         title: 'Dashboard'

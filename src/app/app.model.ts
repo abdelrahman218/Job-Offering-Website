@@ -1,5 +1,11 @@
+//User-Type
+export type routingType={
+    username: string;
+    password: string;
+    userType: UserType;
+}
 //Navigating User
-export type UserType = 'Admin' | 'Company' | 'User' | undefined;
+export type UserType = 'Admin' | 'Company' | 'User';
 //User-realted Datatypes
 export type ApplicationStateType='Submitted'|'In Review'|'Accepted'|'Rejected';
 

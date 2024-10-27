@@ -12,7 +12,7 @@ import { ButtonComponent } from '../users/shared/button/button.component';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  @Input({required: true}) userType !: UserType;
+  @Input({required: true}) userType ?: UserType;
 
   scrollToAboutUs(){
     // get the scroll height of the window
