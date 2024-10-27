@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { dummyUserRouterService } from '../dummy-user-router.service';
+import { AppService } from '../app.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { dummyUserRouterService } from '../dummy-user-router.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  private loginService=inject(dummyUserRouterService);
+  private loginService=inject(AppService);
   username!: string;
   password!: string;
   login() {

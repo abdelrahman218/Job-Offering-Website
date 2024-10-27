@@ -27,3 +27,8 @@
         <a routerLink="/signup" id="signup">Sign Up</a>  
     </div>
 }
+@else {
+    <div>
+        <a [routerLink]="null" id="login" (click)="logout()">logout</a>
+    </div>
+}

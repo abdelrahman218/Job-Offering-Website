@@ -1,14 +1,11 @@
 //Angular Imports
-import { Component, inject, signal, Signal } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 //Components
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-
-//Models
-import { type UserType } from './app.model';
-import { dummyUserRouterService } from './dummy-user-router.service';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +15,6 @@ import { dummyUserRouterService } from './dummy-user-router.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  private loginService=inject(dummyUserRouterService);
+  private loginService=inject(AppService);
   userType=this.loginService.userTypeSinal.asReadonly();
 }

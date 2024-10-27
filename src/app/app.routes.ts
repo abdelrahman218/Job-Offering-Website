@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { CanMatchFn, Router, Routes } from '@angular/router';
 
 //Main Pages Componanets
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -15,7 +15,42 @@ import { SingupComponent } from './singup/singup.component';
 import { userRoutes } from './users/users.routes';
 import { companyRoutes } from './companies/companies.routes';
 import { adminRoutes } from './admins/admins.routes';
+import { AppService } from './app.service';
+import { inject } from '@angular/core';
 
+const isUser : CanMatchFn = ()=>{
+    const appService=inject(AppService);
+    const routerService=inject(Router);
+    if(appService.userTypeSinal()==='User'){
+        return true;
+    }
+    else{
+        routerService.navigate(['unauthorized']);
+        return false;
+    }
+}
+const isCompany : CanMatchFn = ()=>{
+    const appService=inject(AppService);
+    const routerService=inject(Router);
+    if(appService.userTypeSinal()==='Company'){
+        return true;
+    }
+    else{
+        routerService.navigate(['unauthorized']);
+        return false;
+    }
+}
+const isAdmin : CanMatchFn = ()=>{
+    const appService=inject(AppService);
+    const routerService=inject(Router);
+    if(appService.userTypeSinal()==='Admin'){
+        return true;
+    }
+    else{
+        routerService.navigate(['unauthorized']);
+        return false;
+    }
+}
 export const routes: Routes = [
     {
         path: '',
@@ -36,16 +71,19 @@ export const routes: Routes = [
     {
         path: 'user',
         children: userRoutes,
+        canMatch: [isUser],
         component: UsersComponent
     },
     {
         path: 'company',
         children: companyRoutes,
+        canMatch: [isCompany],
         component: CompaniesComponent
     },
     {
         path: 'admin',
         children: adminRoutes,
+        canMatch:[isAdmin],
         component: AdminsComponent
     },
     {

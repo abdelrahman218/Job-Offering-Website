@@ -7,7 +7,7 @@ import { UserService } from "./users/users.service";
     providedIn: 'root'
 })
 
-export class dummyUserRouterService{
+export class AppService{
     private routerService = inject(Router);
     private userServices = inject(UserService);
     userTypeSinal=signal<UserType | undefined>(undefined);
@@ -36,7 +36,8 @@ export class dummyUserRouterService{
             username: 'charliedavis',
             password: 'password202',
             userType: 'User'
-        }
+        },
+        
     ];
     login(username: string, password: string){
         let loginReq = this.dummyUserRouter.find((user) => { return user.username === username && user.password === password; });
@@ -58,5 +59,9 @@ export class dummyUserRouterService{
                 break;
         }
         return loginReq;
+    }
+    logout(){
+        this.userTypeSinal.set(undefined);
+        this.routerService.navigate(['']);
     }
 }
