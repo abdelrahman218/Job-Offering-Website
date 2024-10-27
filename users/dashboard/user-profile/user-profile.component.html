@@ -1,0 +1,21 @@
+<div>
+    <h1>
+        {{user.name}}'s Profile
+    </h1>
+    <ul>
+        Total Applications: 
+        <li>
+            Applied for: {{submitted}}
+        </li>
+        <li>
+            In review:  {{inReview}}
+        </li>
+        <li>
+            Accepted: {{accepted}}
+        </li>
+        <li>
+            Rejected: {{rejected}}
+        </li>
+    </ul>
+</div>
+<img [src]="profilePicPath" alt="your profile pic">
