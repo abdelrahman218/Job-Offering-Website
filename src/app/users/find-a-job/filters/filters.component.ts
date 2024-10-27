@@ -16,15 +16,13 @@ export class FiltersComponent {
    workplaceOptions = [
       'Remote',
       'On-site',
-      'Hybrid',
-      'Flexible'
+      'Hybrid'
    ];
  
    experienceOptions = [
      'Entry Level',
-     'Mid Level',
-     'Senior Level',
-     'Manager',
+     'Management',
+     'Expertised',
      'Internship'
    ];
  
