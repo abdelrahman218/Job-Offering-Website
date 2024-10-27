@@ -20,6 +20,9 @@
 
     <div class="container ">
         <a routerLink="/company/post/posts"><h1 class="fixed-link text-center">View Posts Details </h1></a>
+        <div *ngIf="jobPosts.length === 0">
+            <h1>No Posts Available....!</h1>
+          </div>
         <div class="d-flex row positions ">
 
             <div *ngFor="let post of jobPosts" class=" card col-md-4 mb-3">

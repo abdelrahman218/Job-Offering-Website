@@ -24,7 +24,7 @@ a{
     padding: 3%;
     border-radius: 2%;
     box-shadow:0px 0px 5px black ;
-    max-width:50% ;
+    max-width:47% ;
 }
 .text-center{
     padding-bottom:3% ;
@@ -51,10 +51,11 @@ h2{
     display: grid;
     justify-content: center;
     align-items: center;
-    grid-template-columns: 170px auto;
+    grid-template-columns: 260px auto;
     gap:15px;
     margin-bottom: 30px;
     font-weight: bolder;
+    margin-left: 19px;
 }
 #ust{
     margin-left: 10%;
@@ -71,8 +72,9 @@ h2{
 }
 .radio{
    display: flex;
-   justify-content: center;
-   margin-right: 9%;
+  margin-left: 32%;
+   align-items: center;
+   width:250px;
 }
 .form-label{
     
