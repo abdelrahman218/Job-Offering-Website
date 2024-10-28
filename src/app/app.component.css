@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../public/wazafny-branding/fonts/Montserrat.ttf');
+}
+@font-face {
+    font-family: 'Limelight';
+    src: url('../../public/wazafny-branding/fonts/Limelight.ttf');
+}
+*{
+    font-family: 'Limelight';
+    font-weight: normal;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Montserrat';
+    font-weight: bold;
+}
+header,main,footer{
+    display: block;
+    margin: 0px;
+    
+}
+header{
+    position: sticky;
+    top:0;
+    z-index: 100;
+}
+main{
+    height: fit-content;
+}

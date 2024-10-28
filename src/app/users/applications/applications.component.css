@@ -1,0 +1,39 @@
+:host{
+    display: block;
+    background-color: #f5efeb;
+    padding: 2%;
+}
+button{
+    font-family: inherit;
+    font-size: 1.5em;
+    border: none;
+    color: #2f4156;
+    &:hover{
+        cursor: pointer;
+    }
+}
+.buttons{
+    margin-bottom: 1%;
+}
+.activeMenu{
+    background-color: #2f4156c8;
+    color: #f5efeb;
+}
+.applications{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    row-gap: 15px;
+    text-align: center;
+    column-count: 3;
+    padding: 2%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.app{
+    margin-right: 0%;
+    position: relative;
+    left: 15%;
+    height: 400px;
+    width: 85%;
+}
