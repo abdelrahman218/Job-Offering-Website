@@ -1,1 +1,0 @@
-export type UserType = 'Admin' | 'Company' | 'User' | undefined;
