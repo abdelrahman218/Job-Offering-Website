@@ -10,39 +10,39 @@ import { UserService } from "./users/users.service";
 export class AppService{
     private routerService = inject(Router);
     private userServices = inject(UserService);
-    userTypeSinal=signal<UserType | undefined>('Admin');
+    userTypeSinal=signal<UserType | undefined>(undefined);
     private dummyUserRouter: routingType[]=[
         {
-            username: 'johndoe',
+            username: 'johndoe@gmail.com',
             password: 'password123',
             userType: 'User'
         },
         {
-            username: 'janesmith',
+            username: 'janesmith@gmail.com',
             password: 'password456',
             userType: 'User'
         },
         {
-            username: 'alicejohnson',
+            username: 'alicejohnson@gmail.com',
             password: 'password789',
             userType: 'User'        
         },
         {
-            username: 'bobbrown',
+            username: 'bobbrown@gmail.com',
             password: 'password101',
             userType: 'User'
         },
         {
-            username: 'charliedavis',
+            username: 'charliedavis@gmail.com',
             password: 'password202',
             userType: 'User'
         },
         {
-            username: 'admin',
+            username: 'admin@gmail.com',
             password: '123',
             userType: 'Admin'
         },{
-            username: 'techCorp',
+            username: 'techCorp@gmail.com',
             password: '123',
             userType: 'Company'
         }

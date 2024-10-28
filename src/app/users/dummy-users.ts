@@ -44,7 +44,7 @@ export const dummyUsers: User[] = [
     ],
     professionalTitle: "Software Engineer",
     skills: ["JavaScript", "React", "Node.js", "MongoDB"],
-    username: 'johndoe',
+    username: 'johndoe@gmail.com',
     password: 'password123',
   },
   {
@@ -90,7 +90,7 @@ export const dummyUsers: User[] = [
     ],
     professionalTitle: "Data Scientist",
     skills: ["Python", "Machine Learning", "Data Visualization", "Pandas"],
-    username: 'janesmith',
+    username: 'janesmith@gmail.com',
     password: 'password456',
   },
   {
@@ -136,7 +136,7 @@ export const dummyUsers: User[] = [
     ],
     professionalTitle: "UI/UX Designer",
     skills: ["Figma", "Sketch", "Adobe XD", "User Research"],
-    username: 'alicejohnson',
+    username: 'alicejohnson@gmail.com',
     password: 'password789',
   },
   {
@@ -182,7 +182,7 @@ export const dummyUsers: User[] = [
     ],
     professionalTitle: "DevOps Engineer",
     skills: [],
-    username: 'bobbrown',
+    username: 'bobbrown@gmail.com',
     password: 'password101',
   },
   {
@@ -239,7 +239,7 @@ export const dummyUsers: User[] = [
       "Gulp", "SASS", "LESS", "Babel", "Bootstrap",
       "Vue.js", "Redis", "Elasticsearch", "RabbitMQ", "Nginx"
     ],
-    username: 'charliedavis',
+    username: 'charliedavis@gmail.com',
     password: 'password202',
   },
 ];
