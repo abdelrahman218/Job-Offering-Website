@@ -1,11 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Dropdown } from 'bootstrap';
-import { CompaniesService } from '../services/companies.service';
+import { CompaniesService } from '../companies.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet,Router } from '@angular/router';
 import { newCompany } from '../dummy-companies';
-import { Company } from '../companies.model';
-import { posts } from '../post/posts/posts.model';
+import { Company, posts } from '../../app.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -41,4 +41,3 @@ export class DashboardComponent implements OnInit {
   }
 
 }
-

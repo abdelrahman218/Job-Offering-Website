@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet, NavigationEnd,Router,Event } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet} from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-company',
+  selector: 'app-companies',
   standalone: true,
   imports: [RouterOutlet, RouterLink, CommonModule],
   templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.css'],
+  styleUrl: './companies.component.css'
 })
-export class CompaniesComponent {}
+export class CompaniesComponent {
 
+}

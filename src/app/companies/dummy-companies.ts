@@ -1,4 +1,4 @@
-import { Company } from "./companies.model";
+import { Company } from "../app.model";
 export const newCompany: Company[] = [{
     id: '1',
     name: 'Tech Corp',
@@ -6,6 +6,8 @@ export const newCompany: Company[] = [{
     industry: 'Technology',
     location: 'San Francisco',
     description: 'A tech company',
+    username: 'techCorp',
+    password: '123',
     jobs: [{id: '1',
       title: 'Technical engineer',
       careerLevel: "Internship",

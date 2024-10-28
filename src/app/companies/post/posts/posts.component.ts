@@ -1,7 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
-import { CompaniesService } from '../../services/companies.service';
+import { CompaniesService } from '../../companies.service';
 import { CommonModule } from '@angular/common';
-import { posts } from './posts.model';
+import { posts } from '../../../app.model';
 @Component({
   selector: 'app-posts',
   standalone: true,
