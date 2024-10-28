@@ -8,7 +8,7 @@
             <h3>{{ company.name }}</h3>
         </div>
         <div class="compImage">
-            <img style="width: 361px;  border-radius: 3%;" src="\ales-nesetril-Im7lZjxeLhg-unsplash.jpg">
+            <img style="width: 361px;  border-radius: 3%;" src="/ales-nesetril-Im7lZjxeLhg-unsplash.jpg">
         </div>
         <div class="company-details">
             <p><strong>Industry:</strong> {{ company.industry }}</p>
@@ -45,23 +45,7 @@
     </div>
     <div class="Actions">
         <h4 class="txt">Company Manager</h4>
-        <div *ngFor="let company of companies" class="offcanvas offcanvas-start" id="demo">
-            <div class="offcanvas-header">
-                <h1 class="offcanvas-title">Profile</h1>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-            </div>
-            <div class="offcanvas-body">
-                <p><strong>Industry:</strong> {{ company.industry }}</p>
-                <p><strong>Location:</strong> {{ company.location }}</p>
-                <p><strong>Description:</strong> {{ company.description }}</p>
-                <button class="btn btn-secondary" type="button">Sign Out</button>
-                <a href="#" class="position-relative">
-                    <i class="fas fa-bell" style="font-size: 1.5rem;"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">1</span>
-                </a>
-            </div>
-        </div>
-        <button  class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+        <button  class="btn btn-primary" type="button"(click)="show()">
             <h2>Add post</h2>
         </button>
         <!-- <div class="dropdown">

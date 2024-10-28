@@ -1,0 +1,12 @@
+header,main,footer{
+    display: block;
+    margin: 0px;
+}
+header{
+    position: sticky;
+    top:0;
+    z-index: 100;
+}
+main{
+    height: fit-content;
+}
