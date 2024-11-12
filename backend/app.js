@@ -3,8 +3,8 @@ const credentials = require('./credentials.js');
 
 //Intializing the backend app
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
+const app = express();
 
 mongoose.connect(credentials.dbURL)
 .then(() => {
@@ -19,7 +19,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Starting Session
-backend.use(session({
+const session=require('express-session');
+app.use(session({
     secret: credentials.sessionSecret,
     resave: true,
     saveUninitialized: true
