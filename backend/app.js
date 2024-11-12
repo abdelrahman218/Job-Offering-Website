@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 mongoose.connect(credentials.dbURL)
 .then(() => {
     console.log("Database Connected Successfully");
-    app.listen(5500);
+    app.listen(8080);
 })
 .catch((err)=>{console.log(err)});
 
