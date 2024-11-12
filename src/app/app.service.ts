@@ -10,7 +10,12 @@ import { UserService } from "./users/users.service";
 export class AppService{
     private routerService = inject(Router);
     private userServices = inject(UserService);
+    private isErrorSignal=signal<boolean>(false);
+    private errorMessageSignal=signal<string>('');
     userTypeSinal=signal<UserType | undefined>(undefined);
+    isError=this.isErrorSignal.asReadonly();
+    errorMessage=this.errorMessageSignal.asReadonly();
+    
     private dummyUserRouter: routingType[]=[
         {
             username: 'johndoe@gmail.com',
@@ -60,8 +65,8 @@ export class AppService{
                 this.userTypeSinal.set('Company');
                 this.routerService.navigate(['company', 'dashboard']);
                 break;
-            case 'Admin':
-                this.userServices.login(loginReq.username, loginReq.password);
+                case 'Admin':
+                    this.userServices.login(loginReq.username, loginReq.password);
                 this.userTypeSinal.set('Admin');
                 this.routerService.navigate(['admin', 'dashboard']);
                 break;
@@ -71,5 +76,13 @@ export class AppService{
     logout(){
         this.userTypeSinal.set(undefined);
         this.routerService.navigate(['']);
+    }
+    emitError(message:string){
+        this.errorMessageSignal.set(message);
+        this.isErrorSignal.set(true);
+    }
+    closeError(){
+        this.errorMessageSignal.set('');
+        this.isErrorSignal.set(false);
     }
 }

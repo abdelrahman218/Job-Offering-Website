@@ -1,0 +1,49 @@
+:host{
+    display: block;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 200%;
+    height: 200%;
+    z-index: 1000;
+}
+
+div{
+    background-color: rgba(0, 0, 0, 0.592);
+    width: 200%;
+    height: 200%;
+    z-index: 1000;
+}
+
+.card{
+    display: block;
+    text-align: center;
+    position: absolute;
+    left:17%;
+    top:17%;
+    width: 15%;
+    height: fit-content;
+    padding: 2%;
+    background-color: rgb(87, 12, 12);
+    color: #f5efeb;
+    font-family: inherit;
+    border-radius: 5%;
+    z-index: 1100;
+}
+
+.card h1{
+    font-size: 6em;
+}
+
+.card p{
+    font-size: 1.5em;
+}
+
+.card i{
+    display: block;
+    position: relative;
+    right:-55%;
+    cursor: pointer;
+    --fa-primary-color: #ffffff; 
+    --fa-secondary-color: #ffffff;
+}
