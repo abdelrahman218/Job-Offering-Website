@@ -1,5 +1,5 @@
 //Angular Imports
-import { Component, inject, signal} from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 //Components
@@ -20,7 +20,7 @@ export class AppComponent {
   userType=this.appService.userTypeSinal.asReadonly();
   isError=this.appService.isError;
   errorMessage=this.appService.errorMessage;
-  
+
   closeError(){
     this.appService.closeError();
   }
