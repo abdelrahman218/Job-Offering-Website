@@ -6,7 +6,7 @@ const router = express.Router();
 const index=require('../controller/Index.controller');
 
 //Configuring routing
-router.get('/login', index.login );
-router.get('/signup',index.signup);
+router.post('/login', index.login );
+router.post('/signup',index.signup);
 
 module.exports = router;
