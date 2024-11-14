@@ -31,7 +31,7 @@ const IndexRoutes=require('./routes/index.routes.js');
 const UserRoutes=require('./routes/user.routes.js');
 
 app.use('/',IndexRoutes);
-app.use('/user',UserRoutes);
+//app.use('/user',UserRoutes);
 
 app.use((req,res)=>{
     res.sendStatus(404);

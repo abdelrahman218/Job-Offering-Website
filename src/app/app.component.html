@@ -9,3 +9,7 @@
 <footer>
   <app-footer />
 </footer>
+
+@if(isError()){
+  <app-error [errorMessage]="errorMessage()" (closeEvent)="closeError()"/>
+}
