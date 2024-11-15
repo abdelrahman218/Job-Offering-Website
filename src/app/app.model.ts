@@ -6,7 +6,7 @@ export type routingType={
 }
 //Navigating User
 export type UserType = 'Admin' | 'Company' | 'User';
-//User-realted Datatypes
+//User-related Datatypes
 export type ApplicationStateType='Submitted'|'In Review'|'Accepted'|'Rejected';
 
 export type ApplicationType = {
@@ -16,6 +16,14 @@ export type ApplicationType = {
     companyLogo:string, 
     state: ApplicationStateType
 };
+
+export type signup={
+    FName: string,
+    LName: string,
+    Email: string,
+    Password: string,
+    PTitle: string
+}
 
 export type User = {
     id: string,

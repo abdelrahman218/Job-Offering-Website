@@ -1,23 +1,18 @@
 import { Injectable , signal} from '@angular/core';
 import { User, type ApplicationStateType } from '../app.model';
-import { dummyUsers } from './dummy-users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private userSignal = signal<User>(dummyUsers[0]);
-
+  private userSignal = signal<User>({name:'',id: '',professionalTitle:'',photo:'',applications:[],skills:[],username: '',password: ''});
   user=this.userSignal.asReadonly();
 
-  login(username: string,password: string) : boolean{
-    const loginReq=dummyUsers.find((user)=>{return user.username===username&&user.password===password});
-    if(loginReq){
-      this.userSignal.set(loginReq);
-      return true;
-    }else{
-      return false;
-    }
+  login(user: User){
+    this.userSignal.set(user);
+  }
+  signout(){
+    this.userSignal.set({name:'',id: '',professionalTitle:'',photo:'',applications:[],skills:[],username: '',password: ''});
   }
   private filterAccordingToAppState(state : ApplicationStateType){
     return this.userSignal().applications.filter((app)=>app.state===state).length;
