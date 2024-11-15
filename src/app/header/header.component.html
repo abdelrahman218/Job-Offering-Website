@@ -13,7 +13,11 @@
         <a routerLink="/company/post" class="choices">Add Post</a>
         <a routerLink="/company/post/posts" class="choices">View Posts</a>
     }
-    @case ('Admin') {}
+    @case ('Admin') {
+        <div></div>
+        <div></div>
+        <div></div>
+    }
     @default{
         <a routerLink="/" class="choices">Home</a>
         <a routerLink="/find-a-job" class="choices">Find a Job</a>
@@ -25,5 +29,10 @@
     <div>
         <a routerLink="/login" id="login">Login</a>
         <a routerLink="/signup" id="signup">Sign Up</a>  
+    </div>
+}
+@else {
+    <div>
+        <a [routerLink]="null" id="login" (click)="logout()">logout</a>
     </div>
 }

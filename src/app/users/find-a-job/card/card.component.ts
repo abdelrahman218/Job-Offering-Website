@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './card.component.css'
 })
 export class CardComponent {
-  @Input({required: true}) userType !: UserType;
+  @Input({required: true}) userType ?: UserType;
   constructor(private router: Router) {}
   login(){
     this.router.navigate(["/login"]);

@@ -10,9 +10,8 @@
     justify-content: center;
     align-items: center;
 }
-#text-bold{
-    font-size: 300%;
-    margin-top: 28%;
+#text-bo{
+    margin-top: 20%;
 }
 #search{
     background-color: #FFFFFF;
@@ -29,7 +28,7 @@
 #job-input{
 height:100%;
 max-width: 95%;
-font-size:120%;
+/* font-size:110%; */
 color:#2F4156;
 border:none;
 outline: none;
@@ -63,7 +62,6 @@ outline: none;
 }
 #text-get-started{
     margin:15% 20%;
-    font-size: 120%;
     font-weight: light;
 }
 #get-started{
@@ -75,6 +73,7 @@ outline: none;
 #gs-head{
     color:#2F4156;
     justify-self: center;
+    font-size: 200%;
 }
 p{
     color:#567C8D

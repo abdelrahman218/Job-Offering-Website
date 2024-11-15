@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { AdminNavComponent } from './admin-nav/admin-nav.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-admins',
   standalone: true,
-  imports: [],
+  imports: [AdminNavComponent,RouterOutlet],
   templateUrl: './admins.component.html',
-  styleUrl: './admins.component.css'
+  styleUrls: ['./admins.component.css']
 })
-export class AdminsComponent {
-
-}
+export class AdminsComponent {}

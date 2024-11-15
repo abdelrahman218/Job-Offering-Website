@@ -1,6 +1,12 @@
+//User-Type
+export type routingType={
+    username: string;
+    password: string;
+    userType: UserType;
+}
 //Navigating User
-export type UserType = 'Admin' | 'Company' | 'User' | undefined;
-//User-realted Datatypes
+export type UserType = 'Admin' | 'Company' | 'User';
+//User-related Datatypes
 export type ApplicationStateType='Submitted'|'In Review'|'Accepted'|'Rejected';
 
 export type ApplicationType = {
@@ -10,6 +16,14 @@ export type ApplicationType = {
     companyLogo:string, 
     state: ApplicationStateType
 };
+
+export type signup={
+    FName: string,
+    LName: string,
+    Email: string,
+    Password: string,
+    PTitle: string
+}
 
 export type User = {
     id: string,
@@ -34,6 +48,8 @@ export type Company = {
     industry: string;
     location: string;
     description: string;
+    username: string,
+    password: string,
     jobs: Job[];
 }
 
@@ -49,11 +65,13 @@ export type Job = {
 };
 
 export type posts={
+    id: number;
     jobTitle: string;
     careerLevel: CareerLevelType;
     jobCategory: JobCategoryType;
     workplace: WorkplaceType;
     jobDescription: string;
+    jobRequirements:string;
 }
 
 //Admin Datatype

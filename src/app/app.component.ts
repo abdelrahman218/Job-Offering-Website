@@ -1,22 +1,27 @@
 //Angular Imports
-import { Component, signal, Signal } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 //Components
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-
-//Models
-import { type UserType } from './app.model';
+import { AppService } from './app.service';
+import { ErrorComponent } from "./error/error.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, ErrorComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  private userTypeSinal=signal<UserType>(undefined);
-  userType=this.userTypeSinal.asReadonly();
+  private appService=inject(AppService);
+  userType=this.appService.userTypeSinal.asReadonly();
+  isError=this.appService.isError;
+  errorMessage=this.appService.errorMessage;
+
+  closeError(){
+    this.appService.closeError();
+  }
 }
