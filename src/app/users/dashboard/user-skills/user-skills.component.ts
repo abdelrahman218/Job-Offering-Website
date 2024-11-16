@@ -18,7 +18,7 @@ export class UserSkillsComponent {
   addSkill(){
     let newSkill=prompt('Enter Your New Skill: ');
 
-    if(newSkill){
+    if(newSkill?.trim()){
       this.usersService.addSkill(newSkill);
     }
   }
