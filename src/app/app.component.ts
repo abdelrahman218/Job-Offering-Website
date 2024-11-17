@@ -21,6 +21,16 @@ export class AppComponent {
   isError=this.appService.isError;
   errorMessage=this.appService.errorMessage;
 
+  ngOnInit(){
+    this.appService.login('User',{name: 'Abdelrahman Ahmed',
+        id: '',
+        professionalTitle: 'Software Engineer',
+        photo: '',
+        applications: [],
+        skills: [],
+        username: '',
+        password: '',})
+  }
   closeError(){
     this.appService.closeError();
   }

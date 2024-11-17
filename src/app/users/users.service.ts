@@ -85,7 +85,7 @@ export class UserService {
       catchError(() => {
         throw new Error('Couldn\'t add skill');
       })
-    )
+    ).subscribe();
   }
 
   removeSkill(skill: string) {
