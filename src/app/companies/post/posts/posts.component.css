@@ -1,0 +1,58 @@
+
+.mb-3{
+  box-shadow: 0px 0px 5px black;
+  display: flex;
+}
+.card-title{
+margin-bottom: 2%;
+font-weight: bold;
+}
+
+.card-text2 strong {
+
+  margin-left:3%;
+}
+
+.card-text2 i {
+  margin-left: 3%;
+  margin-right:-1.7%;
+}
+
+.text-center{
+  padding-top: 10%;
+  padding-bottom: 14%;
+}
+.bt{
+  
+ margin-right: 80%; 
+}
+.btn-primary{
+  margin-top: 2%;
+  background-color: #2f4156;
+}
+.btn-primary:hover{
+  transform: scale(1.1);
+  transition: transform 0.5s ease;
+}
+.bt:hover{
+  background-color: red;
+}
+.bt2:hover{
+  background-color: green;
+}
+.btn-secondary{
+  background-color: black;
+  color: #ffffff;
+}
+.btn-secondary:hover{
+  transform: scale(1.1);
+  transition: transform 0.5s ease;
+}
+.bt4{
+  background-color:red;
+  color: #ffffff;
+}
+.bt4:hover{
+  transform: scale(1.1);
+  transition: transform 0.5s ease;
+}

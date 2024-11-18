@@ -1,0 +1,156 @@
+.container {
+  background-color: rgba(200, 217, 230, 0.8);
+  padding: 13%;
+  width:68%;
+  border-radius: 3%;
+  box-shadow: 0px 0px 5px black;
+  margin-left: 4px;
+  margin-top: -66%;
+  margin-bottom: 15%;
+  overflow-y:auto; 
+}
+
+
+.container::-webkit-scrollbar {
+  width: 8px;
+  
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: #2f4156; 
+  border-radius: 7px; 
+  height:auto;
+}
+.container::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.Actions{
+  border: 1px solid #ddd;
+  width: 68%;
+  padding: 1%;
+  margin-top: -13%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #2f4156;
+}
+.btn-primary{
+  background-color: #2f4156;
+  color: rgb(255, 255, 255);
+  width: 68%;
+  margin: 6%;
+  min-height: 40%;
+}
+.btn-primary:hover{
+  transform: scale(1.1);
+  transition: transform 0.5s ease;
+}
+.text-center {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  z-index: 10;
+  display: none;
+}
+.text-center:hover {
+  transform: scale(1.15);
+  transition: transform 0.5s ease;
+}
+.container:hover .mb-3 {
+  filter: blur(5px);
+   transition: filter 0.6s ease;
+}
+.container:hover .text-center{
+  display: block;
+}
+.container:hover .mb-3 .text-center {
+  filter: none;
+  
+}
+a {
+  text-decoration: none;
+}
+
+.company-card {
+  border: 1px solid #ddd;
+  padding: 1.18%;
+  border-radius: 2%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #2f4156;
+}
+.compImage{
+  border-style: solid;
+  border-radius: 3%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 2%;
+}
+.company-header h3 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #FFFFFF;
+}
+.company-details p {
+  margin: 4% 0;
+  color: #FFFFFF;
+  padding-top: 3%;
+}
+h4{
+  color: #FFFFFF;
+  padding-top: 6%;
+}
+li{
+  color:#FFFFFF;
+}
+.company-details p strong {
+  color: #FFFFFF
+}
+.dropdown-item:hover{
+  background-color: #c8d9e6;
+}
+body{
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.company-card{
+  min-height:50%;
+  width: 29.6%;
+  margin-left: 70%;
+  margin-top: 1%;
+  margin-bottom: 27%;
+  
+}
+.mb-3{
+  box-shadow: 0px 0px 5px black; 
+  margin-right: 1%;
+}
+
+.card-text2 strong {
+  margin-left: 2%;
+}
+
+.card-text2 i {
+  margin-left: 2%;
+  margin-right: -2%;
+}
+.card{
+ min-width: 45% ;
+  z-index: 5;
+}
+.positions{
+  
+  margin-top: -19%;
+  margin-left: -8%;
+}
+.fixed-link {
+  position: absolute;
+  top: 38%;
+  left: 21%;
+  z-index: 10; 
+  background-color: white; 
+  padding: 2%; 
+border-radius:3%;
+  border: 1px solid #ccc; 
+}
+.txt{
+  color: #FFFFFF;
+}

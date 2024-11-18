@@ -1,0 +1,41 @@
+:host{
+    display: grid;
+    grid-template-columns: 65% 31%;
+    column-gap: 7.5%;
+    height: 100%;
+}
+
+h1{
+    font-size: 4em;
+    margin: 0px;
+}
+h2{
+    font-size: 1.5em;
+    margin-left: 15%;
+}
+h3{
+    margin: 0px;
+    padding: 0px;
+}
+.counters{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 0px;
+}
+
+ul{
+    list-style:none;
+}
+
+li{
+    font-size: 1.3em;
+    margin-left: 5%;
+    margin-top: 5%;
+    padding: 0.2% 0%;
+}
+img{
+    width: 85%;
+    border: 5px double #f5e5eb89;
+    border-radius: 6px;
+    overflow: hidden;
+}
