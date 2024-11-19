@@ -1,10 +1,10 @@
 <div id="search">
     <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" name="job-search" id="job-input" placeholder="Search for a Job opportunity">
-    <button class="search-button">Search Jobs</button>
+    <input type="text" name="job-search" id="job-input" [(ngModel)]="searchTerm"  placeholder="Search for a Job opportunity">
+    <button class="search-button" (click)="onSearchClick()">Search Jobs</button>
 </div>
 <div class="inside">
-    <app-filters id="filter"></app-filters>
+    <app-filters id="filter" #filterComponent></app-filters>
     <div>
         <app-card [userType]="userType()"></app-card>
         <app-card [userType]="userType()"></app-card>

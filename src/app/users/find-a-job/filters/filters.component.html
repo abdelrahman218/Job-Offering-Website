@@ -1,7 +1,7 @@
 <h2 id="text">Filters</h2>
 
 <div class="filter-section">
-  <button class="dropdown" (click)="toggleDisplay('workplace')">
+  <button class="dropdown" (click)="toggleDisplay('workplace')" id="workplaceOptions">
     WorkPlace
     <span class="down" [class.rotate]="!isWorkplaceDisplayed">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -13,14 +13,14 @@
   <div class="list" [class.displayit]="isWorkplaceDisplayed">
     @for (option of workplaceOptions; track $index) {
         <label class="label">
-            <input type="checkbox">  {{ option }}
+          <input type="checkbox" value="{{option}}">  {{ option }}
         </label>
     }
   </div>
 </div>
 
 <div class="filter-section">
-  <button class="dropdown" (click)="toggleDisplay('experience')">
+  <button class="dropdown" (click)="toggleDisplay('experience')" id="Career-Level">
     Experience Level
     <span class="down" [class.rotate]="!isExperienceDisplayed">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -33,14 +33,14 @@
         @for (option of  experienceOptions; track $index) {
 
             <label class="label">
-                <input type="checkbox">  {{ option }}
+                <input type="checkbox" value="{{option}}">  {{ option }}
             </label>
         }
   </div>
 </div>
 
 <div class="filter-section">
-  <button class="dropdown" (click)="toggleDisplay('location')">
+  <button class="dropdown" (click)="toggleDisplay('location')" id="locationOptions">
     Location
     <span class="down" [class.rotate]="!isLocationDisplayed">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -52,7 +52,7 @@
   <div class="list" [class.displayit]="isLocationDisplayed">
     @for (option of locationOptions; track $index) {
         <label class="label">
-            <input type="checkbox">  {{ option }}
+          <input type="checkbox" value="{{option}}">  {{ option }}
         </label>
     }
   </div>

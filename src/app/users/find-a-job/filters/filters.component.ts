@@ -20,9 +20,9 @@ export class FiltersComponent {
    ];
  
    experienceOptions = [
-     'Entry Level',
-     'Management',
-     'Expertised',
+     'entry-level',
+     'expertised-level',
+     'senior-manager',
      'Internship'
    ];
  
@@ -49,4 +49,20 @@ export class FiltersComponent {
          break;
      }
    }
+
+   openCategoryDropdown(categoryId: string) {
+    // Logic to open category dropdown
+    const categoryDropdown = document.getElementById(categoryId);
+    categoryDropdown?.click(); // or however you open the dropdown
+  }
+
+  checkCategoryCheckbox(categoryName: string) {
+    // Find and check the checkbox with matching category ID
+    const checkbox = document.querySelector(`input[value="${categoryName}"]`) as HTMLInputElement;
+    if (checkbox) {
+      checkbox.checked = true;
+      // Trigger change event if needed
+      checkbox.dispatchEvent(new Event('change'));
+    }
+  }
 }
