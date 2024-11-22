@@ -6,11 +6,9 @@
 <div class="inside">
     <app-filters id="filter" #filterComponent></app-filters>
     <div>
-        <app-card [userType]="userType()"></app-card>
-        <app-card [userType]="userType()"></app-card>
-        <app-card [userType]="userType()"></app-card>
-        <app-card [userType]="userType()"></app-card>
-        
+        @for (item of posts; track $index) {
+            <app-card [userType]="userType()" [post]="item"></app-card>
+        }
     </div>
 
 </div>

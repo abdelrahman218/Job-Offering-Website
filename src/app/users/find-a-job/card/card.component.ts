@@ -1,5 +1,5 @@
 import { Component,Input } from '@angular/core';
-import { UserType } from '../../../app.model';
+import { UserType,posts } from '../../../app.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CardComponent {
   @Input({required: true}) userType ?: UserType;
+  @Input({required: true}) post !: posts;
   constructor(private router: Router) {}
   login(){
     this.router.navigate(["/login"]);

@@ -1,24 +1,25 @@
 <h2 id="text">Filters</h2>
 
-<div class="filter-section">
-  <button class="dropdown" (click)="toggleDisplay('workplace')" id="workplaceOptions">
-    WorkPlace
-    <span class="down" [class.rotate]="!isWorkplaceDisplayed">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M6 9l6 6 6-6"/>
-      </svg>
-    </span>
-  </button>
+@for (item of filterGroups; track $index) {
+  <div class="filter-section">
+    <button class="dropdown" (click)="toggleDisplay('{{item.name}}')" id="{{item.name}}">
+      {{item.name}}
+      <span class="down" [class.rotate]="!workplace">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </span>
+    </button>
 
-  <div class="list" [class.displayit]="isWorkplaceDisplayed">
-    @for (option of workplaceOptions; track $index) {
-        <label class="label">
-          <input type="checkbox" value="{{option}}">  {{ option }}
-        </label>
-    }
+    <div class="list" [class.displayit]="workplace">
+      @for (option of item.options; track $index) {
+          <label class="label">
+            <input type="checkbox" value="{{option}}">  {{ option }}
+          </label>
+      }
+    </div>
   </div>
-</div>
-
+}
 <div class="filter-section">
   <button class="dropdown" (click)="toggleDisplay('experience')" id="Career-Level">
     Experience Level
