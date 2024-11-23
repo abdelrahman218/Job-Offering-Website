@@ -1,4 +1,5 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
+import { ErrorService } from './error.service';
 
 @Component({
   selector: 'app-error',
@@ -8,10 +9,11 @@ import { Component, input, output } from '@angular/core';
   styleUrl: './error.component.css'
 })
 export class ErrorComponent {
-  errorMessage=input.required<string>();
-  closeEvent=output<void>();
+  errorService=inject(ErrorService);
+  errorMessage=this.errorService.errorMessage;
+  showTryAgain=this.errorService.showTryAgain;
 
   closeError(){
-    this.closeEvent.emit();
+    this.errorService.closeError();
   }
 }

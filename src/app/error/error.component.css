@@ -4,14 +4,14 @@
     left: 0%;
     top: 0%;
     width: 200%;
-    height: 200%;
+    height: 400%;
     z-index: 1000;
 }
 
 div{
     background-color: rgba(0, 0, 0, 0.592);
-    width: 200%;
-    height: 200%;
+    width: 100%;
+    height: 100%;
     z-index: 1000;
 }
 
@@ -20,7 +20,7 @@ div{
     text-align: center;
     position: absolute;
     left:17%;
-    top:17%;
+    top:8%;
     width: 15%;
     height: fit-content;
     padding: 2%;
@@ -42,7 +42,8 @@ div{
 .card i{
     display: block;
     position: relative;
-    right:-55%;
+    top:-6vh;
+    right:-62%;
     cursor: pointer;
     --fa-primary-color: #ffffff; 
     --fa-secondary-color: #ffffff;
