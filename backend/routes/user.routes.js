@@ -7,7 +7,9 @@ const user=require('../controller/User.controller');
 
 //Configuring routes
 router.get('/image',user.getProfilePicture);
+router.get('/getApplications',user.getApplications);
 router.post('/addSkill',user.addSkill);
 router.post('/removeSkill',user.removeSkill);
+router.post('/removeApplication',user.removeApplication);
 
 module.exports = router;

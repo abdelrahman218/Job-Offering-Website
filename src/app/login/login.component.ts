@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs';
-import { User, UserType } from '../app.model';
+import { ApplicationType, User, UserType } from '../app.model';
 import { ErrorService } from '../error/error.service';
 
 @Component({
@@ -16,8 +16,8 @@ import { ErrorService } from '../error/error.service';
 })
 export class LoginComponent {
   private httpClientService = inject(HttpClient);
-  private appService=inject(AppService);
-  private errorService=inject(ErrorService);
+  private appService = inject(AppService);
+  private errorService = inject(ErrorService);
   private router = inject(Router);
   username!: string;
   password!: string;
@@ -29,12 +29,31 @@ export class LoginComponent {
       })
       .pipe(
         map((res: any) => {
+          var apps: ApplicationType[] = [];
+          this.httpClientService
+            .get(
+              'http://localhost:8080/user/getApplications?email=' +
+                res.User.Email
+            )
+            .pipe(
+              tap({
+                next: (res : any) => {
+                  let temp=res.Apps;
+                  var i=0;
+                  //get Company and post info form backend
+                  temp.forEach((app : any) => {
+                    apps.push({id: (i++).toString(),jobTitle: 'jobTitle',companyname: app.Company,companyLogo: '',state: app.State});
+                  });
+                },
+              })
+            )
+            .subscribe();
           let user: User & { UserType: UserType } = {
             id: res.User.Email,
             photo: res.User.ProfilePic,
             name: res.User.Name,
             professionalTitle: res.User.ProfessionalTitle,
-            applications: [],
+            applications: apps,
             skills: res.User.Skills,
             username: res.User.Email,
             password: res.User.Password,
@@ -60,7 +79,7 @@ export class LoginComponent {
           },
         }),
         catchError((error) => {
-          this.errorService.emitError('Invalid Username or Password',false);
+          this.errorService.emitError('Invalid Username or Password', false);
           throw error;
         })
       )
