@@ -17,11 +17,8 @@ import { ErrorComponent } from "./error/error.component";
 })
 export class AppComponent {
   private appService=inject(AppService);
-  userType=this.appService.userTypeSinal.asReadonly();
+  userType=this.appService.userTypeSignal.asReadonly();
   isError=this.appService.isError;
   errorMessage=this.appService.errorMessage;
-
-  closeError(){
-    this.appService.closeError();
-  }
+  
 }

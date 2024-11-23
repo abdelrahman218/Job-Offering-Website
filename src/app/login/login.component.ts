@@ -5,6 +5,7 @@ import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs';
 import { User, UserType } from '../app.model';
+import { ErrorService } from '../error/error.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ import { User, UserType } from '../app.model';
 })
 export class LoginComponent {
   private httpClientService = inject(HttpClient);
-  private appService = inject(AppService);
+  private appService=inject(AppService);
+  private errorService=inject(ErrorService);
   private router = inject(Router);
   username!: string;
   password!: string;
@@ -58,7 +60,7 @@ export class LoginComponent {
           },
         }),
         catchError((error) => {
-          this.appService.emitError('Invalid Username or Password');
+          this.errorService.emitError('Invalid Username or Password',false);
           throw error;
         })
       )

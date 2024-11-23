@@ -21,7 +21,7 @@ import { inject } from '@angular/core';
 const isUser : CanMatchFn = ()=>{
     const appService=inject(AppService);
     const routerService=inject(Router);
-    if(appService.userTypeSinal()==='User'){
+    if(appService.userTypeSignal()==='User'){
         return true;
     }
     else{
@@ -32,7 +32,7 @@ const isUser : CanMatchFn = ()=>{
 const isCompany : CanMatchFn = ()=>{
     const appService=inject(AppService);
     const routerService=inject(Router);
-    if(appService.userTypeSinal()==='Company'){
+    if(appService.userTypeSignal()==='Company'){
         return true;
     }
     else{
@@ -43,7 +43,7 @@ const isCompany : CanMatchFn = ()=>{
 const isAdmin : CanMatchFn = ()=>{
     const appService=inject(AppService);
     const routerService=inject(Router);
-    if(appService.userTypeSinal()==='Admin'){
+    if(appService.userTypeSignal()==='Admin'){
         return true;
     }
     else{

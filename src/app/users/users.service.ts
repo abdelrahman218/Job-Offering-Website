@@ -3,12 +3,14 @@ import { User, type ApplicationStateType } from '../app.model';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
 import { AppService } from '../app.service';
+import { ErrorService } from '../error/error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private httpClientService = inject(HttpClient);
+  private errorService = inject(ErrorService);
   private userSignal = signal<User>({
     name: '',
     id: '',
@@ -83,6 +85,7 @@ export class UserService {
         },
       }),
       catchError(() => {
+        this.errorService.emitError('Skill couldn\'t be added')
         throw new Error('Couldn\'t add skill');
       })
     ).subscribe();
@@ -106,6 +109,7 @@ export class UserService {
           },
         }),
         catchError(() => {
+          this.errorService.emitError('Skill couldn\'t be added')
           throw new Error('Couldn\'t delete skill');
         })
       )

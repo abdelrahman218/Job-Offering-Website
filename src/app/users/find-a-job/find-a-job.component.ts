@@ -17,5 +17,5 @@ export class FindAJobComponent {
   OnToggle(){
     this.isVisible=!this.isVisible;
   }
-  userType=this.appService.userTypeSinal.asReadonly();
+  userType=this.appService.userTypeSignal.asReadonly();
 }
