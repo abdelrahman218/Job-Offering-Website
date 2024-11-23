@@ -1,3 +1,14 @@
+async function getProfilePicture(req,res){
+    const users=require('../models/User.model');
+    userEmail=req.query.email;
+    let user=await users.findOne({Email: userEmail});
+    if(!user){
+        res.status(402).send('User Not Found');
+        return;
+    }
+    res.setHeader('Content-Type','image/jpeg');
+    res.status(200).sendFile('/Multimedia/profile-pics/'+user.ProfilePic,{root: __dirname.replace('\\controller','')});
+}
 async function addSkill(req,res){
     const users=require('../models/User.model');
     const userEmail=req.body.Email;
@@ -40,6 +51,7 @@ async function removeSkill(req,res){
 }
 
 module.exports={
+    getProfilePicture,
     addSkill,
     removeSkill
 }

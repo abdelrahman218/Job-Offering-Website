@@ -17,6 +17,6 @@ export class UserProfileComponent {
   rejected = this.usersService.getNumAppRejected();
 
   get profilePicPath(){
-    return 'profile-pics/'+this.usersService.user().photo;
+    return 'http://localhost:8080/user/image?email='+this.usersService.user().username;
   }
 }
