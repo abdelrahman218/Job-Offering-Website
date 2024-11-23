@@ -42,7 +42,7 @@ export class LoginComponent {
                   var i=0;
                   //get Company and post info form backend
                   temp.forEach((app : any) => {
-                    apps.push({id: (i++).toString(),jobTitle: 'jobTitle',companyname: app.Company,companyLogo: '',state: app.State});
+                    apps.push({jobTitle: 'jobTitle',post: app.Post,companyname: app.Company,companyLogo: '',state: app.State});
                   });
                 },
               })

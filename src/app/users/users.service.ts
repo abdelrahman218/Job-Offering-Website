@@ -59,36 +59,51 @@ export class UserService {
     return this.filterAccordingToAppState('Rejected');
   }
 
-  withdrawApp(appId: string) {
-    const apps = this.userSignal().applications.filter(
-      (app) => app.id !== appId
-    );
-    this.userSignal.update((prev) => {
-      return { ...prev, applications: apps };
-    });
-    //Delete it from database
+  withdrawApp(appPost: string) {
+    this.httpClientService
+      .post('http://localhost:8080/user/removeApplication', {
+        Email: this.user().username,
+        Post: appPost,
+      })
+      .pipe(
+        tap({
+          complete: ()=>{
+            const apps = this.userSignal().applications.filter(
+              (app) => app.post !== appPost
+            );
+            this.userSignal.update((prev) => {
+              return { ...prev, applications: apps };
+            });
+          }
+        }),
+        catchError((error) => {
+          this.errorService.emitError("Application couldn\'t be withdrawn");
+          throw new Error("Couldn't withdraw application");
+        })
+      ).subscribe();
   }
 
   addSkill(skill: string) {
     this.httpClientService
-    .post('http://localhost:8080/user/addSkill', {
-      Email: this.user().username,
-      Skill: skill,
-    })
-    .pipe(
-      tap({
-        complete: () => {
-          const oldSkills = this.userSignal().skills;
-          this.userSignal.update((prev) => {
-            return { ...prev, skills: [...oldSkills, skill] };
-          });
-        },
-      }),
-      catchError(() => {
-        this.errorService.emitError('Skill couldn\'t be added')
-        throw new Error('Couldn\'t add skill');
+      .post('http://localhost:8080/user/addSkill', {
+        Email: this.user().username,
+        Skill: skill,
       })
-    ).subscribe();
+      .pipe(
+        tap({
+          complete: () => {
+            const oldSkills = this.userSignal().skills;
+            this.userSignal.update((prev) => {
+              return { ...prev, skills: [...oldSkills, skill] };
+            });
+          },
+        }),
+        catchError(() => {
+          this.errorService.emitError("Skill couldn't be added");
+          throw new Error("Couldn't add skill");
+        })
+      )
+      .subscribe();
   }
 
   removeSkill(skill: string) {
@@ -109,8 +124,8 @@ export class UserService {
           },
         }),
         catchError(() => {
-          this.errorService.emitError('Skill couldn\'t be added')
-          throw new Error('Couldn\'t delete skill');
+          this.errorService.emitError("Skill couldn't be added");
+          throw new Error("Couldn't delete skill");
         })
       )
       .subscribe();

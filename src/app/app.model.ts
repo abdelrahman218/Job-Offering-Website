@@ -10,7 +10,7 @@ export type UserType = 'Admin' | 'Company' | 'User';
 export type ApplicationStateType='Submitted'|'In Review'|'Accepted'|'Rejected';
 
 export type ApplicationType = {
-    id: string,
+    post: string,
     jobTitle: string,
     companyname: string,
     companyLogo:string, 
