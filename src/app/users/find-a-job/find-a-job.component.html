@@ -4,9 +4,9 @@
     <button class="search-button" (click)="onSearchClick()">Search Jobs</button>
 </div>
 <div class="inside">
-    <app-filters id="filter" #filterComponent></app-filters>
+    <app-filters id="filter" #filterComponent (selectedFilter)="takeit($event)" (change)="filter()"></app-filters>
     <div>
-        @for (item of posts; track $index) {
+        @for (item of filteredPosts; track $index) {
             <app-card [userType]="userType()" [post]="item"></app-card>
         }
     </div>

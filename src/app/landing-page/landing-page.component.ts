@@ -12,9 +12,9 @@ import { RouterLink , Router, RouterModule} from '@angular/router';
 })
 export class LandingPageComponent {
   categories1 = [
-    { id: 'Career-Level', name: 'expertised-level' },
-    { id: 'Career-Level', name: 'entry-level' },
-    {id:'Career-Level',name:'senior-manager'}
+    { id: 'careerLevelOptions', name: 'expertised-level' },
+    { id: 'careerLevelOptions', name: 'entry-level' },
+    {id:'careerLevelOptions',name:'senior-manager'}
   ];
   categories2 = [
     { id: 'workplaceOptions', name: 'Remote' },
