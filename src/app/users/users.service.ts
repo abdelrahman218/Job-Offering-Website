@@ -20,7 +20,9 @@ export class UserService implements OnInit{
     username: '',
     password: '',
   });
+  private applicationSignal=signal<ApplicationType[]>([]);
   user = this.userSignal.asReadonly();
+  applications=this.applicationSignal.asReadonly();
   state = this.stateSignal.asReadonly();
 
   ngOnInit(){
@@ -29,9 +31,11 @@ export class UserService implements OnInit{
     })
   }
 
-  login(user: User) {
+  login(user: User,) {
     this.userSignal.set(user);
+    this.applicationSignal.set(this.getApps(user.username));
   }
+
   signout() {
     this.userSignal.set({
       name: '',
@@ -42,28 +46,15 @@ export class UserService implements OnInit{
       username: '',
       password: '',
     });
+    this.applicationSignal.set([]);
   }
+
   private filterAccordingToAppState(state: ApplicationStateType) {
-    return this.getApps(this.userSignal().username).filter((app) => app.state === state)
+    return this.applications().filter((app) => app.state === state)
       .length;
   }
 
-  getNumAppSubmitted() {
-    return this.filterAccordingToAppState('Submitted');
-  }
-
-  getNumAppInReview() {
-    return this.filterAccordingToAppState('In Review');
-  }
-
-  getNumAppAccepted() {
-    return this.filterAccordingToAppState('Accepted');
-  }
-
-  getNumAppRejected() {
-    return this.filterAccordingToAppState('Rejected');
-  }
-  getApps(userEmail : string){
+  private getApps(userEmail : string){
     var apps: ApplicationType[] = [];
     this.httpClientService
       .get(
@@ -84,6 +75,22 @@ export class UserService implements OnInit{
       .subscribe();
       return apps;
   }
+  
+  getNumAppSubmitted() {
+    return this.filterAccordingToAppState('Submitted');
+  }
+
+  getNumAppInReview() {
+    return this.filterAccordingToAppState('In Review');
+  }
+
+  getNumAppAccepted() {
+    return this.filterAccordingToAppState('Accepted');
+  }
+
+  getNumAppRejected() {
+    return this.filterAccordingToAppState('Rejected');
+  }
   withdrawApp(appPost: string) {
     this.httpClientService
       .post('http://localhost:8080/user/removeApplication', {
@@ -93,12 +100,9 @@ export class UserService implements OnInit{
       .pipe(
         tap({
           complete: ()=>{
-            const apps = this.getApps(this.userSignal().username).filter(
+            this.applicationSignal.set(this.applications().filter(
               (app) => app.post !== appPost
-            );
-            this.userSignal.update((prev) => {
-              return { ...prev, applications: apps };
-            });
+            ));
           }
         }),
         catchError((error) => {
