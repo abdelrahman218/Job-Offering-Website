@@ -21,23 +21,20 @@ export class ApplicationsComponent implements OnInit {
   }
 
   switchTo(target: ToggleType) {
+    const user=this.userService.user;
     switch (target) {
       case 'active':
-        this.applications = computed(()=>this.userService
-        .user()
-        .applications.filter(
+        this.applications = computed(()=>this.userService.getApps(user().username).filter(
           (app) => app.state === 'Submitted' || app.state === 'In Review'
         )); 
         break;
       case 'archived':
-        this.applications = computed(()=>this.userService
-        .user()
-        .applications.filter(
+        this.applications = computed(()=>this.userService.getApps(user().username).filter(
           (app) => app.state === 'Accepted' || app.state === 'Rejected'
         ));
         break;
       default:
-        this.applications = computed(()=>this.userService.user().applications)
+        this.applications = computed(()=>this.userService.getApps(user().username))
     }
     this.toggle = target;
   }

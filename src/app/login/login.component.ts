@@ -29,31 +29,11 @@ export class LoginComponent {
       })
       .pipe(
         map((res: any) => {
-          var apps: ApplicationType[] = [];
-          this.httpClientService
-            .get(
-              'http://localhost:8080/user/getApplications?email=' +
-                res.User.Email
-            )
-            .pipe(
-              tap({
-                next: (res : any) => {
-                  let temp=res.Apps;
-                  var i=0;
-                  //get Company and post info form backend
-                  temp.forEach((app : any) => {
-                    apps.push({jobTitle: 'jobTitle',post: app.Post,companyname: app.Company,companyLogo: '',state: app.State});
-                  });
-                },
-              })
-            )
-            .subscribe();
           let user: User & { UserType: UserType } = {
             id: res.User.Email,
             photo: res.User.ProfilePic,
             name: res.User.Name,
             professionalTitle: res.User.ProfessionalTitle,
-            applications: apps,
             skills: res.User.Skills,
             username: res.User.Email,
             password: res.User.Password,
@@ -68,11 +48,20 @@ export class LoginComponent {
               photo: res.photo,
               name: res.name,
               professionalTitle: res.professionalTitle,
-              applications: res.applications,
               skills: res.skills,
               username: res.username,
               password: res.password,
             });
+            localStorage.setItem('user',JSON.stringify({
+              id: res.id,
+              photo: res.photo,
+              name: res.name,
+              professionalTitle: res.professionalTitle,
+              skills: res.skills,
+              username: res.username,
+              password: res.password,
+            }));
+            localStorage.setItem('userType',res.UserType);
           },
           complete: () => {
             this.router.navigate(['/user']);

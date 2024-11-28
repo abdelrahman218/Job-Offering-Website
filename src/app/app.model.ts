@@ -30,7 +30,6 @@ export type User = {
     name: string,
     professionalTitle: string,
     photo: string,
-    applications: ApplicationType[],
     skills: string[],
     username: string,
     password: string

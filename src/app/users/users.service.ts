@@ -1,27 +1,33 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { User, type ApplicationStateType } from '../app.model';
+import { effect, inject, Injectable, OnInit, signal } from '@angular/core';
+import { ApplicationType, User, type ApplicationStateType } from '../app.model';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
-import { AppService } from '../app.service';
 import { ErrorService } from '../error/error.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class UserService implements OnInit{
   private httpClientService = inject(HttpClient);
   private errorService = inject(ErrorService);
+  private stateSignal=signal<'Editing Profile'|'Logging out'|'Adding Skill'|'None'>('None');
   private userSignal = signal<User>({
     name: '',
     id: '',
     professionalTitle: '',
     photo: '',
-    applications: [],
     skills: [],
     username: '',
     password: '',
   });
   user = this.userSignal.asReadonly();
+  state = this.stateSignal.asReadonly();
+
+  ngOnInit(){
+    effect(()=>{
+      localStorage.setItem('user',JSON.stringify(this.userSignal()))
+    })
+  }
 
   login(user: User) {
     this.userSignal.set(user);
@@ -32,14 +38,13 @@ export class UserService {
       id: '',
       professionalTitle: '',
       photo: '',
-      applications: [],
       skills: [],
       username: '',
       password: '',
     });
   }
   private filterAccordingToAppState(state: ApplicationStateType) {
-    return this.userSignal().applications.filter((app) => app.state === state)
+    return this.getApps(this.userSignal().username).filter((app) => app.state === state)
       .length;
   }
 
@@ -58,7 +63,27 @@ export class UserService {
   getNumAppRejected() {
     return this.filterAccordingToAppState('Rejected');
   }
-
+  getApps(userEmail : string){
+    var apps: ApplicationType[] = [];
+    this.httpClientService
+      .get(
+        'http://localhost:8080/user/getApplications?email=' +
+          userEmail
+      )
+      .pipe(
+        tap({
+          next: (res : any) => {
+            let temp=res.Apps;
+            //get Company and post info form backend
+            temp.forEach((app : any) => {
+              apps.push({jobTitle: 'jobTitle',post: app.Post,companyname: app.Company,companyLogo: '',state: app.State});
+            });
+          },
+      })
+      )
+      .subscribe();
+      return apps;
+  }
   withdrawApp(appPost: string) {
     this.httpClientService
       .post('http://localhost:8080/user/removeApplication', {
@@ -68,7 +93,7 @@ export class UserService {
       .pipe(
         tap({
           complete: ()=>{
-            const apps = this.userSignal().applications.filter(
+            const apps = this.getApps(this.userSignal().username).filter(
               (app) => app.post !== appPost
             );
             this.userSignal.update((prev) => {

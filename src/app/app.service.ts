@@ -23,6 +23,8 @@ export class AppService{
     logout(){
         this.userTypeSignal.set(undefined);
         this.userService.signout();
+        localStorage.removeItem('user');
+        localStorage.removeItem('userType');
         this.routerService.navigate(['']);
     }
 }
