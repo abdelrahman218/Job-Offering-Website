@@ -3,6 +3,7 @@ import { ApplicationType, User, type ApplicationStateType } from '../app.model';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
 import { ErrorService } from '../error/error.service';
+import { AppService } from '../app.service';
 
 @Injectable({
   providedIn: 'root',
@@ -56,6 +57,7 @@ export class UserService implements OnInit{
     var apps: ApplicationType[] = [];
     this.httpClientService
       .get(
+        
         'http://localhost:8080/user/getApplications?email=' +
           userEmail
       )
@@ -110,6 +112,9 @@ export class UserService implements OnInit{
       ).subscribe();
   }
 
+  addSkillTab(){
+    this.stateSignal.set('Adding Skill');
+  }
   addSkill(skill: string) {
     this.httpClientService
       .post('http://localhost:8080/user/addSkill', {
@@ -156,5 +161,8 @@ export class UserService implements OnInit{
         })
       )
       .subscribe();
+  }
+  closeTab(){
+    this.stateSignal.set('None');
   }
 }

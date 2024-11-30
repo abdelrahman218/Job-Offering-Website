@@ -1,16 +1,16 @@
-<div></div>
-
-<div class="card">
-    <i class="fa-duotone fa-solid fa-xmark" (click)="closeError()"></i>
-    <h1>
-        Error
-    </h1>
-    <p>
-        {{errorMessage()}}
-    </p>
-    @if (showTryAgain()) {
+<div> 
+    <span class="card">
+        <i class="fa-duotone fa-solid fa-xmark" (click)="closeError()"></i>
+        <h1>
+            Error
+        </h1>
         <p>
-            Try Again Later!
+            {{errorMessage()}}
         </p>
-    }
+        @if (showTryAgain()) {
+            <p>
+                Try Again Later!
+            </p>
+        }
+    </span>
 </div>

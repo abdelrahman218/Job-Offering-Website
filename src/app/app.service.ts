@@ -15,7 +15,7 @@ export class AppService{
     userTypeSignal=signal<UserType | undefined>(undefined);
     isError=this.errorService.isError;
     errorMessage=this.errorService.errorMessage;
-    
+  
     login(userType: UserType,user: User){
         this.userTypeSignal.set(userType);
         this.userService.login(user);
