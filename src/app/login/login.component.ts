@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs';
-import { ApplicationType, User, UserType } from '../app.model';
+import { User, UserType } from '../app.model';
 import { ErrorService } from '../error/error.service';
 
 @Component({
@@ -36,8 +36,7 @@ export class LoginComponent {
             professionalTitle: res.User.ProfessionalTitle,
             skills: res.User.Skills,
             username: res.User.Email,
-            password: res.User.Password,
-            UserType: res.UserType,
+            UserType: res.UserType
           };
           return user;
         }),
@@ -49,8 +48,7 @@ export class LoginComponent {
               name: res.name,
               professionalTitle: res.professionalTitle,
               skills: res.skills,
-              username: res.username,
-              password: res.password,
+              username: res.username
             });
             localStorage.setItem('user',JSON.stringify({
               id: res.id,
@@ -58,8 +56,7 @@ export class LoginComponent {
               name: res.name,
               professionalTitle: res.professionalTitle,
               skills: res.skills,
-              username: res.username,
-              password: res.password,
+              username: res.username
             }));
             localStorage.setItem('userType',res.UserType);
           },

@@ -17,8 +17,7 @@ export class UserService implements OnInit{
     professionalTitle: '',
     photo: '',
     skills: [],
-    username: '',
-    password: '',
+    username: ''
   });
   private applicationSignal=signal<ApplicationType[]>([]);
   user = this.userSignal.asReadonly();
@@ -43,8 +42,7 @@ export class UserService implements OnInit{
       professionalTitle: '',
       photo: '',
       skills: [],
-      username: '',
-      password: '',
+      username: ''
     });
     this.applicationSignal.set([]);
   }

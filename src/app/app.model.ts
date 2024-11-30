@@ -31,8 +31,7 @@ export type User = {
     professionalTitle: string,
     photo: string,
     skills: string[],
-    username: string,
-    password: string
+    username: string
 };
 
 //Company-related Datatypes
