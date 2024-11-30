@@ -42,7 +42,7 @@ div{
 .card i{
     display: block;
     position: relative;
-    right:-100%;
+    right:-85%;
     cursor: pointer;
     --fa-primary-color: #ffffff; 
     --fa-secondary-color: #ffffff;

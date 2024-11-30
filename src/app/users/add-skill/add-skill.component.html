@@ -6,8 +6,8 @@
         <form method="post" (ngSubmit)="addSkill()">
             <input type="text" [class.required]="this.isRequired()" name="skill" placeholder="Enter your new skill here" [(ngModel)]="skill"><br>
             <span>
-                <button appButton>submit</button>
-                <button type="button" (click)="closeDialog()" appButton>Cancel</button>
+                <button class='submit' appButton>submit</button>
+                <button type="button" class='cancel' (click)="closeDialog()" appButton>Cancel</button>
             </span>
         </form>
     </div>

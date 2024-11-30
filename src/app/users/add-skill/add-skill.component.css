@@ -1,3 +1,6 @@
+*{
+    color: #2f4156;
+}
 div{
     display: inline-block;
     background-color: #f5efeb;
@@ -35,4 +38,16 @@ button{
 }
 .required{
     border-color: red;
+}
+.submit{
+    background-color: #2f4156;
+    color: #f5efeb;
+    &:hover{
+        background-color: #2f415613;
+        color: #2f4156;
+    }
+}
+.cancel:hover{
+    background-color: #562f2fd7;
+    color: #f5efeb;
 }
