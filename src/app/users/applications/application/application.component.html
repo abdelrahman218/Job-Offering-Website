@@ -15,7 +15,7 @@
     </div>
         @if (application.state==='Submitted') {
             <div>
-                <button type="button" (click)='withdrawApp(application.id)' appButton>
+                <button type="button" (click)='withdrawApp(application.post)' appButton>
                     Withdraw
                 </button>
             </div>

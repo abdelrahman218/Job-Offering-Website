@@ -1,0 +1,41 @@
+<app-dialog>
+    <div class="container">
+        <h1>
+            Edit Profile
+        </h1>
+        <form method="post" (ngSubmit)="editProfile()">
+            <img [src]="imgPath" onerror="this.src='https\:\\\\cdn.pixabay.com\\photo\\2015\\10\\05\\22\\37\\blank-profile-picture-973460_1280.png'"><br><br>
+            <input type="file" name="photo" class="classicButton" (change)="selectProfilePic($event)" accept="image/*"><br>
+            <div class="input-group" style="width: 60%;">
+                <label for="name">Name:</label><br>
+                <input type="text" name="Name" [class.required]="editedData.Name===''" [(ngModel)]="editedData.Name">
+            </div>
+            <div class="input-group" style="width: 40%;">
+                <label for="PTitle">Professional Title:</label><br>
+                <input type="text" name="PTitle" [(ngModel)]="editedData.ProfessionalTitle">
+            </div>
+            <div class="input-group">
+                <label for="Password">New Password:</label><br>
+                <input type="password" name="Password" [(ngModel)]="editedData.Password" [class.confirmed]="pattern.test(editedData.Password)">
+                @if (!pattern.test(editedData.Password) && editedData.Password!=='') {
+                    <div class="password-requirements">
+                        Must be at least 8 characters long with 1 uppercase, 1 number
+                    </div>
+                }
+            </div>
+            <div class="input-group">
+                <label for="ConfPassword">Confirm New Password:</label><br>
+                <input type="password" name="ConfPassword" [(ngModel)]="confirmPassword" [class.confirmed]="editedData.Password===confirmPassword&&confirmPassword!==''">
+                @if (editedData.Password!==confirmPassword&&confirmPassword!=='') {
+                    <div class="password-requirements">
+                        Confirm Password must be the same as Password
+                    </div>
+                }
+            </div>
+            <span>
+                <button class='submit' appButton>Add Skill</button>
+                <button type="button" class='cancel' (click)="closeDialog()" appButton>Cancel</button>
+            </span>
+        </form>
+    </div>
+</app-dialog>

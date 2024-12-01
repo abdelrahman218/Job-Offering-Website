@@ -14,19 +14,19 @@
                 Applied for: {{submitted()}}
             </li>
             <li>
-                In review:  {{inReview}}
+                In review:  {{inReview()}}
             </li>
         </ul>
         <ul>
             <li>
-                Accepted: {{accepted}}
+                Accepted: {{accepted()}}
             </li>
             <li>
-                Rejected: {{rejected}}
+                Rejected: {{rejected()}}
             </li>
         </ul>
     </div>
 </div>
 <div>
-    <img [src]="profilePicPath" alt="your profile pic">
+    <img [src]="profilePicPath" alt="your profile pic" onerror="this.src='https\:\\\\cdn.pixabay.com\\photo\\2015\\10\\05\\22\\37\\blank-profile-picture-973460_1280.png'">
 </div>

@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { signup } from '../app.model';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
+import { ErrorService } from '../error/error.service';
 
 @Component({
   selector: 'app-singup',
@@ -14,6 +15,7 @@ import { catchError, tap } from 'rxjs';
 })
 export class SingupComponent {
   private httpClientService = inject(HttpClient);
+  private errorService=inject(ErrorService);
   private router=inject(Router);
   signupInfo: signup = {
     FName: '',
@@ -29,7 +31,7 @@ export class SingupComponent {
         this.router.navigate(['/login'])
       }}),
       catchError((error) => {
-        console.log(error);
+        this.errorService.emitError('Signup Failed');
         throw new Error("Couldn't Signup");
       })
     ).subscribe();

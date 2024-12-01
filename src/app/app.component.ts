@@ -1,5 +1,5 @@
 //Angular Imports
-import { Component, inject} from '@angular/core';
+import { Component, inject, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 //Components
@@ -15,13 +15,23 @@ import { ErrorComponent } from "./error/error.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   private appService=inject(AppService);
-  userType=this.appService.userTypeSinal.asReadonly();
+  userType=this.appService.userTypeSignal.asReadonly();
   isError=this.appService.isError;
   errorMessage=this.appService.errorMessage;
 
-  closeError(){
-    this.appService.closeError();
+  ngOnInit(){
+    var user : any=localStorage.getItem('user');
+    const userType : any=localStorage.getItem('userType');
+
+    if(user){
+      user=JSON.parse(user);
+      //user={...user,applications: JSON.parse(user.applications)};
+    }
+
+    if(user&&userType){
+      this.appService.login(userType,user);
+    }
   }
 }

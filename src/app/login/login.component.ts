@@ -5,6 +5,7 @@ import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs';
 import { User, UserType } from '../app.model';
+import { ErrorService } from '../error/error.service';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ import { User, UserType } from '../app.model';
 export class LoginComponent {
   private httpClientService = inject(HttpClient);
   private appService = inject(AppService);
+  private errorService = inject(ErrorService);
   private router = inject(Router);
   username!: string;
   password!: string;
@@ -32,11 +34,9 @@ export class LoginComponent {
             photo: res.User.ProfilePic,
             name: res.User.Name,
             professionalTitle: res.User.ProfessionalTitle,
-            applications: [],
             skills: res.User.Skills,
             username: res.User.Email,
-            password: res.User.Password,
-            UserType: res.UserType,
+            UserType: res.UserType
           };
           return user;
         }),
@@ -47,18 +47,25 @@ export class LoginComponent {
               photo: res.photo,
               name: res.name,
               professionalTitle: res.professionalTitle,
-              applications: res.applications,
               skills: res.skills,
-              username: res.username,
-              password: res.password,
+              username: res.username
             });
+            localStorage.setItem('user',JSON.stringify({
+              id: res.id,
+              photo: res.photo,
+              name: res.name,
+              professionalTitle: res.professionalTitle,
+              skills: res.skills,
+              username: res.username
+            }));
+            localStorage.setItem('userType',res.UserType);
           },
           complete: () => {
             this.router.navigate(['/user']);
           },
         }),
         catchError((error) => {
-          this.appService.emitError('Invalid Username or Password');
+          this.errorService.emitError('Invalid Username or Password', false);
           throw error;
         })
       )

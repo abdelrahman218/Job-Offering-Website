@@ -6,6 +6,7 @@ import { ButtonComponent } from '../users/shared/button/button.component';
 import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs';
+import { ErrorService } from '../error/error.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,8 @@ export class HeaderComponent {
   @Input({ required: true }) userType?: UserType;
 
   private httpClientService = inject(HttpClient);
-  private appServices = inject(AppService);
+  private appService = inject(AppService);
+  private errorService= inject(ErrorService);
   scrollToAboutUs() {
     // get the scroll height of the window
     const scrollHeight = document.body.scrollHeight;
@@ -31,11 +33,11 @@ export class HeaderComponent {
       .get('http://localhost:8080/logout')
       .pipe(tap({
         complete: ()=>{
-          this.appServices.logout();
+          this.appService.logout();
         }
       }),
     catchError((error)=>{
-      this.appServices.emitError('Couldn\'t Logout!! Try again Later');
+      this.errorService.emitError('Logout Failed');
       throw new Error("Couldn't Logout");
     }))
       .subscribe();
