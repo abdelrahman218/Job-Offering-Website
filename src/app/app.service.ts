@@ -15,7 +15,7 @@ export class AppService{
     userTypeSignal=signal<UserType | undefined>(undefined);
     isError=this.errorService.isError;
     errorMessage=this.errorService.errorMessage;
-    
+  
     login(userType: UserType,user: User){
         this.userTypeSignal.set(userType);
         this.userService.login(user);
@@ -23,6 +23,8 @@ export class AppService{
     logout(){
         this.userTypeSignal.set(undefined);
         this.userService.signout();
+        localStorage.removeItem('user');
+        localStorage.removeItem('userType');
         this.routerService.navigate(['']);
     }
 }

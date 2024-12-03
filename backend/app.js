@@ -4,11 +4,13 @@ const credentials = require('./credentials.js');
 //Intializing the backend app
 const express = require('express');
 const mongoose = require('mongoose');
+const fileUpload=require("express-fileupload");
 const app = express();
 
 //Make server use cors middleware to bypass cors error so the front-end and back-end can be listening top different ports
 const cors = require('cors');
 app.use(cors());
+app.use(fileUpload());
 
 //Connecting to Database
 mongoose.connect(credentials.dbURL)
@@ -30,6 +32,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
 
 //Setting up routing
 const IndexRoutes=require('./routes/index.routes.js');

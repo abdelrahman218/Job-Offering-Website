@@ -1,8 +1,8 @@
-
 import { Component, OnInit } from '@angular/core';
 import { CompaniesService } from '../../companies.service';
 import { CommonModule } from '@angular/common';
 import { posts } from '../../../app.model';
+
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -13,7 +13,7 @@ import { posts } from '../../../app.model';
 export class PostsComponent implements OnInit {
   jobPosts: posts[] = [];
 
-  constructor(private companyService: CompaniesService) { }
+  constructor(private companyService: CompaniesService) {}
 
   ngOnInit(): void {
     this.companyService.jobPosts$.subscribe(posts => {
@@ -21,7 +21,9 @@ export class PostsComponent implements OnInit {
       console.log("Updated Job Posts:", this.jobPosts);
     });
   }
-  Delete(id:number){
-this.companyService.deletePost(id);
+
+  delete(id: string) {
+    // Call CompaniesService to delete the post by id
+    this.companyService.deletePost(id);
   }
 }

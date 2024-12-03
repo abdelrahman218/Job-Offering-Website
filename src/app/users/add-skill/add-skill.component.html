@@ -1,0 +1,14 @@
+<app-dialog>
+    <div>
+        <h1>
+            Adding Skill
+        </h1>
+        <form method="post" (ngSubmit)="addSkill()">
+            <input type="text" [class.required]="this.isRequired()" name="skill" placeholder="Enter your new skill here" [(ngModel)]="skill"><br>
+            <span>
+                <button class='submit' appButton>submit</button>
+                <button type="button" class='cancel' (click)="closeDialog()" appButton>Cancel</button>
+            </span>
+        </form>
+    </div>
+</app-dialog>

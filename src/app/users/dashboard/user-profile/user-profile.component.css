@@ -35,6 +35,7 @@ li{
 }
 img{
     width: 85%;
+    height: 90%;
     border: 5px double #f5e5eb89;
     border-radius: 6px;
     overflow: hidden;

@@ -1,16 +1,14 @@
 <div id="search">
     <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" name="job-search" id="job-input" placeholder="Search for a Job opportunity">
-    <button class="search-button">Search Jobs</button>
+    <input type="text" name="job-search" id="job-input" [(ngModel)]="searchText"   placeholder="Search for a Job opportunity">
+    <button class="search-button" id="ss" (click)="performSearch()">Search Jobs</button>
 </div>
 <div class="inside">
-    <app-filters id="filter"></app-filters>
+    <app-filters id="filter" #filterComponent (selectedFilter)="takeit($event)" (change)="filter()"></app-filters>
     <div>
-        <app-card [userType]="userType()"></app-card>
-        <app-card [userType]="userType()"></app-card>
-        <app-card [userType]="userType()"></app-card>
-        <app-card [userType]="userType()"></app-card>
-        
+        @for (item of searchedPosts; track $index) {
+            <app-card [userType]="userType()" [post]="item"></app-card>
+        }
     </div>
 
 </div>
