@@ -4,8 +4,8 @@
     <h3>Searching for Job opportunities? Wazafny will help you to find your best fit Job in Egypt.</h3>
     <div id="search">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" name="job-search" id="job-input" placeholder="Search for a Job opportunity">
-        <button class="search-button">Search Jobs</button>
+        <input type="text" name="job-search" id="job-input" [(ngModel)]="searchTerm" placeholder="Search for a Job opportunity">
+        <button class="search-button" (click)="onSearchClick()">Search Jobs</button>
     </div>
 </div>
 <section class="section-1">
@@ -21,19 +21,15 @@
 <section class="section-2">
 <h1 id="gs-head">Browse Jobs by Carrer Level</h1>
 <div class="carrer-levels">
-    <a routerLink="/find-a-job" class="carrer"><div class="image-container"><img src="/senior-manager.jpg" alt="" id="pic"></div><p id="t">Management Jobs</p></a>
-    <a routerLink="/find-a-job" class="carrer"><div class="image-container"><img src="/expertised-level.jpg" alt="" id="pic"></div><p id="t">Expertised Jobs</p></a>
-    <a routerLink="/find-a-job" class="carrer"><div class="image-container"><img src="/entry-level.jpg" alt="" id="pic"></div><p id="t">Entery Level Jobs</p></a>
+    <a *ngFor="let category of categories1" [routerLink]="['/find-a-job']" [queryParams]="{ categoryID: category.id, categoryName:category.name , triggerCategory: 'true' }" class="carrer"><div class="image-container"><img src="/{{ category.name }}.jpg" alt="" id="pic"></div><p id="t"> {{ category.name }}</p></a>
     <a routerLink="/find-a-job" class="carrer"><div class="image-container"id="seemore"><img src="/internship.jpg" alt="" id="pic"></div><p class="see-more">See More</p></a>
 
 </div>
 </section>
 <section class="section-3">
-    <h1 id="gs-head">Browse Jobs by Category</h1>
+    <h1 id="gs-head">Browse Jobs by Work Place</h1>
     <div class="carrer-levels">
-        <a routerLink="/find-a-job" class="carrer"><div class="image-container"><img src="/sales-job.jpg" alt="" id="pic"></div><p id="t">Sales Jobs</p></a>
-        <a routerLink="/find-a-job" class="carrer"><div class="image-container"><img src="/IT jobs.jpg" alt="" id="pic"></div><p id="t">IT / Software Development Jobs</p></a>
-        <a routerLink="/find-a-job" class="carrer"><div class="image-container"><img src="/art-jobs.jpg" alt="" id="pic"></div><p id="t">Creative / Art Jobs</p></a>
+        <a *ngFor="let category of categories2" [routerLink]="['/find-a-job']" [queryParams]="{ categoryID: category.id, categoryName:category.name , triggerCategory: 'true' }" class="carrer"><div class="image-container"><img src="/{{ category.name }}.jpg" alt="" id="pic"></div><p id="t"> {{ category.name }}</p></a>
         <a routerLink="/find-a-job" class="carrer"><div class="image-container"id="seemore"><img src="/workfromhome.jpg" alt="" id="pic"></div><p  class="see-more">See More</p></a>
     
     </div>
@@ -41,9 +37,7 @@
 <section class="section-2">
     <h1 id="gs-head">Browse Jobs by Location</h1>
     <div class="carrer-levels">
-        <a routerLink="/find-a-job" class="carrer"><div class="image-container"><img src="/cairo.jpg" alt="" id="pic"></div><p id="t">Cairo</p></a>
-        <a routerLink="/find-a-job" class="carrer"><div class="image-container"><img src="/alex.jpg" alt="" id="pic"></div><p id="t">Alexandria</p></a>
-        <a routerLink="/find-a-job" class="carrer"><div class="image-container"><img src="/giza.jpg" alt="" id="pic"></div><p id="t">Giza</p></a>
+        <a *ngFor="let category of categories3" [routerLink]="['/find-a-job']" [queryParams]="{ categoryID: category.id, categoryName:category.name , triggerCategory: 'true' }" class="carrer"><div class="image-container"><img src="/{{ category.name }}.jpg" alt="" id="pic"></div><p id="t"> {{ category.name }}</p></a>
         <a routerLink="/find-a-job" class="carrer" ><div class="image-container"id="seemore"><img src="/aswan.jpg" alt="" id="pic"></div><p class="see-more">See More</p></a>
     </div>
 </section>

@@ -4,21 +4,20 @@
             TC
         </div>
         <div class="job-title-section">
-            <h2 class="job-title">Senior Frontend Developer</h2>
-            <h3 class="company-name">MIU</h3>
+            <h2 class="job-title">{{post.jobTitle}}</h2>
+            <h3 class="company-name">{{post.companyName}}</h3>
             <div class="location">
-                📍 El-Obour City 
+                📍 {{post.location}} 
             </div>
         </div>
     </div>
     <div class="job-details">
         <!-- <span class="detail-item">💰 8000 EGP - 30000 EGP</span> -->
-        <span class="detail-item tag">⏰ Full-time</span>
-        <span class="detail-item tag">On-Site</span>
+        <span class="detail-item tag">⏰ {{post.jobCategory}}</span>
+        <span class="detail-item tag">{{post.workplace}}</span>
+        <span class="detail-item tag">{{post.careerLevel}}</span>
     </div>
-    <div class="job-description">
-        We're seeking a Senior Frontend Developer to join our dynamic team. You'll be responsible for building scalable web applications, mentoring junior developers, and contributing to our technical architecture.
-    </div>
+    <div class="job-description">{{post.jobDescription}}</div>
     <!-- <div class="tags-container">
         <span class="tag">React</span>
         <span class="tag">TypeScript</span>
@@ -46,9 +45,7 @@
                 </div>
                 <div class="modal-body">
                     <h5>Job Requirements:</h5>
-                    <p class="xyz">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, dignissimos.
-                         Quas harum accusamus cupiditate recusandae, assumenda pariatur magnam officia numquam cumque 4
-                         consequuntur molestias delectus nemo facilis ut earum iste voluptate?</p>
+                    <p class="xyz">{{post.jobRequirements}}</p>
                     <label for="cv">Attach your CV</label><br><input type="file" name="cv" id="cv" required>
 
                 </div>

@@ -17,6 +17,7 @@ import { companyRoutes } from './companies/companies.routes';
 import { adminRoutes } from './admins/admins.routes';
 import { AppService } from './app.service';
 import { inject } from '@angular/core';
+import { CardComponent } from './users/find-a-job/card/card.component';
 
 const isUser : CanMatchFn = ()=>{
     const appService=inject(AppService);
@@ -90,6 +91,22 @@ export const routes: Routes = [
         path: 'unauthorized',
         component: UnauthorizedComponent,
         title: 'Unauthorized Access'
+    },
+    {
+        path: 'login',
+        component:  LoginComponent,
+        title: 'Login'
+
+    },
+    {
+        path: 'signup',
+        component: SingupComponent,
+        title: 'Signup'
+    },
+    {
+        path: 'card',
+        component: CardComponent,
+        title: 'Card'
     },
     {
         path: '**',
