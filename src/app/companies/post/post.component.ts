@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component,ChangeDetectorRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CompaniesService } from '../companies.service';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -18,7 +18,8 @@ export class PostComponent {
   constructor(
     private fb: FormBuilder,
     private companyService: CompaniesService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.postForm = this.fb.group({
       jobTitle: ['', Validators.required],
@@ -49,8 +50,10 @@ export class PostComponent {
       this.companyService.addPost(newPost);
       console.log(newPost);
       this.postForm.reset();
+      this.cdr.detectChanges();
       this.router.navigate(['company/post/posts']).then(() => {
         console.log('Navigation successful!');
+          this.companyService.loadJobPosts();
       });
        
     } else {

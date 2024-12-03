@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { posts } from '../app.model';  
+import { Company, posts } from '../app.model';  
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,14 @@ export class CompaniesService {
       this.jobPostsSubject.next(updatedPosts); 
     });
   }
+  // Method to add Company Login
+  login(company:Company){
+    
+  }
+  //Method to add Company logout
+  logout(){
 
+  }
   // Method to delete a job post by id
   deletePost(id: string) {
     this.http.delete(`${this.apiUrl}/deletePost/${id}`).subscribe(() => {
