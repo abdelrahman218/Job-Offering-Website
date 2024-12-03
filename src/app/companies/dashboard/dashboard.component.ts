@@ -1,11 +1,11 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Dropdown } from 'bootstrap';
 import { CompaniesService } from '../companies.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet,Router } from '@angular/router';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { newCompany } from '../dummy-companies';
 import { Company, posts } from '../../app.model';
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -14,30 +14,31 @@ import { Company, posts } from '../../app.model';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-
-    jobPosts: posts[] = [];
-    showDet() {
-      document.getElementById("p1")!.style.display = "block";
-      document.getElementById("p2")!.style.display = "block";
-      document.getElementById("b1")!.style.display = "none";
-    }
+  jobPosts: posts[] = [];
   companies: Company[] = newCompany;
-  constructor(private companiesService: CompaniesService,private router: Router) { }
-  ngOnInit(){
-    this.companiesService.getJobPosts();
+  showDet() {
+    document.getElementById("p1")!.style.display = "block";
+    document.getElementById("p2")!.style.display = "block";
+    document.getElementById("b1")!.style.display = "none";
+  }
+  constructor(private companiesService: CompaniesService, private router: Router) {}
+
+  ngOnInit() {
+    // Listen to the jobPosts signal from the CompaniesService
     this.companiesService.jobPosts$.subscribe(posts => {
       this.jobPosts = posts;
       console.log("Updated Job Posts:", this.jobPosts);
     });
-   };
+  }
+
   ngAfterViewInit(): void {
     const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
     dropdownElementList.map(function (dropdownToggleEl) {
       return new Dropdown(dropdownToggleEl);
     });
   }
-  show(){
+
+  show() {
     this.router.navigate(['company/post']);
   }
-
 }
