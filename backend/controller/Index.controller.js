@@ -13,7 +13,6 @@ function login(req, res) {
       console.log(results);
       if (userResult != null) {
         console.log(userResult);
-
         userResult.Password='';
         req.session.user = userResult;
         req.session.role = 'User';
