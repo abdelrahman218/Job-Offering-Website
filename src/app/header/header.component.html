@@ -33,6 +33,10 @@
 }
 @else {
     <div>
-        <a [routerLink]="null" id="login" (click)="logout()">logout</a>
+        <a [routerLink]="null" (click)="toggleDropDownMenu()"><i class="fa-solid fa-bars"></i></a>
     </div>
+}
+
+@if(isDropDown){
+    <app-drop-down (OnSelect)="toggleDropDownMenu()"/>
 }

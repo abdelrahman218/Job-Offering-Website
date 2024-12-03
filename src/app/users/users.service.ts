@@ -107,6 +107,9 @@ export class UserService implements OnInit {
   getNumAppRejected() {
     return this.filterAccordingToAppState('Rejected');
   }
+  editProfileTab(){
+    this.stateSignal.set('Editing Profile');
+  }
   editProfile(edited: EditProfileData, original: EditProfileData) {
     console.log(edited);
     console.log(original);
