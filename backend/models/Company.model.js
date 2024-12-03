@@ -3,13 +3,13 @@ const schema = mongoose.Schema;
 
 const CompanySchema = new schema({
   name: { type: String, match: /([A-ZÀ-ÿ-a-z. ']+[ ]*)+/, required: true },
-  email: { 
+  Email: { 
     type: String, 
     match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, 
     unique: true, 
     required: true 
   },
-  password: { 
+  Password: { 
     type: String, 
     match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 
     required: true 

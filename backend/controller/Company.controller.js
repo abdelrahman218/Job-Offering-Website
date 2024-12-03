@@ -70,11 +70,11 @@ exports.getPosts = async (req, res) => {
      let  newPost = new Post({
       jobTitle:req.body.jobTitle,
       careerLevel:req.body.careerLevel,
-      jobCategory:req.body.jobCategory,
       workplace:req.body.workplace,
+      jobCategory:req.body.jobCategory,
       jobDescription:req.body.jobDescription,
       jobRequirements:req.body.jobRequirements,
-      companyEmail:Company.companyEmail,
+      companyEmail:"Facebook@email.com",
       tags:req.body.tags
       });
       console.log(newPost)
