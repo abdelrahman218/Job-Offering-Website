@@ -4,7 +4,7 @@ function login(req, res) {
   var query = { Email: req.body.Email, Password: req.body.Password };
   let companyPromise=companyModel.findOne(query);
   let userPromise = UserModel.findOne(query);
-  // console.log(userPromise);
+  console.log(userPromise);
   console.log(companyPromise);
   Promise.all([userPromise ,companyPromise])
     .then(results => {
