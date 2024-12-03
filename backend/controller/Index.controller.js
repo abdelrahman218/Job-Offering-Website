@@ -10,6 +10,7 @@ function login(req, res) {
       let userResult = results[0];
 
       if (userResult != null) {
+        userResult.Password='';
         req.session.user = userResult;
         req.session.role = 'User';
         res.status(200).send({UserType: 'User',User: userResult});

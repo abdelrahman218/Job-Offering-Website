@@ -20,10 +20,14 @@ const PostSchema = new schema({
   },
   jobDescription: { type: String, required: true },
   jobRequirements: { type: String, required: true },
-  company: {
-    type: schema.Types.ObjectId,
-    ref: 'Company', 
-    required: true
+  companyEmail: { 
+    type: String, 
+    required: true, 
+    match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/ 
+  },
+  tags: { 
+    type: [String], 
+    default: []
   }
 }, { timestamps: true });
 

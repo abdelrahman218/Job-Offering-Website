@@ -18,12 +18,7 @@ const CompanySchema = new schema({
   industry: { type: String, required: true },
   location: { type: String, match: /([A-ZÀ-ÿ-a-z. ']+[ ]*)+/, required: true },
   description: { type: String, default: "" },
-  posts: [
-    {
-      type: schema.Types.ObjectId,
-      ref: 'posts' 
-    }
-  ]
+ 
 }, { timestamps: true });
 
 const Company = mongoose.model('Company', CompanySchema);
