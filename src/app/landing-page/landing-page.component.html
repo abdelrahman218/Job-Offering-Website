@@ -8,6 +8,7 @@
         <button class="search-button" (click)="onSearchClick()">Search Jobs</button>
     </div>
 </div>
+@if (userType()===undefined) {
 <section class="section-1">
     <div id="text-get-started">
         <h1 id="gs-head">Unlock Your Future: Join Our Job-Seeking Community Today!</h1>
@@ -18,6 +19,7 @@
     </div>
     <img src="/explore-jobs.jpg" alt="contract picture" id="contract">
 </section>
+}
 <section class="section-2">
 <h1 id="gs-head">Browse Jobs by Carrer Level</h1>
 <div class="carrer-levels">

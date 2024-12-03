@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink , Router, RouterModule} from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,7 +11,7 @@ import { RouterLink , Router, RouterModule} from '@angular/router';
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
-export class LandingPageComponent {
+export class LandingPageComponent implements OnInit {
   categories1 = [
     { id: 'careerLevelOptions', name: 'expertised-level' },
     { id: 'careerLevelOptions', name: 'entry-level' },
@@ -26,8 +27,12 @@ export class LandingPageComponent {
     { id: 'locationOptions', name: 'Alexandria' },
     {id:'locationOptions',name:'Giza'}
   ];
-
+  private appService=inject(AppService);
+  userType=this.appService.userTypeSignal.asReadonly();
   constructor(private router: Router) {}
+  ngOnInit(): void {
+    console.log(this.userType());
+  }
   signup(){
     this.router.navigate(["/signup"]);
   }
@@ -41,4 +46,5 @@ export class LandingPageComponent {
       } 
     });
   }
+  
 }

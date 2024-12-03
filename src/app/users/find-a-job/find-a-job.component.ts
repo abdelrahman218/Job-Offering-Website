@@ -1,4 +1,4 @@
-import { Component, inject, signal, Signal ,OnInit, ViewChild  } from '@angular/core';
+import { Component, inject,OnInit, ViewChild } from '@angular/core';
 import { FiltersComponent } from './filters/filters.component';
 import { CardComponent } from './card/card.component';
 import { AppService } from '../../app.service';
@@ -31,17 +31,18 @@ export class FindAJobComponent implements OnInit {
   OnToggle(){
     this.isVisible=!this.isVisible;
   }
-  userType=this.appService.userTypeSinal.asReadonly();
-  searchTerm: string = '';
+  userType=this.appService.userTypeSignal.asReadonly();
   @ViewChild('filterComponent') FiltersComponent !: FiltersComponent;
   constructor(private route: ActivatedRoute) {}
   
   ngOnInit() {
+    this.filteredPosts = this.posts;
+    this.searchedPosts=this.filteredPosts;
     window.scrollTo(0, 0);
     this.route.queryParams.subscribe(params => {
-      this.searchTerm = params['search'] || '';
-      if (this.searchTerm) {
-        this.onSearchClick();
+      this.searchText = params['search'] || '';
+      if (this.searchText) {
+        this.performSearch();
       }
     });
     this.route.queryParams.subscribe(params => {
@@ -52,10 +53,6 @@ export class FindAJobComponent implements OnInit {
     });
     this.filter();
   }
-  onSearchClick() { 
-    // Your existing search logic
-    console.log('Searching for:', this.searchTerm);
-  }
   ngAfterViewInit() {
     console.log(this.categoryId);
     if (this.categoryId) {
@@ -65,6 +62,7 @@ export class FindAJobComponent implements OnInit {
   triggerCategoryFilter(categoryId: string,categoryName:string) {
     this.FiltersComponent.openCategoryDropdown(categoryId);
     this.FiltersComponent.checkCategoryCheckbox(categoryName);
+    this.filter();
   }
   takeit(selected:{ [key: string]: string[] }){
     this.selectedFilters=selected;
@@ -74,11 +72,33 @@ export class FindAJobComponent implements OnInit {
   filter(){
     if(!this.selectedFilters['workplace'].length&&!this.selectedFilters['careerLevel'].length&&!this.selectedFilters['location'].length){
       this.filteredPosts=this.posts;
+      this.performSearch();
       return;
     }
     this.filteredPosts=this.posts.filter((post)=>{
       return((this.selectedFilters['workplace'].includes(post.workplace)||!this.selectedFilters['workplace'].length)&&(this.selectedFilters['careerLevel'].includes(post.careerLevel)||!this.selectedFilters['careerLevel'].length)&&(this.selectedFilters['location'].includes(post.location)||!this.selectedFilters['location'].length));
     });
-    console.log(this.filteredPosts);
+    this.performSearch();
+  }
+  searchedPosts: posts[] = [];
+  searchText: string = '';
+  performSearch() {
+    if (!this.searchText.trim()) {
+      this.searchedPosts = this.filteredPosts;
+      return;
+    }
+    const searchLower = this.searchText.toLowerCase();
+    this.searchedPosts = this.filteredPosts.filter(post =>
+      this.checkSubstring(post.jobTitle, searchLower) ||
+      this.checkSubstring(post.jobDescription, searchLower) ||
+      this.checkSubstring(post.jobRequirements, searchLower) ||
+      this.checkSubstring(post.location, searchLower) ||
+      this.checkSubstring(post.workplace, searchLower) ||
+      this.checkSubstring(post.careerLevel, searchLower) ||
+      this.checkSubstring(post.companyName, searchLower)
+    );
+  }
+  private checkSubstring(value: string, searchText: string): boolean {
+    return value.toLowerCase().includes(searchText);
   }
 }
