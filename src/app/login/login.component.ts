@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs';
-import { User, UserType } from '../app.model';
+import { User, UserType,Company } from '../app.model';
 import { ErrorService } from '../error/error.service';
 
 @Component({
@@ -29,6 +29,22 @@ export class LoginComponent {
       })
       .pipe(
         map((res: any) => {
+          if(res.UserType=="Company"){
+            let company:Company  & { UserType: UserType }={
+             id:res.company.id,
+             name:res.company.name,
+             logo:res.company.logo,
+             industry:res.company.industry,
+             location:res.company.location,
+             description:res.company.description,
+             Email:res.company.Email,
+             Password:res.company.Password,
+             jobs:res.company.Job,
+             UserType:res.userType
+            }
+            return company;
+          }
+          else{
           let user: User & { UserType: UserType } = {
             id: res.User.Email,
             photo: res.User.ProfilePic,
@@ -39,9 +55,25 @@ export class LoginComponent {
             UserType: res.UserType
           };
           return user;
+        }
         }),
+      
         tap({
-          next: (res) => {
+          next: (res:any) => {
+            if(res.UserType=="Company"){
+              localStorage.setItem('Company',JSON.stringify({
+                id:res.id,
+                name:res.name,
+                logo:res.logo,
+                industry:res.industry,
+                location:res.location,
+                description:res.description,
+                Email:res.Email,
+                Password:res.Password,
+                jobs:res.Job,
+                UserType:res.userType              }));
+              localStorage.setItem('userType',res.UserType);
+          }else{
             this.appService.login(res.UserType, {
               id: res.id,
               photo: res.photo,
@@ -59,14 +91,20 @@ export class LoginComponent {
               username: res.username
             }));
             localStorage.setItem('userType',res.UserType);
+          }
           },
           complete: () => {
-            this.router.navigate(['/user']);
+            if (localStorage.getItem('userType') === 'Company') {
+              this.router.navigate(['/company/dashboard']);
+            } else {
+              this.router.navigate(['/user']);
+            }
           },
         }),
         catchError((error) => {
           this.errorService.emitError('Invalid Username or Password', false);
           throw error;
+          
         })
       )
       .subscribe();
