@@ -4,15 +4,11 @@ function login(req, res) {
   var query = { Email: req.body.Email, Password: req.body.Password };
   let companyPromise=companyModel.findOne(query);
   let userPromise = UserModel.findOne(query);
-  console.log(userPromise);
-  console.log(companyPromise);
   Promise.all([userPromise ,companyPromise])
     .then(results => {
       let userResult = results[0];
       let companyResult=results[1];
-      console.log(results);
       if (userResult != null) {
-        console.log(userResult);
         userResult.Password='';
         req.session.user = userResult;
         req.session.role = 'User';

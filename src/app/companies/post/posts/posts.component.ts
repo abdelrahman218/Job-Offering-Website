@@ -22,7 +22,7 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  delete(id: string) {
+  delete(id: number) {
     // Call CompaniesService to delete the post by id
     this.companyService.deletePost(id);
   }

@@ -1,5 +1,5 @@
 import { Company } from "../app.model";
-export const newCompany: Company[] = [{
+export const newCompany: Company[] = [{UserType:"Company",User:{
     id: '1',
     name: 'Tech Corp',
     logo: 'logo-url',
@@ -16,4 +16,4 @@ export const newCompany: Company[] = [{
       description: "technical engineer full time job",
       companyId: '1',
       jobRequirements:"bachelor degree"}]
-  }];
+}}];
