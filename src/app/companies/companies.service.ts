@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators';
 })
 export class CompaniesService {
   private jobPostsSubject = new BehaviorSubject<posts[]>([]);
-  jobPosts$ = this.jobPostsSubject.asObservable();
+  public jobPosts$ = this.jobPostsSubject.asObservable();
   private apiUrl = 'http://localhost:8080/company';
 
   constructor(private http: HttpClient) {
@@ -24,12 +24,12 @@ export class CompaniesService {
     });
   }
   //Method to get Posts by companyEmail
-  getPosts(){
+  getPosts():any{
     const currentCompany = this.getCurrentCompany();
     const companyEmail = currentCompany?.User?.Email;
   
     if (companyEmail) {
-      this.http.get<posts[]>(`${this.apiUrl}/getPosts/${companyEmail}`).subscribe(posts => {
+      this.http.get<posts[]>(`${this.apiUrl}/getPostsByCompanyEmail/${companyEmail}`).subscribe(posts => {
         this.jobPostsSubject.next(posts);
       });
     } else {

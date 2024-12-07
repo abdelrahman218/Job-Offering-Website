@@ -64,9 +64,6 @@ exports.getPosts = async (req, res) => {
   
   // Add a new post
   exports.addPost = async (req, res) => {
-    
-  
-
      let  newPost = new Post({
       jobTitle:req.body.jobTitle,
       careerLevel:req.body.careerLevel,
@@ -74,7 +71,7 @@ exports.getPosts = async (req, res) => {
       jobCategory:req.body.jobCategory,
       jobDescription:req.body.jobDescription,
       jobRequirements:req.body.jobRequirements,
-      companyEmail:"Facebook@email.com",
+      companyEmail:req.body.companyEmail,
       tags:req.body.tags
       });
       console.log(newPost)
@@ -115,3 +112,22 @@ exports.getPosts = async (req, res) => {
       res.status(500).json({ message: 'Failed to delete post', error: error.message });
     }
   };
+  // Get Posts by Company Email
+exports.getPostsByCompanyEmail = async (req, res) => {
+  const { companyEmail } = req.params;
+
+  try {
+    // Find all posts that match the companyEmail
+    const posts = await Post.find({ companyEmail });
+    console.log(posts);
+    // Check if posts exist for the given companyEmail
+    if (posts.length === 0) {
+      return res.status(404).json({ message: 'No posts found for this company' });
+    }
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch posts', error: error.message });
+  }
+};

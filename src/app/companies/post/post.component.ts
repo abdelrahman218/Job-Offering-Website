@@ -58,10 +58,7 @@ export class PostComponent {
       console.log(newPost);
       this.postForm.reset();
       this.cdr.detectChanges();
-      this.router.navigate(['company/post/posts']).then(() => {
-        console.log('Navigation successful!');
-          this.companyService.loadJobPosts();
-      });
+      this.router.navigate(['company/post/posts']);
        
     } else {
       console.log('Form is invalid');

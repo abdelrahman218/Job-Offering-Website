@@ -16,9 +16,16 @@ export class PostsComponent implements OnInit {
   constructor(private companyService: CompaniesService) {}
 
   ngOnInit(): void {
-    this.companyService.jobPosts$.subscribe(posts => {
-      this.jobPosts = posts;
-      console.log("Updated Job Posts:", this.jobPosts);
+    // Call getPosts to trigger fetching posts
+    this.companyService.getPosts();
+
+    // Subscribe to the jobPostsSubject to get updates
+    this.companyService.jobPosts$.subscribe({
+      next: (posts: posts[]) => {
+        this.jobPosts = posts;
+        console.log('Posts fetched successfully:', posts);
+      },
+      error: (err) => console.error('Error fetching posts:', err),
     });
   }
 

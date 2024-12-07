@@ -15,5 +15,5 @@ router.post('/addPost', companyController.addPost);
 router.put('/editPost/:postId', companyController.editPost); 
 router.delete('/deletePost/:postId', companyController.deletePost); 
 router.post('/login',indexController.login ); 
-
+router.get('/getPostsByCompanyEmail/:companyEmail',companyController.getPostsByCompanyEmail);
 module.exports = router;

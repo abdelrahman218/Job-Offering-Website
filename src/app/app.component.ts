@@ -18,22 +18,24 @@ import { UserType } from './app.model';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit{
-  private appService=inject(AppService);
-  
+  private appService=inject(AppService);   
   isError=this.appService.isError;
   errorMessage=this.appService.errorMessage;
 
     userType=this.appService.userTypeSignal.asReadonly()
    
   ngOnInit(){
+    
     var user : any=localStorage.getItem('user');
     const userType : any=localStorage.getItem('userType');
     var company:any=localStorage.getItem('company');
+    
     if(user){
       user=JSON.parse(user);
     }
-    else if(company){
+    else if(company&&userType=="Company"){
       company=JSON.parse(company);
+      this.appService.userTypeSignal.set("Company");
     }
     if(user&&userType){
       this.appService.login(userType,user);

@@ -10,7 +10,7 @@ const PostSchema = new schema({
   },
   jobCategory: { 
     type: String, 
-    enum: ['Full time', 'Part-time', 'Freelance/Project'], 
+    enum: ['Full-Time', 'Part-Time', 'Freelance/Project'], 
     required: true 
   },
   workplace: { 

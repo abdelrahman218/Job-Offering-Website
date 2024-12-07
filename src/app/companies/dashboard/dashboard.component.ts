@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Dropdown } from 'bootstrap';
 import { CompaniesService } from '../companies.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet, Router } from '@angular/router';
+import { RouterLink,  Router } from '@angular/router';
 import { newCompany } from '../dummy-companies';
 import { Company, posts } from '../../app.model';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, CommonModule],
+  imports: [ RouterLink, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -24,11 +24,10 @@ export class DashboardComponent implements OnInit {
   constructor(private companiesService: CompaniesService, private router: Router) {}
 
   ngOnInit() {
-    // Listen to the jobPosts signal from the CompaniesService
     this.companiesService.jobPosts$.subscribe(posts => {
-      this.jobPosts = posts;
-      console.log("Updated Job Posts:", this.jobPosts);
+      this.jobPosts = posts; 
     });
+    this.companiesService.getPosts();
   }
 
   ngAfterViewInit(): void {

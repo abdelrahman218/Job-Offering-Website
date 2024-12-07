@@ -1,5 +1,5 @@
 import { CanMatchFn, Router, Routes } from '@angular/router';
-import { take,map,delay } from 'rxjs/operators';
+
 //Main Pages Componanets
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UsersComponent } from './users/users.component';
@@ -18,7 +18,7 @@ import { adminRoutes } from './admins/admins.routes';
 import { AppService } from './app.service';
 import { inject } from '@angular/core';
 import { CardComponent } from './users/find-a-job/card/card.component';
-import { UserType } from './app.model';
+
 
 const isUser : CanMatchFn = ()=>{
     const appService=inject(AppService);
@@ -34,7 +34,6 @@ const isUser : CanMatchFn = ()=>{
 const isCompany: CanMatchFn = () => {
     const appService = inject(AppService);
     const router = inject(Router);
-  
     const userType = localStorage.getItem('userType');
     console.log('Guard Check - UserType:', userType);
   
