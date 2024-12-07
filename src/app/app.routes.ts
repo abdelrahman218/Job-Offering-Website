@@ -32,7 +32,7 @@ const isUser : CanMatchFn = ()=>{
     }
 }
 const isCompany: CanMatchFn = () => {
-    const appService = inject(AppService);
+
     const router = inject(Router);
     const userType = localStorage.getItem('userType');
     console.log('Guard Check - UserType:', userType);

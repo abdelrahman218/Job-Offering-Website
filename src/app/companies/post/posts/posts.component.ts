@@ -16,10 +16,7 @@ export class PostsComponent implements OnInit {
   constructor(private companyService: CompaniesService) {}
 
   ngOnInit(): void {
-    // Call getPosts to trigger fetching posts
     this.companyService.getPosts();
-
-    // Subscribe to the jobPostsSubject to get updates
     this.companyService.jobPosts$.subscribe({
       next: (posts: posts[]) => {
         this.jobPosts = posts;
