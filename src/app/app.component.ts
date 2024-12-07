@@ -27,7 +27,6 @@ export class AppComponent implements OnInit{
 
     if(user){
       user=JSON.parse(user);
-      //user={...user,applications: JSON.parse(user.applications)};
     }
 
     if(user&&userType){

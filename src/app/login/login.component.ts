@@ -30,7 +30,6 @@ export class LoginComponent {
       .pipe(
         map((res: any) => {
           let user: User & { UserType: UserType } = {
-            id: res.User.Email,
             photo: res.User.ProfilePic,
             name: res.User.Name,
             professionalTitle: res.User.ProfessionalTitle,
@@ -43,21 +42,12 @@ export class LoginComponent {
         tap({
           next: (res) => {
             this.appService.login(res.UserType, {
-              id: res.id,
               photo: res.photo,
               name: res.name,
               professionalTitle: res.professionalTitle,
               skills: res.skills,
               username: res.username
             });
-            localStorage.setItem('user',JSON.stringify({
-              id: res.id,
-              photo: res.photo,
-              name: res.name,
-              professionalTitle: res.professionalTitle,
-              skills: res.skills,
-              username: res.username
-            }));
             localStorage.setItem('userType',res.UserType);
           },
           complete: () => {

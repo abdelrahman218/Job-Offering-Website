@@ -18,7 +18,7 @@ import { DropDownComponent } from "./drop-down/drop-down.component";
 })
 export class HeaderComponent {
   @Input({ required: true }) userType?: UserType;
-  isDropDown:boolean=true;
+  isDropDown:boolean=false;
   private httpClientService = inject(HttpClient);
   private appService = inject(AppService);
   private errorService= inject(ErrorService);
