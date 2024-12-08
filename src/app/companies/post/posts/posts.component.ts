@@ -16,14 +16,11 @@ export class PostsComponent implements OnInit {
   constructor(private companyService: CompaniesService) {}
 
   ngOnInit(): void {
-    this.companyService.getPosts();
-    this.companyService.jobPosts$.subscribe({
-      next: (posts: posts[]) => {
-        this.jobPosts = posts;
-        console.log('Posts fetched successfully:', posts);
-      },
-      error: (err) => console.error('Error fetching posts:', err),
+    this.companyService.jobPosts$.subscribe(posts => {
+      this.jobPosts = posts; 
     });
+    const companyEmail=this.companyService.getCurrentCompany().User.Email;
+    this.companyService.getPosts(companyEmail);
   }
 
   delete(id: number) {

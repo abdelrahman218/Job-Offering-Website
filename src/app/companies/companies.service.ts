@@ -24,11 +24,8 @@ export class CompaniesService {
     });
   }
   //Method to get Posts by companyEmail
-  getPosts():any{
-    const currentCompany = this.getCurrentCompany();
-    const companyEmail = currentCompany?.User?.Email;
-  
-    if (companyEmail) {
+  getPosts(companyEmail:string):any{
+     if (companyEmail) {
       this.http.get<posts[]>(`${this.apiUrl}/getPostsByCompanyEmail/${companyEmail}`).subscribe(posts => {
         this.jobPostsSubject.next(posts);
       });

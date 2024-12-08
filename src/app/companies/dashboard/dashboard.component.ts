@@ -27,7 +27,8 @@ export class DashboardComponent implements OnInit {
     this.companiesService.jobPosts$.subscribe(posts => {
       this.jobPosts = posts; 
     });
-    this.companiesService.getPosts();
+    const companyEmail=this.companiesService.getCurrentCompany().User.Email;
+    this.companiesService.getPosts(companyEmail);
   }
 
   ngAfterViewInit(): void {
