@@ -42,7 +42,7 @@ export class PostComponent {
     if (this.postForm.valid) {
       console.log('Form is valid, submitting data...');
       const newPost = {
-        id:Math.floor(Math.random() * 1000000),
+        id:1,
         jobTitle: this.postForm.value.jobTitle,
         careerLevel: this.postForm.value.careerLevel,
         jobCategory: this.postForm.value.jobCategory,

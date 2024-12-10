@@ -18,6 +18,8 @@ export class PostsComponent implements OnInit {
   ngOnInit(): void {
     this.companyService.jobPosts$.subscribe(posts => {
       this.jobPosts = posts; 
+      const title=this.companyService.getJobTitle(posts[0].id);
+      console.log("title",posts[0].jobTitle);
     });
     const companyEmail=this.companyService.getCurrentCompany().User.Email;
     this.companyService.getPosts(companyEmail);

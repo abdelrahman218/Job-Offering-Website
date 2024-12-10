@@ -14,7 +14,7 @@ export class CompaniesService {
   private apiUrl = 'http://localhost:8080/company';
 
   constructor(private http: HttpClient) {
-    this.loadJobPosts();
+   
   }
 
   // Load job posts from the backend
@@ -82,6 +82,26 @@ export class CompaniesService {
       const currentPosts = this.jobPostsSubject.getValue();
       const updatedPosts = currentPosts.map((p) => (p.id === id ? post : p));
       this.jobPostsSubject.next(updatedPosts);
+    });
+  }
+  // Method to get Company Name by Email
+  getCompanyName(companyEmail: string) {
+    return this.http.get<{ companyName: string }>(`${this.apiUrl}/getName/${companyEmail}`, {
+      params: { companyEmail }
+    });
+  }
+
+  // Method to get Company Logo by Email
+  getCompanyLogo(companyEmail: string) {
+    return this.http.get<{ logo: string }>(`${this.apiUrl}/getLogo/${companyEmail}`, {
+      params: { companyEmail }
+    });
+  }
+
+  // Method to get Job Title by Post ID
+  getJobTitle(postId: number) {
+    return this.http.get<{ jobTitle: string }>(`${this.apiUrl}/posts/getJobTitle/${postId}`, {
+      params: { postId }
     });
   }
 }
