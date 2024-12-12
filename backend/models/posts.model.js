@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
-const autoIncrement = require('mongoose-sequence')(mongoose);
-const PostSchema = new mongoose.Schema({
-  id: { type: Number, unique: true }, 
+
+
+const PostSchema = new schema({
+  id: { type: Number, unique: true}, 
   jobTitle: { type: String, match: /([A-ZÀ-ÿ-a-z. ']+[ ]*)+/, required: true },
   careerLevel: { 
     type: String, 
@@ -30,8 +31,6 @@ const PostSchema = new mongoose.Schema({
     type: [String], 
     default: []
   }
-}, { timestamps: true
- });
- PostSchema.plugin(autoIncrement, { inc_field: 'id' });
+}, { timestamps: true });
 const Post = mongoose.model('Post', PostSchema);
 module.exports = Post;

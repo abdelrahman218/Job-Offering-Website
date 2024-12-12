@@ -1,57 +1,6 @@
 const Company = require('../models/Company.model'); 
 const Post = require('../models/posts.model'); 
 
-// get company name
-exports.getCompanyName = async (req, res) => {
-  const { companyEmail } = req.query;
-
-  try {
-    const company = await Company.findOne({ email: companyEmail });
-    if (!company) {
-      return res.status(404).json({ message: 'Company not found' });
-    }
-
-    res.status(200).json({ companyName: company.name });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error', error });
-  }
-};
-
-// Get Company Logo
-exports.getCompanyLogo = async (req, res) => {
-  const { companyEmail } = req.query;
-
-  try {
-    const company = await Company.findOne({ email: companyEmail });
-    if (!company) {
-      return res.status(404).json({ message: 'Company not found' });
-    }
-
-    res.status(200).send(`<img src="${company.logo}" alt="Company Logo" />`);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error', error });
-  }
-};
-
-// get Job Title
-exports.getJobTitle = async (req, res) => {
-  const { postId } = req.query;
-
-  try {
-    const post = await Post.findById(postId);
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
-
-    res.status(200).json({ jobTitle: post.jobTitle });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error', error });
-  }
-};
-
 //Get Posts
 exports.getPosts = async (req, res) => {
     try {
@@ -65,6 +14,7 @@ exports.getPosts = async (req, res) => {
   // Add a new post
   exports.addPost = async (req, res) => {
      let  newPost = new Post({
+      id:Date.now(),
       jobTitle:req.body.jobTitle,
       careerLevel:req.body.careerLevel,
       workplace:req.body.workplace,
@@ -157,7 +107,6 @@ exports.getCompanyLogo = async (req, res) => {
     if (!company) {
       return res.status(404).json({ message: 'Company not found' });
     }
-
     res.status(200).json({ logo: company.logo });
   } catch (error) {
     console.error(error);
@@ -167,10 +116,10 @@ exports.getCompanyLogo = async (req, res) => {
 
 // Get Job Title by Post ID
 exports.getJobTitle = async (req, res) => {
-  const { postId } = req.query;
+ const { postId } = req.params;
 
   try {
-    const post = await Post.findById(postId);
+    const post = await Post.findOne({ id: postId });
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
     }

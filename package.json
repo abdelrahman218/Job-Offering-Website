@@ -26,7 +26,7 @@
     "mongoose": "^8.8.1",
     "mongoose-sequence": "^6.0.1",
     "node": "^18.20.5",
-    "rxjs": "~7.8.0",
+    "rxjs": "^7.8.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

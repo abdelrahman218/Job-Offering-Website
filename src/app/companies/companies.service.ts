@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject,lastValueFrom } from 'rxjs';
 import { Company, posts } from '../app.model';
 import { tap } from 'rxjs/operators';
 
@@ -84,24 +84,44 @@ export class CompaniesService {
       this.jobPostsSubject.next(updatedPosts);
     });
   }
-  // Method to get Company Name by Email
-  getCompanyName(companyEmail: string) {
-    return this.http.get<{ companyName: string }>(`${this.apiUrl}/getName/${companyEmail}`, {
-      params: { companyEmail }
-    });
+    // Method to get Company Name by Email
+  async getCompanyName(companyEmail: string): Promise<string | undefined> {
+    try {
+      const response = await lastValueFrom(
+        this.http.get<{ companyName: string }>(`${this.apiUrl}/getName/${companyEmail}`)
+      );
+      return response?.companyName;  // Use optional chaining to handle undefined
+    } catch (error) {
+      console.error('Error fetching company name:', error);
+      return undefined;
+    }
   }
+ // Method to get Company Logo by Email
+ async getCompanyLogo(companyEmail: string): Promise<string | undefined> {
+  try {
+    const response = await lastValueFrom(
+      this.http.get<{ logo: string }>(`${this.apiUrl}/getLogo/${companyEmail}`)
+    );
+    return response?.logo;  // Use optional chaining to handle undefined
+  } catch (error) {
+    console.error('Error fetching company logo:', error);
+    return undefined;
+  }
+}
 
-  // Method to get Company Logo by Email
-  getCompanyLogo(companyEmail: string) {
-    return this.http.get<{ logo: string }>(`${this.apiUrl}/getLogo/${companyEmail}`, {
-      params: { companyEmail }
-    });
+// Method to get Job Title by Post ID
+async getJobTitle(postId: number): Promise<string | undefined> {
+  if (!postId) {
+    throw new Error('Invalid Post ID');
   }
-
-  // Method to get Job Title by Post ID
-  getJobTitle(postId: number) {
-    return this.http.get<{ jobTitle: string }>(`${this.apiUrl}/posts/getJobTitle/${postId}`, {
-      params: { postId }
-    });
+  try {
+    const response = await lastValueFrom(
+      this.http.get<{ jobTitle: string }>(`${this.apiUrl}/posts/getJobTitle/${postId}`)
+    );
+    return response?.jobTitle;  // Use optional chaining to handle undefined
+  } catch (error) {
+    console.error('Error fetching job title:', error);
+    return undefined;
   }
+}
 }

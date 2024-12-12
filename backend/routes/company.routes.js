@@ -9,7 +9,7 @@ router.get('/getName/:companyEmail', companyController.getCompanyName);
 router.get('/getLogo/:companyEmail', companyController.getCompanyLogo);
 
 
-router.get('/posts/getJobTitle/:companyEmail', companyController.getJobTitle);
+router.get('/posts/getJobTitle/:postId', companyController.getJobTitle);
 router.get('/getPosts', companyController.getPosts); 
 router.post('/addPost', companyController.addPost); 
 router.put('/editPost/:postId', companyController.editPost); 
