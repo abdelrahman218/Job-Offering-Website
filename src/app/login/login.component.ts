@@ -49,7 +49,6 @@ export class LoginComponent {
         // Process user details
         if (res.UserType === 'User') {
           let user: User & { UserType: UserType } = {
-            id: res.User.Email,
             photo: res.User.ProfilePic,
             name: res.User.Name,
             professionalTitle: res.User.ProfessionalTitle,

@@ -4,7 +4,7 @@
             Edit Profile
         </h1>
         <form method="post" (ngSubmit)="editProfile()">
-            <img [src]="imgPath" onerror="this.src='https\:\\\\cdn.pixabay.com\\photo\\2015\\10\\05\\22\\37\\blank-profile-picture-973460_1280.png'"><br><br>
+            <img [src]="imgPath" onerror="this.src='https\:\\\\cdn.pixabay.com\\photo\\2015\\10\\05\\22\\37\\blank-profile-picture-973460_1280.png'" #profilePic><br><br>
             <input type="file" name="photo" class="classicButton" (change)="selectProfilePic($event)" accept="image/*"><br>
             <div class="input-group" style="width: 60%;">
                 <label for="name">Name:</label><br>
@@ -33,7 +33,7 @@
                 }
             </div>
             <span>
-                <button class='submit' appButton>Add Skill</button>
+                <button class='submit' appButton>Submit</button>
                 <button type="button" class='cancel' (click)="closeDialog()" appButton>Cancel</button>
             </span>
         </form>

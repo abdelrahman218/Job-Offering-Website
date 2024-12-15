@@ -15,6 +15,7 @@ import { ButtonComponent } from '../shared/button/button.component';
 export class EditProfileComponent implements OnInit{
   private userService=inject(UserService);
   private orginalData!: EditProfileData;
+  private imgConatiner=viewChild.required<ElementRef>('profilePic');
   readonly pattern=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d!@#$%^&*()-_=+{};:,<.>]{8,}/;
   get imgPath(){
     return 'http://localhost:8080/user/image?email='+this.userService.user().username;
@@ -42,7 +43,12 @@ export class EditProfileComponent implements OnInit{
     return true;
   }
   selectProfilePic(event:any){
+    const fr=new FileReader();
     this.editedData.PhotoFile=event.target.files[0];
+    fr.onload=()=>{
+      this.imgConatiner().nativeElement.src=fr.result;
+    };
+    fr.readAsDataURL(event.target.files[0]);
   }
   editProfile(){
     if(this.isValid()){

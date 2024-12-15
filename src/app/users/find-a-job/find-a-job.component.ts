@@ -32,6 +32,7 @@ export class FindAJobComponent implements OnInit {
     this.isVisible=!this.isVisible;
   }
   userType=this.appService.userTypeSignal.asReadonly();
+  searchTerm: string = '';
   @ViewChild('filterComponent') FiltersComponent !: FiltersComponent;
   constructor(private route: ActivatedRoute) {}
   

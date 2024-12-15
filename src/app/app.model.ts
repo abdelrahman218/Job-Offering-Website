@@ -28,7 +28,6 @@ export type signup={
 export type EditProfileData={PhotoFile?: File, Name: string,ProfessionalTitle: string, Photo:string, Password: string};
 
 export type User = {
-    id: string,
     name: string,
     professionalTitle: string,
     photo: string,

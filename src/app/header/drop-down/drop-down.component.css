@@ -1,0 +1,20 @@
+:host{
+    display: inline-block;
+    background-color: #F5EFEB;
+    position: absolute;
+    z-index: 1100;
+    right: 0%;
+    top:100%;
+    box-shadow: 2px 3px 3px black;
+    padding: 2%;
+}
+a{
+    display: block;
+    color:#2f4156;
+    
+    &:hover{
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-color: #2f4156;
+    }
+}
