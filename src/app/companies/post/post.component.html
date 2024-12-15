@@ -1,12 +1,9 @@
-
 <div class="text-center">
     <h1>Post a new job</h1>
 </div>
 <form [formGroup]="postForm" (ngSubmit)="submitForm()">
     <div class="container">
-        <ul class="nav nav-pills">
-            <li id="job" class="active"><a data-toggle="pill">Job</a></li>
-        </ul>
+       
         <div id="job-det">
             <h1 id="ft">Job details</h1>
             <div class="form-group">
@@ -18,11 +15,11 @@
             </div>
             <label id="lab"><h4>Career Level:</h4></label>
             <div class="radio">
-                <input formControlName="careerLevel" id="rd2" type="radio" name="careerLevel" value="internship">
+                <input formControlName="careerLevel" id="rd2" type="radio" name="careerLevel" value="Internship">
                 <label id="lb" for="rd7">Internship</label>
             </div>
             <div class="radio ">
-                <input formControlName="careerLevel" id="rd3" type="radio" name="careerLevel" value="junior">
+                <input formControlName="careerLevel" id="rd3" type="radio" name="careerLevel" value="Junior Level/Fresh Grad">
                 <label id="lb" for="rd6">Junior Level/Fresh Grad</label>
             </div>
             <div class="radio">
@@ -42,11 +39,11 @@
             </div>
             <label id="lab"><h4>Job Category:</h4></label>
             <div class="radio">
-                <input formControlName="jobCategory" type="radio" name="jobCategory" id="rd1" value="Full Time">
-                <label id="lb" for="rd1">Full Time</label>
+                <input formControlName="jobCategory" type="radio" name="jobCategory" id="rd1" value="Full-Time">
+                <label id="lb" for="rd1">Full-Time</label>
             </div>
             <div class="radio">
-                <input formControlName="jobCategory" id="rd2" type="radio" name="jobCategory" value="Remote">
+                <input formControlName="jobCategory" id="rd2" type="radio" name="jobCategory" value="Part-Time">
                 <label id="lb" for="rd2">Part-Time</label>
             </div>
             <div class="radio ">
@@ -92,7 +89,14 @@
                     <small class="text-danger">Job description is required.</small>
                 </div>
         </div>
-      
+        <div class="mb-3">
+            <label for="feedbackTextarea" class="form-label">tags</label>
+            <textarea formControlName="tags" class="form-control fc" id="feedbackTextarea" rows="5"
+                placeholder="Write your Description here..."></textarea>
+                <div *ngIf="postForm.get('tags')?.invalid && postForm.get('tags')?.touched">
+                    <small class="text-danger">tags is required.</small>
+                </div>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>

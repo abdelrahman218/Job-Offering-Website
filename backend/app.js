@@ -4,14 +4,13 @@ const credentials = require('./credentials.js');
 //Intializing the backend app
 const express = require('express');
 const mongoose = require('mongoose');
-const fileUpload=require("express-fileupload");
 const app = express();
 
 //Make server use cors middleware to bypass cors error so the front-end and back-end can be listening top different ports
-const cors=require('cors');
+const cors = require('cors');
 app.use(cors());
-app.use(fileUpload());
-
+const DeleteRoutes = require('./routes/index.routes.js');
+app.use('/delete', DeleteRoutes);
 //Connecting to Database
 mongoose.connect(credentials.dbURL)
 .then(() => {
@@ -33,13 +32,13 @@ app.use(session({
     saveUninitialized: true
 }));
 
-
 //Setting up routing
 const IndexRoutes=require('./routes/index.routes.js');
 const UserRoutes=require('./routes/user.routes.js');
-
+const CompanyRoutes=require('./routes/company.routes.js')
 app.use('/',IndexRoutes);
 app.use('/user',UserRoutes);
+app.use('/company',CompanyRoutes)
 
 app.use((req,res)=>{
     res.sendStatus(404);

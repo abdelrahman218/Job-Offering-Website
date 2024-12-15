@@ -19,6 +19,7 @@ import { AppService } from './app.service';
 import { inject } from '@angular/core';
 import { CardComponent } from './users/find-a-job/card/card.component';
 
+
 const isUser : CanMatchFn = ()=>{
     const appService=inject(AppService);
     const routerService=inject(Router);
@@ -30,17 +31,19 @@ const isUser : CanMatchFn = ()=>{
         return false;
     }
 }
-const isCompany : CanMatchFn = ()=>{
-    const appService=inject(AppService);
-    const routerService=inject(Router);
-    if(appService.userTypeSignal()==='Company'){
+const isCompany: CanMatchFn = () => {
+
+    const router = inject(Router);
+    const userType = localStorage.getItem('userType');
+    console.log('Guard Check - UserType:', userType);
+  
+    if (userType === 'Company') {
         return true;
-    }
-    else{
-        routerService.navigate(['unauthorized']);
+    } else {
+        router.navigate(['/unauthorized']);
         return false;
     }
-}
+  };
 const isAdmin : CanMatchFn = ()=>{
     const appService=inject(AppService);
     const routerService=inject(Router);

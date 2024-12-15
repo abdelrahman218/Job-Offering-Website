@@ -4,14 +4,14 @@
   <div  *ngIf="jobPosts.length === 0">
     <h1 class="text-center">No Posts Available...!</h1>
   </div>
-  <div *ngFor="let post of jobPosts" class="card mb-3">
+  <div  *ngFor="let post of jobPosts" class="card mb-3">
     <div class="card-body">
       <h5 class="card-title">{{ post.jobTitle }}</h5>
       <p class="card-text2"><strong>Career Level:</strong> {{ post.careerLevel }}<strong>Job Category:</strong> {{ post.jobCategory }}<i class="zmdi zmdi-pin mr-2"></i><strong>Workplace:</strong> {{ post.workplace }}
 
       <p class="card-text" id="p1" ><strong>Description:</strong> {{ post.jobDescription }}</p>
       <p class="card-text" id="p2" ><strong>Requirements:</strong> {{ post.jobRequirements }}</p>
-      <button (click)="Delete(post.id)" class="btn btn-primary">Delete</button>
+      <button (click)="delete(post.id)" class="btn btn-primary">Delete</button>
     </div>
     
   </div>
