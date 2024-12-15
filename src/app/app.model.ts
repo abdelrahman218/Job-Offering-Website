@@ -11,9 +11,9 @@ export type ApplicationStateType='Submitted'|'In Review'|'Accepted'|'Rejected';
 
 export type ApplicationType = {
     post: string,
-    jobTitle: string,
-    companyname: string,
-    companyLogo:string, 
+    jobTitle?: string,
+    companyname?: string,
+    companyEmail:string,
     state: ApplicationStateType
 };
 

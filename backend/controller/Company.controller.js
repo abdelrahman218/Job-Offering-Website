@@ -100,18 +100,16 @@ exports.getCompanyName = async (req, res) => {
 
 // Get Company Logo by Email
 exports.getCompanyLogo = async (req, res) => {
-  const { companyEmail } = req.query;
-
-  try {
-    const company = await Company.findOne({ email: companyEmail });
-    if (!company) {
-      return res.status(404).json({ message: 'Company not found' });
-    }
-    res.status(200).json({ logo: company.logo });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error', error });
+  companyEmail = req.query.email;
+  let company = await Company.findOne({ Email: companyEmail });
+  if (!company) {
+    res.status(406).send("Company Not Found");
+    return;
   }
+  res.setHeader("Content-Type", "image/jpeg");
+  res.status(200).sendFile("/Multimedia/company-logo/" + company.logo, {
+    root: __dirname.replace("\\controller", ""),
+  });
 };
 
 // Get Job Title by Post ID

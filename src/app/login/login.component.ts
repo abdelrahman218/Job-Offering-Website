@@ -57,7 +57,6 @@ export class LoginComponent {
             UserType: 'User'
           };
           localStorage.setItem('user',JSON.stringify({
-            id: res.id,
             photo: res.photo,
             name: res.name,
             professionalTitle: res.professionalTitle,
@@ -71,7 +70,6 @@ export class LoginComponent {
       tap((user) => {
         // Store user details
         this.appService.login(user.UserType, {
-          id: user.id,
           photo: user.photo,
           name: user.name,
           professionalTitle: user.professionalTitle,

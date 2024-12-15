@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
 import {ApplicationType, EditProfileData, User, type ApplicationStateType} from '../app.model';
 import { ErrorService } from '../error/error.service';
+import { CompaniesService } from '../companies/companies.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ export class UserService{
   private backendUrl='http://localhost:8080/user/';
   private httpClientService = inject(HttpClient);
   private errorService = inject(ErrorService);
+  private companyService = inject(CompaniesService);
   private stateSignal = signal<'Editing Profile' | 'Adding Skill' | 'None'>('None');
   private userSignal = signal<User>({
     name: '',
@@ -64,14 +66,15 @@ export class UserService{
       .pipe(
         tap({
           next: (res: any) => {
-            let temp = res.Apps;
-            //get Company and post info form backend
-            temp.forEach((app: any) => {
+            let temp = res.Apps; 
+            temp.forEach(async (app: any) => {
+              let companyName = await this.companyService.getCompanyName(app.Company);
+              let jobTitle = await this.companyService.getJobTitle(app.Post);
               apps.push({
-                jobTitle: 'jobTitle',
+                jobTitle: jobTitle,
                 post: app.Post,
-                companyname: app.Company,
-                companyLogo: '',
+                companyname: companyName,
+                companyEmail: app.Company,
                 state: app.State,
               });
             });

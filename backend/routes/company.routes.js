@@ -6,7 +6,7 @@ const indexController=require('../controller/Index.controller')
 router.get('/getName/:companyEmail', companyController.getCompanyName);
 
 
-router.get('/getLogo/:companyEmail', companyController.getCompanyLogo);
+router.get('/getLogo', companyController.getCompanyLogo);
 
 
 router.get('/posts/getJobTitle/:postId', companyController.getJobTitle);
