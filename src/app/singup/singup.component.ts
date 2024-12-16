@@ -6,11 +6,11 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
 
 //Services
+import { UserService } from '../users/users.service';
 import { ErrorService } from '../error/error.service';
 
 //Models
 import { type signup } from '../app.model';
-import { UserService } from '../users/users.service';
 
 @Component({
   selector: 'app-singup',
