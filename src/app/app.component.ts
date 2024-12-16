@@ -5,10 +5,10 @@ import { RouterOutlet } from '@angular/router';
 //Components
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { AppService } from './app.service';
 import { ErrorComponent } from "./error/error.component";
-import { CompaniesService } from './companies/companies.service';
-import { UserType } from './app.model';
+
+//Services
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +18,15 @@ import { UserType } from './app.model';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit{
-  private appService=inject(AppService);   
+  //Dependency Injection
+  private appService=inject(AppService);
+  
+  //Service's Signals
   isError=this.appService.isError;
   errorMessage=this.appService.errorMessage;
-
-    userType=this.appService.userTypeSignal.asReadonly()
+  userType=this.appService.userTypeSignal.asReadonly()
    
   ngOnInit(){
-    
     var user : any=localStorage.getItem('user');
     const userType : any=localStorage.getItem('userType');
     var company:any=localStorage.getItem('company');
@@ -39,8 +40,6 @@ export class AppComponent implements OnInit{
     }
     if(user&&userType){
       this.appService.login(userType,user);
-    }
-   
-    
+    }   
   }
 }

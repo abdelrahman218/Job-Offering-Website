@@ -1,5 +1,8 @@
+//Angular Imports
 import { Component, inject, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
+//Services
 import { UserService } from '../../users/users.service';
 import { AppService } from '../../app.service';
 
@@ -10,6 +13,7 @@ import { AppService } from '../../app.service';
   templateUrl: './drop-down.component.html',
   styleUrl: './drop-down.component.css'
 })
+
 export class DropDownComponent {
   private appService=inject(AppService);
   private userService=inject(UserService);

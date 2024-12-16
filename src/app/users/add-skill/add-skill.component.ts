@@ -1,7 +1,12 @@
+//Angular Imports
 import { Component, inject, signal } from '@angular/core';
-import { DialogComponent } from '../shared/dialog/dialog.component';
 import { FormsModule } from '@angular/forms';
+
+//Components
+import { DialogComponent } from '../shared/dialog/dialog.component';
 import { ButtonComponent } from '../shared/button/button.component';
+
+//Services
 import { UserService } from '../users.service';
 
 @Component({
@@ -11,6 +16,7 @@ import { UserService } from '../users.service';
   templateUrl: './add-skill.component.html',
   styleUrl: './add-skill.component.css'
 })
+
 export class AddSkillComponent {
   private userService=inject(UserService);
   isRequired=signal<boolean>(false);

@@ -1,12 +1,18 @@
+//Angular Imports
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap,EMPTY,throwError,switchMap } from 'rxjs';
-import { User, UserType,Company } from '../app.model';
-import { ErrorService } from '../error/error.service';
+
+//Services
+import { AppService } from '../app.service';
+import { UserService } from '../users/users.service';
 import { CompaniesService } from '../companies/companies.service';
+import { ErrorService } from '../error/error.service';
+
+//Models
+import {type User, type UserType } from '../app.model';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +21,20 @@ import { CompaniesService } from '../companies/companies.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
+
 export class LoginComponent {
+  //Dependency Injection
   private httpClientService = inject(HttpClient);
   private appService = inject(AppService);
+  private userService = inject(UserService)
   private companiesService=inject(CompaniesService)
   private errorService = inject(ErrorService);
   private router = inject(Router);
+
+  //Component Attributes
   username!: string;
   password!: string;
+
   login() {
     // Try Company Login First
     this.companiesService.login({
@@ -40,7 +52,7 @@ export class LoginComponent {
           return EMPTY; // Stop further processing
         }
         // If not a company, proceed to user login
-        return this.httpClientService.post('http://localhost:8080/login', {
+        return this.httpClientService.post(this.userService.backendUrl.replace('user','login'), {
           Email: this.username,
           Password: this.password,
         });

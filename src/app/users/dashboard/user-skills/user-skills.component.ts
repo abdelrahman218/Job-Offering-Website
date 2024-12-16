@@ -1,7 +1,12 @@
+//Angular Imports
 import { Component, inject , computed} from '@angular/core';
-import { UserService } from '../../users.service';
 import { RouterLink } from '@angular/router';
+
+//Components
 import { ButtonComponent } from '../../shared/button/button.component';
+
+//Services
+import { UserService } from '../../users.service';
 
 @Component({
   selector: 'app-user-skills',
@@ -10,6 +15,7 @@ import { ButtonComponent } from '../../shared/button/button.component';
   templateUrl: './user-skills.component.html',
   styleUrl: './user-skills.component.css'
 })
+
 export class UserSkillsComponent {
   private usersService = inject(UserService);
 

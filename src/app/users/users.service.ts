@@ -1,18 +1,26 @@
+//Angular Imports
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
-import {ApplicationType, EditProfileData, User, type ApplicationStateType} from '../app.model';
+
+//Services
 import { ErrorService } from '../error/error.service';
 import { CompaniesService } from '../companies/companies.service';
+
+//Models
+import {ApplicationType, EditProfileData, User, type ApplicationStateType} from '../app.model';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class UserService{
-  private backendUrl='http://localhost:8080/user/';
+  //Dependency Injection
   private httpClientService = inject(HttpClient);
   private errorService = inject(ErrorService);
   private companyService = inject(CompaniesService);
+  
+  //Private Attributes
   private stateSignal = signal<'Editing Profile' | 'Adding Skill' | 'None'>('None');
   private userSignal = signal<User>({
     name: '',
@@ -22,30 +30,18 @@ export class UserService{
     username: '',
   });
   private applicationSignal = signal<ApplicationType[]>([]);
+  
+  //Read only Signal Public access
+  readonly backendUrl='http://localhost:8080/user/';
   user = this.userSignal.asReadonly();
   applications = this.applicationSignal.asReadonly();
   state = this.stateSignal.asReadonly();
 
-  login(user: User) {
-    this.userSignal.set(user);
-    this.updateUserInLocalStorage();
-    this.applicationSignal.set(this.getApps(user.username));
-  }
-
-  signout() {
-    this.userSignal.set({
-      name: '',
-      professionalTitle: '',
-      photo: '',
-      skills: [],
-      username: '',
-    });
-    this.updateUserInLocalStorage();
-    this.applicationSignal.set([]);
-  }
+  //Private Methods
   private updateUserInLocalStorage(){
     localStorage.setItem('user', JSON.stringify(this.userSignal()));
   }
+  
   private isTheSame(edited: EditProfileData, original: EditProfileData) {
     if (
       edited.Name === original.Name &&
@@ -55,10 +51,11 @@ export class UserService{
     }
     return false;
   }
+  
   private filterAccordingToAppState(state: ApplicationStateType) {
     return this.applications().filter((app) => app.state === state).length;
   }
-
+  
   private getApps(userEmail: string) {
     var apps: ApplicationType[] = [];
     this.httpClientService
@@ -85,6 +82,25 @@ export class UserService{
     return apps;
   }
 
+  //Public Methods
+  login(user: User) {
+    this.userSignal.set(user);
+    this.updateUserInLocalStorage();
+    this.applicationSignal.set(this.getApps(user.username));
+  }
+
+  signout() {
+    this.userSignal.set({
+      name: '',
+      professionalTitle: '',
+      photo: '',
+      skills: [],
+      username: '',
+    });
+    this.updateUserInLocalStorage();
+    this.applicationSignal.set([]);
+  }
+
   getNumAppSubmitted() {
     return this.filterAccordingToAppState('Submitted');
   }
@@ -100,9 +116,11 @@ export class UserService{
   getNumAppRejected() {
     return this.filterAccordingToAppState('Rejected');
   }
+  
   editProfileTab(){
     this.stateSignal.set('Editing Profile');
   }
+  
   editProfile(edited: EditProfileData, original: EditProfileData) {
     if (edited.PhotoFile) {
       const formData = new FormData();
@@ -163,6 +181,7 @@ export class UserService{
         .subscribe();
     }
   }
+  
   withdrawApp(appPost: string) {
     this.httpClientService
       .post(this.backendUrl+'removeApplication', {
@@ -188,6 +207,7 @@ export class UserService{
   addSkillTab() {
     this.stateSignal.set('Adding Skill');
   }
+  
   addSkill(skill: string) {
     this.httpClientService
       .post(this.backendUrl+'addSkill', {
@@ -237,6 +257,7 @@ export class UserService{
       )
       .subscribe();
   }
+  
   closeTab() {
     this.stateSignal.set('None');
   }

@@ -1,8 +1,15 @@
-import { Component, inject, OnInit , Signal ,computed, OnChanges, SimpleChanges} from '@angular/core';
-import { UserService } from '../users.service';
+//Angular Imports
+import { Component, inject, OnInit , Signal ,computed} from '@angular/core';
+
+//Components
 import { ApplicationComponent } from './application/application.component';
-import { type ApplicationType as Application} from '../../app.model';
 import { CardComponent } from "../shared/card/card.component";
+
+//Services
+import { UserService } from '../users.service';
+
+//Models
+import { type ApplicationType as Application} from '../../app.model';
 
 type ToggleType = 'active' | 'archived';
 @Component({

@@ -26,10 +26,12 @@ a{
     padding: 1%;
     border: 3px solid #2f4156;
     border-radius: 13px;
-}
-a:hover{
-    background-color: #567c8d42;
-}
-a:visited{
-    color: #2f4156;
+
+    &:hover{
+        background-color: #567c8d42;
+    }
+
+    &:visited{
+        color: #2f4156;
+    }
 }

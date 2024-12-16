@@ -1,3 +1,5 @@
+//Angular Imports
+import { inject } from '@angular/core';
 import { CanMatchFn, Router, Routes } from '@angular/router';
 
 //Main Pages Componanets
@@ -10,14 +12,15 @@ import { Error404Component } from './error404/error404.component';
 import { FindAJobComponent } from './users/find-a-job/find-a-job.component';
 import { LoginComponent } from './login/login.component';
 import { SingupComponent } from './singup/singup.component';
+import { CardComponent } from './users/find-a-job/card/card.component';
 
 //Routers
 import { userRoutes } from './users/users.routes';
 import { companyRoutes } from './companies/companies.routes';
 import { adminRoutes } from './admins/admins.routes';
+
+//Services
 import { AppService } from './app.service';
-import { inject } from '@angular/core';
-import { CardComponent } from './users/find-a-job/card/card.component';
 
 
 const isUser : CanMatchFn = ()=>{

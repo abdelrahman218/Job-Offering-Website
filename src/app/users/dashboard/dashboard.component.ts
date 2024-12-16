@@ -1,4 +1,7 @@
-import { Component, inject } from '@angular/core';
+//Angular Imports
+import { Component } from '@angular/core';
+
+//Components
 import { UserRecommendComponent } from "./user-recommend/user-recommend.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { TileComponent } from "../shared/tile/tile.component";
