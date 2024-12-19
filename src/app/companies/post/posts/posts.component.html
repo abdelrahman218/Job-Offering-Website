@@ -11,8 +11,19 @@
 
       <p class="card-text" id="p1" ><strong>Description:</strong> {{ post.jobDescription }}</p>
       <p class="card-text" id="p2" ><strong>Requirements:</strong> {{ post.jobRequirements }}</p>
-      <button (click)="delete(post.id)" class="btn btn-primary">Delete</button>
+      <p class="card-text" id="p2" ><strong>Tags:</strong> {{ post.tags }}</p>
+      <button (click)="confirmDelete(post.id)" class="btn btn-primary">Delete</button> <button (click)="edit(post.id)" class="btn btn-primary">Edit Post</button>
     </div>
     
   </div>
+  <!-- Confirmation Popup -->
+<div *ngIf="showDeleteConfirmation" class="overlay">
+  <div class="popup">
+    <h3>Are you sure you want to delete this post?</h3>
+    <div class="popup-actions">
+      <button (click)="delete(postToDelete)" class="btn btn-danger">Yes, Delete</button>
+      <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
+    </div>
+  </div>
+</div>
 </div>

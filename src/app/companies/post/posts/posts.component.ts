@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompaniesService } from '../../companies.service';
 import { CommonModule } from '@angular/common';
 import { posts } from '../../../app.model';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -12,16 +12,11 @@ import { posts } from '../../../app.model';
 })
 export class PostsComponent implements OnInit {
   jobPosts: posts[] = [];
-
-  constructor(private companyService: CompaniesService) {}
+  showDeleteConfirmation = false;
+  postToDelete: any;
+  constructor(private companyService: CompaniesService,private router: Router) {}
 
   async ngOnInit():Promise<void>  {
-      const title=await this.companyService.getJobTitle(1734024201086);
-      const Name=await this.companyService.getCompanyName("techCorp@gmail.com");
-      const Logo=await this.companyService.getCompanyLogo("techCorp@gmail.com");
-      console.log("Logo",Logo);
-      console.log("Name",Name);
-      console.log("title",title);
     this.companyService.jobPosts$.subscribe(posts => {
       this.jobPosts = posts; 
     });
@@ -29,8 +24,22 @@ export class PostsComponent implements OnInit {
     this.companyService.getPosts(companyEmail);
   }
 
-  delete(id: number) {
-    // Call CompaniesService to delete the post by id
-    this.companyService.deletePost(id);
+  confirmDelete(postId: number) {
+    this.showDeleteConfirmation = true;
+    this.postToDelete = postId;
+  }
+
+  delete(postId: number) {
+    this.companyService.deletePost(postId);
+    this.showDeleteConfirmation = false; 
+  }
+
+  cancelDelete() {
+    this.showDeleteConfirmation = false; 
+  }
+
+
+  edit(postId: number) {
+    this.router.navigate(['company/post/edit',postId]); // Assuming there's an edit-post route
   }
 }
