@@ -9,8 +9,7 @@ const app = express();
 //Make server use cors middleware to bypass cors error so the front-end and back-end can be listening top different ports
 const cors = require('cors');
 app.use(cors());
-const DeleteRoutes = require('./routes/index.routes.js');
-app.use('/delete', DeleteRoutes);
+
 //Connecting to Database
 mongoose.connect(credentials.dbURL)
 .then(() => {

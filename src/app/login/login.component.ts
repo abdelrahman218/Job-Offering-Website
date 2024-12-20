@@ -90,7 +90,6 @@ export class LoginComponent {
         });
         
         localStorage.setItem('userType', user.UserType);
-        
       }),
       tap((user) => {
         // Navigate based on user type
