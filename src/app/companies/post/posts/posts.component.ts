@@ -21,6 +21,10 @@ export class PostsComponent implements OnInit {
       this.jobPosts = posts; 
     });
     const companyEmail=this.companyService.getCurrentCompany().User.Email;
+    const job=this.companyService.getPosts(companyEmail);
+    this.companyService.getCurrentCompany().User.jobs.push(job);
+    console.log("job",job);
+    console.log(companyEmail);
     this.companyService.getPosts(companyEmail);
   }
 

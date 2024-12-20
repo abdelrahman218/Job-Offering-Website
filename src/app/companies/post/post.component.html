@@ -3,23 +3,28 @@
 </div>
 <form [formGroup]="postForm" (ngSubmit)="submitForm()">
     <div class="container">
-       
+
         <div id="job-det">
             <h1 id="ft">Job details</h1>
             <div class="form-group">
-                <label id="lab" for="usr"><h4 id="ust">Job Title:</h4></label>
+                <label id="lab" for="usr">
+                    <h4 id="ust">Job Title:</h4>
+                </label>
                 <input formControlName="jobTitle" type="text" class="form-control" id="usr">
                 <div *ngIf="postForm.get('jobTitle')?.invalid && postForm.get('jobTitle')?.touched">
                     <small class="text-danger">Job Title is required.</small>
                 </div>
             </div>
-            <label id="lab"><h4>Career Level:</h4></label>
+            <label id="lab">
+                <h4>Career Level:</h4>
+            </label>
             <div class="radio">
                 <input formControlName="careerLevel" id="rd2" type="radio" name="careerLevel" value="Internship">
                 <label id="lb" for="rd7">Internship</label>
             </div>
             <div class="radio ">
-                <input formControlName="careerLevel" id="rd3" type="radio" name="careerLevel" value="Junior Level/Fresh Grad">
+                <input formControlName="careerLevel" id="rd3" type="radio" name="careerLevel"
+                    value="Junior Level/Fresh Grad">
                 <label id="lb" for="rd6">Junior Level/Fresh Grad</label>
             </div>
             <div class="radio">
@@ -37,7 +42,9 @@
             <div *ngIf="postForm.get('careerLevel')?.invalid && postForm.get('careerLevel')?.touched">
                 <small class="text-danger">Career Level is required.</small>
             </div>
-            <label id="lab"><h4>Job Category:</h4></label>
+            <label id="lab">
+                <h4>Job Category:</h4>
+            </label>
             <div class="radio">
                 <input formControlName="jobCategory" type="radio" name="jobCategory" id="rd1" value="Full-Time">
                 <label id="lb" for="rd1">Full-Time</label>
@@ -47,13 +54,15 @@
                 <label id="lb" for="rd2">Part-Time</label>
             </div>
             <div class="radio ">
-                <input formControlName="jobCategory" id="rd3" type="radio" name="jobCategory" value="Freelance/Project" >
+                <input formControlName="jobCategory" id="rd3" type="radio" name="jobCategory" value="Freelance/Project">
                 <label id="lb" for="rd3">Freelance/Project</label>
             </div>
             <div *ngIf="postForm.get('jobCategory')?.invalid && postForm.get('jobCategory')?.touched">
                 <small class="text-danger">Job Category is required.</small>
             </div>
-            <label id="lab"><h4>Workplace:</h4></label>
+            <label id="lab">
+                <h4>Workplace:</h4>
+            </label>
             <div class="radio">
                 <input formControlName="workplace" type="radio" name="workplace" id="rd1" value="On-site">
                 <label id="lb" for="rd1">On-site</label>
@@ -63,7 +72,7 @@
                 <label id="lb" for="rd2">Remote</label>
             </div>
             <div class="radio ">
-                <input formControlName="workplace" id="rd3" type="radio" name="workplace" value="Hybrid" >
+                <input formControlName="workplace" id="rd3" type="radio" name="workplace" value="Hybrid">
                 <label id="lb" for="rd3">Hybrid</label>
             </div>
             <div *ngIf="postForm.get('workplace')?.invalid && postForm.get('workplace')?.touched">
@@ -77,26 +86,42 @@
             <label for="feedbackTextarea" class="form-label">Job Requirements</label>
             <textarea formControlName="jobRequirements" class="form-control fc" id="feedbackTextarea" rows="5"
                 placeholder="Write your Description here..."></textarea>
-                <div *ngIf="postForm.get('jobRequirements')?.invalid && postForm.get('jobRequirements')?.touched">
-                    <small class="text-danger">Job Requirements is required.</small>
-                </div>
+            <div *ngIf="postForm.get('jobRequirements')?.invalid && postForm.get('jobRequirements')?.touched">
+                <small class="text-danger">Job Requirements is required.</small>
+            </div>
         </div>
         <div class="mb-3">
             <label for="feedbackTextarea" class="form-label">Job description</label>
             <textarea formControlName="jobDescription" class="form-control fc" id="feedbackTextarea" rows="5"
                 placeholder="Write your Description here..."></textarea>
-                <div *ngIf="postForm.get('jobDescription')?.invalid && postForm.get('jobDescription')?.touched">
-                    <small class="text-danger">Job description is required.</small>
-                </div>
+            <div *ngIf="postForm.get('jobDescription')?.invalid && postForm.get('jobDescription')?.touched">
+                <small class="text-danger">Job description is required.</small>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="feedbackTextarea" class="form-label">tags</label>
-            <textarea formControlName="tags" class="form-control fc" id="feedbackTextarea" rows="5"
-                placeholder="Write your Description here..."></textarea>
-                <div *ngIf="postForm.get('tags')?.invalid && postForm.get('tags')?.touched">
-                    <small class="text-danger">tags is required.</small>
-                </div>
+        <div>
+            <label id="lab">
+                <h4 id="ta">Tags:</h4>
+            </label>
+            <button type="button" id="add" (click)="Show()" >Add Tag</button>
+
+            <ul>
+                <li *ngFor="let tag of tags.controls; let i = index">
+                    {{ tag.value }}
+                    <a type="button" id="rem" (click)="removeTag(i)">remove</a>
+                </li>
+            </ul>
         </div>
-        <button type="submit" class="btn btn-primary"> {{ route.snapshot.paramMap.get('postId') ? 'Update Post' : 'Submit' }}</button>
+        <button type="submit" class="btn btn-primary"> {{ route.snapshot.paramMap.get('postId') ? 'Update Post' :
+            'Submit' }}</button>
+    </div>
+    <!-- Confirmation Popup -->
+    <div *ngIf="showAddTag" class="overlay">
+        <div class="popup">
+            <h3>Adding a Tag </h3>
+            <div class="popup-actions">
+                <input #tagInput type="text" id="pl" class="form-control" placeholder="Add a tag" />
+            </div>
+            <button type="button" id="add" (click)="addTag(tagInput.value); tagInput.value = ''">Add Tag</button>
+        </div>
     </div>
 </form>

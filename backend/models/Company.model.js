@@ -20,13 +20,15 @@ const CompanySchema = new schema({
   description: { type: String, default: "" },
   jobs: { 
     type: [{ 
-      title: { type: String, required: true }, 
-      careerLevel: { type: String, required: true }, 
-      jobCategory: { type: String, required: true }, 
-      workplace: { type: String, required: true },
+      id: { type: Number, unique: true}, 
+      jobTitle: { type: String, match: /([A-ZÀ-ÿ-a-z. ']+[ ]*)+/, required: true },
+      careerLevel: { type: String, enum: ['Internship', 'Junior Level/Fresh Grad', 'Experienced', 'Manager', 'Senior Management'], required: true },
+      jobCategory: { type: String, enum: ['Full-Time', 'Part-Time', 'Freelance/Project'], required: true },
+      workplace: { type: String, enum: ['On-site', 'Remote', 'Hybrid'],  required: true  },
+      jobDescription: { type: String, required: true },
       jobRequirements: { type: String, required: true },
-      description: { type: String, required: true },
-      companyId: { type: schema.Types.ObjectId, ref: 'Companies', required: true }
+      companyEmail: {  type: String,  required: true,  match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/  },
+      tags: { type: [String], default: []}
     }], 
     default: [] 
   },

@@ -15,5 +15,4 @@ export const newCompany: Company[] = [{UserType:"Company",User:{
       workplace: "On-site" ,
       description: "technical engineer full time job",
       companyId: '1',
-      jobRequirements:"bachelor degree"}]
-}}];
+      jobRequirements:"bachelor degree"}]}}];

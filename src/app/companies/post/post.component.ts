@@ -1,8 +1,9 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule,FormArray,FormControl  } from '@angular/forms';
 import { CompaniesService } from '../companies.service';
 import { Router,ActivatedRoute } from '@angular/router';
+import { posts } from '../../app.model';
 
 @Component({
   selector: 'app-post',
@@ -14,7 +15,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 export class PostComponent {
   postForm: FormGroup;
   isSubmitted = false;
-
+  showAddTag=false;
   constructor(
     private fb: FormBuilder,
     private companyService: CompaniesService,
@@ -29,7 +30,7 @@ export class PostComponent {
       jobRequirements: ['', Validators.required],
       jobCategory: ['', Validators.required],
       jobDescription: ['', Validators.required],
-      tags: [''],
+      tags: new FormArray([])
     });
   }
 
@@ -56,7 +57,7 @@ export class PostComponent {
       const postId = this.route.snapshot.paramMap.get('postId');
       const currentCompany = this.companyService.getCurrentCompany();
       
-      const newPost = {
+      const newPost:posts = {
         id: postId ? Number(postId) : Date.now(), // Use existing ID for edit or generate a new ID
         jobTitle: this.postForm.value.jobTitle,
         careerLevel: this.postForm.value.careerLevel,
@@ -69,7 +70,8 @@ export class PostComponent {
         companyEmail: currentCompany.User.Email,
         tags: this.postForm.value.tags,
       };
-
+      this.companyService.getCurrentCompany().User.jobs.push(newPost);
+      console.log(newPost);
       if (postId) {
         // Edit existing post
         this.companyService.editPost(newPost, Number(postId));
@@ -86,4 +88,32 @@ export class PostComponent {
       this.postForm.markAllAsTouched();
     }
   }
+    // Get the tags FormArray
+    get tags(): FormArray {
+      return this.postForm.get('tags') as FormArray;
+    }
+    //show popup
+    Show(){
+      this.showAddTag=true;
+    }
+    // Add a new tag
+    addTag(tagValue: string) {
+      this.showAddTag=false;
+      if (tagValue.trim()) {
+        this.tags.push(new FormControl(tagValue.trim()));
+      }
+    }
+  
+    // Remove a tag by index
+    removeTag(index: number) {
+      this.tags.removeAt(index);
+    }
+ 
+ sub(){
+  const tagValue = this.postForm.get('tags')?.value;
+  this.postForm.get('tags')?.setValue(tagValue);
+  console.log(tagValue);
+  this.showAddTag=false;
+  
+ }
 }
