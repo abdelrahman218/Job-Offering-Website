@@ -75,7 +75,9 @@ export class CompaniesService {
       this.jobPostsSubject.next(updatedPosts);
     });
   }
-
+  getPostById(id: number) {
+    return this.http.get<posts>(`${this.apiUrl}/getPostById/${id}`);
+  }
   // Edit an existing job post by ID
   editPost(updatedPost: posts, id: number) {
     this.http.put<posts>(`${this.apiUrl}/editPost/${id}`, updatedPost).subscribe((post) => {

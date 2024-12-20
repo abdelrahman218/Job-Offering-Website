@@ -12,6 +12,7 @@ export const companyRoutes: Routes =[{
     component:PostsComponent,
     title:'Posts'
 },
+{ path: 'post/edit/:postId', component: PostComponent ,title:'Edit Post'},
 {
     path:'dashboard',
     component:DashboardComponent,

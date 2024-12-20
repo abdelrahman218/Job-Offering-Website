@@ -74,6 +74,7 @@ export type posts={
     jobDescription: string;
     jobRequirements:string;
     location:string;
+    tags:string[];
 }
 
 //Admin Datatype

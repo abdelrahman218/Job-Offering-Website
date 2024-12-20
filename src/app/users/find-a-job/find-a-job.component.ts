@@ -23,9 +23,9 @@ export class FindAJobComponent implements OnInit {
   private categoryId!: string;
   private categoryName!: string;
   public posts =[
-    {careerLevel:'Internship',companyName:'BUE',jobDescription:"lorem ipsum",jobRequirements:"lmao oh yeah xD wow",workplace:'Remote',location:'Giza',jobCategory:'Full-time' ,jobTitle:"OW",id:1},
-    {careerLevel:"Experienced",companyName:'MIU',jobDescription:"IT job description abcdefghijklmnopqrstuvwxyzlmao",jobRequirements:"lmao oh yeah xD wowweeeeeeeeeeeeeeeeeeeeeeeeeee",workplace:'Hybrid',location:'Cairo',jobCategory:'Full-time' ,jobTitle:"SWE",id:2},
-    {careerLevel:"Manager",companyName:'MUST',jobDescription:"IT job description abcdefghijklmnopqrstuvwxyzohyeah",jobRequirements:"lmao oh yeah xD wowabc",workplace:'On-site',location:'Alexandria',jobCategory:'Full-time',jobTitle:"WOW",id:3 }
+    {careerLevel:'Internship',companyName:'BUE',jobDescription:"lorem ipsum",jobRequirements:"lmao oh yeah xD wow",workplace:'Remote',location:'Giza',jobCategory:'Full-time' ,jobTitle:"OW",id:1,tags:["Java"]},
+    {careerLevel:"Experienced",companyName:'MIU',jobDescription:"IT job description abcdefghijklmnopqrstuvwxyzlmao",jobRequirements:"lmao oh yeah xD wowweeeeeeeeeeeeeeeeeeeeeeeeeee",workplace:'Hybrid',location:'Cairo',jobCategory:'Full-time' ,jobTitle:"SWE",id:2,tags:["JavaScript"]},
+    {careerLevel:"Manager",companyName:'MUST',jobDescription:"IT job description abcdefghijklmnopqrstuvwxyzohyeah",jobRequirements:"lmao oh yeah xD wowabc",workplace:'On-site',location:'Alexandria',jobCategory:'Full-time',jobTitle:"WOW",id:3,tags:["C++"] }
   ];
   
   OnToggle(){

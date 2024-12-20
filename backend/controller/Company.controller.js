@@ -32,36 +32,41 @@ exports.getPosts = async (req, res) => {
     };
  
   
-  // Edit an existing post
-  exports.editPost = async (req, res) => {
-    const { postId } = req.params;
-    const updates = req.body;
-  
-    try {
-      const updatedPost = await Post.findByIdAndUpdate(postId, updates, { new: true });
-      if (!updatedPost) {
-        return res.status(404).json({ message: 'Post not found' });
-      }
-      res.status(200).json({ message: 'Post updated successfully', post: updatedPost });
-    } catch (error) {
-      res.status(500).json({ message: 'Failed to update post', error: error.message });
+  // Edit an existing post by numerical ID
+exports.editPost = async (req, res) => {
+  const { postId } = req.params;
+  const updates = req.body;
+
+  try {
+    const updatedPost = await Post.findOneAndUpdate({ id: postId }, updates, { new: true });
+    if (!updatedPost) {
+      return res.status(404).json({ message: 'Post not found' });
     }
-  };
+    res.status(200).json({ message: 'Post updated successfully', post: updatedPost });
+  } catch (error) {
+    console.error('Error updating post:', error);
+    res.status(500).json({ message: 'Failed to update post', error: error.message });
+  }
+};
+
   
-  // Delete a post
-  exports.deletePost = async (req, res) => {
-    const { postId } = req.params;
-  
-    try {
-      const deletedPost = await Post.findByIdAndDelete(postId);
-      if (!deletedPost) {
-        return res.status(404).json({ message: 'Post not found' });
-      }
-      res.status(200).json({ message: 'Post deleted successfully', post: deletedPost });
-    } catch (error) {
-      res.status(500).json({ message: 'Failed to delete post', error: error.message });
+  // Delete a post by Id
+exports.deletePost = async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    const deletedPost = await Post.findOneAndDelete({ id: postId });
+    if (!deletedPost) {
+      return res.status(404).json({ message: 'Post not found' });
     }
-  };
+
+    res.status(200).json({ message: 'Post deleted successfully', post: deletedPost });
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    res.status(500).json({ message: 'Failed to delete post', error: error.message });
+  }
+};
+
   // Get Posts by Company Email
 exports.getPostsByCompanyEmail = async (req, res) => {
   const { companyEmail } = req.params;
@@ -126,5 +131,21 @@ exports.getJobTitle = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error', error });
+  }
+};
+// Get a post by ID
+exports.getPostById = async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    const post = await Post.findOne({ id: postId }); // Assuming you're using 'id' field for the post's identifier
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.status(200).json(post); // Send the post data as a response
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
