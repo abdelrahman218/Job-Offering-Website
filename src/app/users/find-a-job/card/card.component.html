@@ -12,42 +12,39 @@
         </div>
     </div>
     <div class="job-details">
-        <!-- <span class="detail-item">💰 8000 EGP - 30000 EGP</span> -->
         <span class="detail-item tag">⏰ {{post.jobCategory}}</span>
         <span class="detail-item tag">{{post.workplace}}</span>
         <span class="detail-item tag">{{post.careerLevel}}</span>
     </div>
     <div class="job-description">{{post.jobDescription}}</div>
-    <!-- <div class="tags-container">
-        <span class="tag">React</span>
-        <span class="tag">TypeScript</span>
-        <span class="tag">Node.js</span>
-        <span class="tag">Angular</span>
-        <span class="tag">HTML</span>
-    </div> -->
+    <div class="tags-container">
+        @for (item of post.tags; track $index) {
+        <span class="tag">{{item}}</span>
+        }
+    </div>
     <div class="apply-section">
         <div></div>
         @if (userType===undefined) {
             <button class="apply-btn" (click)="login()">Login to Apply</button>
         }@else{
-            <button class="apply-btn"  type="button" data-bs-toggle="modal" data-bs-target="#myModal">Apply Now</button>
+            <button class="apply-btn" type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#modal-' + post.id">Apply Now</button>
         }
         
     </div>
 </div>
 <div class="bootstrap-scope">
-    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal fade" [id]="'modal-' + post.id" tabindex="-1" [attr.aria-labelledby]="'modalLabel-' + post.id" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Sumbit your Application</h5>
+                    <h5 class="modal-title" [id]="'modalLabel-' + post.id">Submit your Application</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <h5>Job Requirements:</h5>
                     <p class="xyz">{{post.jobRequirements}}</p>
-                    <label for="cv">Attach your CV</label><br><input type="file" name="cv" id="cv" required>
-
+                    <label for="cv">Attach your CV</label><br>
+                    <input type="file" name="cv" id="cv" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

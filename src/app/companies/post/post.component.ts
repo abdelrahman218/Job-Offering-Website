@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CompaniesService } from '../companies.service';
 import { Router,ActivatedRoute } from '@angular/router';
+import { posts } from '../../app.model';
 
 @Component({
   selector: 'app-post',
@@ -56,7 +57,7 @@ export class PostComponent {
       const postId = this.route.snapshot.paramMap.get('postId');
       const currentCompany = this.companyService.getCurrentCompany();
       
-      const newPost = {
+      const newPost:posts = {
         id: postId ? Number(postId) : Date.now(), // Use existing ID for edit or generate a new ID
         jobTitle: this.postForm.value.jobTitle,
         careerLevel: this.postForm.value.careerLevel,
