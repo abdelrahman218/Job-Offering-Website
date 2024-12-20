@@ -1,13 +1,13 @@
 import { Company } from "../app.model";
-export const newCompany: Company[] = [{
+export const newCompany: Company[] = [{UserType:"Company",User:{
     id: '1',
     name: 'Tech Corp',
     logo: 'logo-url',
     industry: 'Technology',
     location: 'San Francisco',
     description: 'A tech company',
-    username: 'techCorp',
-    password: '123',
+    Email: 'techCorp',
+    Password: '123',
     jobs: [{id: '1',
       title: 'Technical engineer',
       careerLevel: "Internship",
@@ -16,4 +16,4 @@ export const newCompany: Company[] = [{
       description: "technical engineer full time job",
       companyId: '1',
       jobRequirements:"bachelor degree"}]
-  }];
+}}];

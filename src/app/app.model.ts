@@ -11,9 +11,9 @@ export type ApplicationStateType='Submitted'|'In Review'|'Accepted'|'Rejected';
 
 export type ApplicationType = {
     post: string,
-    jobTitle: string,
-    companyname: string,
-    companyLogo:string, 
+    jobTitle?: string,
+    companyname?: string,
+    companyEmail:string,
     state: ApplicationStateType
 };
 
@@ -28,7 +28,6 @@ export type signup={
 export type EditProfileData={PhotoFile?: File, Name: string,ProfessionalTitle: string, Photo:string, Password: string};
 
 export type User = {
-    id: string,
     name: string,
     professionalTitle: string,
     photo: string,
@@ -41,16 +40,17 @@ export type User = {
 export type CareerLevelType="Internship" | "Junior" | "Experienced" | "Manager" | "Senior Management";
 export type JobCategoryType="Full-time" | "Part-time" | "Freelance/Project";
 export type WorkplaceType="On-site" | "Remote" | "Hybrid";
-export type Company = {
+export type Company = {UserType:string,User:{
     id: string;
     name: string;
     logo: string;
     industry: string;
     location: string;
     description: string;
-    username: string,
-    password: string,
+    Email: string,
+    Password: string,
     jobs: Job[];
+}
 }
 
 export type Job = {

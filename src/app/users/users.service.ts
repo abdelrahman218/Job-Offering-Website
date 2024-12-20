@@ -1,59 +1,47 @@
-import { effect, inject, Injectable, OnInit, signal } from '@angular/core';
-import {
-  ApplicationType,
-  EditProfileData,
-  User,
-  type ApplicationStateType,
-} from '../app.model';
+//Angular Imports
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
+
+//Services
 import { ErrorService } from '../error/error.service';
+import { CompaniesService } from '../companies/companies.service';
+
+//Models
+import {ApplicationType, EditProfileData, User, type ApplicationStateType} from '../app.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService implements OnInit {
+
+export class UserService{
+  //Dependency Injection
   private httpClientService = inject(HttpClient);
   private errorService = inject(ErrorService);
-  private stateSignal = signal<'Editing Profile' | 'Adding Skill' | 'None'>(
-    'None'
-  );
+  private companyService = inject(CompaniesService);
+  
+  //Private Attributes
+  private stateSignal = signal<'Editing Profile' | 'Adding Skill' | 'None'>('None');
   private userSignal = signal<User>({
     name: '',
-    id: '',
     professionalTitle: '',
     photo: '',
     skills: [],
     username: '',
   });
   private applicationSignal = signal<ApplicationType[]>([]);
+  
+  //Read only Signal Public access
+  readonly backendUrl='http://localhost:8080/user/';
   user = this.userSignal.asReadonly();
   applications = this.applicationSignal.asReadonly();
   state = this.stateSignal.asReadonly();
 
-  ngOnInit() {
-    effect(() => {
-      localStorage.setItem('user', JSON.stringify(this.userSignal()));
-    });
+  //Private Methods
+  private updateUserInLocalStorage(){
+    localStorage.setItem('user', JSON.stringify(this.userSignal()));
   }
-
-  login(user: User) {
-    this.userSignal.set(user);
-    this.applicationSignal.set(this.getApps(user.username));
-  }
-
-  signout() {
-    this.userSignal.set({
-      name: '',
-      id: '',
-      professionalTitle: '',
-      photo: '',
-      skills: [],
-      username: '',
-    });
-    this.applicationSignal.set([]);
-  }
-
+  
   private isTheSame(edited: EditProfileData, original: EditProfileData) {
     if (
       edited.Name === original.Name &&
@@ -63,25 +51,27 @@ export class UserService implements OnInit {
     }
     return false;
   }
+  
   private filterAccordingToAppState(state: ApplicationStateType) {
     return this.applications().filter((app) => app.state === state).length;
   }
-
+  
   private getApps(userEmail: string) {
     var apps: ApplicationType[] = [];
     this.httpClientService
-      .get('http://localhost:8080/user/getApplications?email=' + userEmail)
+      .get(this.backendUrl+'getApplications?email=' + userEmail)
       .pipe(
         tap({
           next: (res: any) => {
-            let temp = res.Apps;
-            //get Company and post info form backend
-            temp.forEach((app: any) => {
+            let temp = res.Apps; 
+            temp.forEach(async (app: any) => {
+              let companyName = await this.companyService.getCompanyName(app.Company);
+              let jobTitle = await this.companyService.getJobTitle(app.Post);
               apps.push({
-                jobTitle: 'jobTitle',
+                jobTitle: jobTitle,
                 post: app.Post,
-                companyname: app.Company,
-                companyLogo: '',
+                companyname: companyName,
+                companyEmail: app.Company,
                 state: app.State,
               });
             });
@@ -90,6 +80,25 @@ export class UserService implements OnInit {
       )
       .subscribe();
     return apps;
+  }
+
+  //Public Methods
+  login(user: User) {
+    this.userSignal.set(user);
+    this.updateUserInLocalStorage();
+    this.applicationSignal.set(this.getApps(user.username));
+  }
+
+  signout() {
+    this.userSignal.set({
+      name: '',
+      professionalTitle: '',
+      photo: '',
+      skills: [],
+      username: '',
+    });
+    this.updateUserInLocalStorage();
+    this.applicationSignal.set([]);
   }
 
   getNumAppSubmitted() {
@@ -107,15 +116,18 @@ export class UserService implements OnInit {
   getNumAppRejected() {
     return this.filterAccordingToAppState('Rejected');
   }
+  
+  editProfileTab(){
+    this.stateSignal.set('Editing Profile');
+  }
+  
   editProfile(edited: EditProfileData, original: EditProfileData) {
-    console.log(edited);
-    console.log(original);
     if (edited.PhotoFile) {
       const formData = new FormData();
       formData.append('Email', this.user().username);
       formData.append('Photo', edited.PhotoFile);
       this.httpClientService
-        .post('http://localhost:8080/user/editProfilePhoto', 
+        .post(this.backendUrl+'editProfilePhoto', 
           formData
         )
         .pipe(
@@ -126,6 +138,7 @@ export class UserService implements OnInit {
                 this.userSignal.update((prev) => {
                   return { ...prev, photo: name };
                 });
+                this.updateUserInLocalStorage();
               }
             },
           }),
@@ -140,9 +153,8 @@ export class UserService implements OnInit {
         .subscribe();
     }
     if (!this.isTheSame(edited, original) || edited.Password) {
-      console.log('hi');
       this.httpClientService
-        .post('http://localhost:8080/user/editProfile', {
+        .post(this.backendUrl+'editProfile', {
           Email: this.user().username,
           Name: edited.Name,
           ProfessionalTitle: edited.ProfessionalTitle,
@@ -158,6 +170,7 @@ export class UserService implements OnInit {
                   professionalTitle: edited.ProfessionalTitle,
                 };
               });
+              this.updateUserInLocalStorage();
             },
           }),
           catchError(() => {
@@ -168,9 +181,10 @@ export class UserService implements OnInit {
         .subscribe();
     }
   }
+  
   withdrawApp(appPost: string) {
     this.httpClientService
-      .post('http://localhost:8080/user/removeApplication', {
+      .post(this.backendUrl+'removeApplication', {
         Email: this.user().username,
         Post: appPost,
       })
@@ -193,9 +207,10 @@ export class UserService implements OnInit {
   addSkillTab() {
     this.stateSignal.set('Adding Skill');
   }
+  
   addSkill(skill: string) {
     this.httpClientService
-      .post('http://localhost:8080/user/addSkill', {
+      .post(this.backendUrl+'addSkill', {
         Email: this.user().username,
         Skill: skill,
       })
@@ -206,6 +221,7 @@ export class UserService implements OnInit {
             this.userSignal.update((prev) => {
               return { ...prev, skills: [...oldSkills, skill] };
             });
+            this.updateUserInLocalStorage();
           },
         }),
         catchError(() => {
@@ -218,7 +234,7 @@ export class UserService implements OnInit {
 
   removeSkill(skill: string) {
     this.httpClientService
-      .post('http://localhost:8080/user/removeSkill', {
+      .post(this.backendUrl+'removeSkill', {
         Email: this.user().username,
         Skill: skill,
       })
@@ -231,6 +247,7 @@ export class UserService implements OnInit {
             this.userSignal.update((prev) => {
               return { ...prev, skills: skills };
             });
+            this.updateUserInLocalStorage();
           },
         }),
         catchError(() => {
@@ -240,6 +257,7 @@ export class UserService implements OnInit {
       )
       .subscribe();
   }
+  
   closeTab() {
     this.stateSignal.set('None');
   }

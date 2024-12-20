@@ -1,57 +1,6 @@
 const Company = require('../models/Company.model'); 
 const Post = require('../models/posts.model'); 
 
-// get company name
-exports.getCompanyName = async (req, res) => {
-  const { companyEmail } = req.query;
-
-  try {
-    const company = await Company.findOne({ email: companyEmail });
-    if (!company) {
-      return res.status(404).json({ message: 'Company not found' });
-    }
-
-    res.status(200).json({ companyName: company.name });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error', error });
-  }
-};
-
-// Get Company Logo
-exports.getCompanyLogo = async (req, res) => {
-  const { companyEmail } = req.query;
-
-  try {
-    const company = await Company.findOne({ email: companyEmail });
-    if (!company) {
-      return res.status(404).json({ message: 'Company not found' });
-    }
-
-    res.status(200).send(`<img src="${company.logo}" alt="Company Logo" />`);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error', error });
-  }
-};
-
-// get Job Title
-exports.getJobTitle = async (req, res) => {
-  const { postId } = req.query;
-
-  try {
-    const post = await Post.findById(postId);
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
-
-    res.status(200).json({ jobTitle: post.jobTitle });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error', error });
-  }
-};
-
 //Get Posts
 exports.getPosts = async (req, res) => {
     try {
@@ -64,17 +13,15 @@ exports.getPosts = async (req, res) => {
   
   // Add a new post
   exports.addPost = async (req, res) => {
-    
-  
-
      let  newPost = new Post({
+      id:Date.now(),
       jobTitle:req.body.jobTitle,
       careerLevel:req.body.careerLevel,
       workplace:req.body.workplace,
       jobCategory:req.body.jobCategory,
       jobDescription:req.body.jobDescription,
       jobRequirements:req.body.jobRequirements,
-      companyEmail:"Facebook@email.com",
+      companyEmail:req.body.companyEmail,
       tags:req.body.tags
       });
       console.log(newPost)
@@ -115,3 +62,69 @@ exports.getPosts = async (req, res) => {
       res.status(500).json({ message: 'Failed to delete post', error: error.message });
     }
   };
+  // Get Posts by Company Email
+exports.getPostsByCompanyEmail = async (req, res) => {
+  const { companyEmail } = req.params;
+
+  try {
+    // Find all posts that match the companyEmail
+    const posts = await Post.find({ companyEmail });
+    console.log(posts);
+    // Check if posts exist for the given companyEmail
+    if (posts.length === 0) {
+      return res.status(404).json({ message: 'No posts found for this company' });
+    }
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch posts', error: error.message });
+  }
+};
+// Get Company Name by Email
+exports.getCompanyName = async (req, res) => {
+  const { companyEmail } = req.query;
+
+  try {
+    const company = await Company.findOne({ email: companyEmail });
+    if (!company) {
+      return res.status(404).json({ message: 'Company not found' });
+    }
+
+    res.status(200).json({ companyName: company.name });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+// Get Company Logo by Email
+exports.getCompanyLogo = async (req, res) => {
+  companyEmail = req.query.email;
+  let company = await Company.findOne({ Email: companyEmail });
+  if (!company) {
+    res.status(406).send("Company Not Found");
+    return;
+  }
+  res.setHeader("Content-Type", "image/jpeg");
+  res.status(200).sendFile("/Multimedia/company-logo/" + company.logo, {
+    root: __dirname.replace("\\controller", ""),
+  });
+};
+
+// Get Job Title by Post ID
+exports.getJobTitle = async (req, res) => {
+ const { postId } = req.params;
+
+  try {
+    const post = await Post.findOne({ id: postId });
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.status(200).json({ jobTitle: post.jobTitle });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error', error });
+  }
+};

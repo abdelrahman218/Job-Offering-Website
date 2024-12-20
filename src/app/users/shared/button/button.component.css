@@ -8,10 +8,10 @@
     border-radius: 20px;
     width: fit-content;
     padding: 2%;
-}
 
-:host:hover{
-    background-color: #f5efebc3;
-    cursor: pointer;
-    color: #2f4156;
+    &:hover{
+        background-color: #f5efebc3;
+        cursor: pointer;
+        color: #2f4156;
+    }
 }

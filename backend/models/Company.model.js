@@ -18,8 +18,20 @@ const CompanySchema = new schema({
   industry: { type: String, required: true },
   location: { type: String, match: /([A-ZÀ-ÿ-a-z. ']+[ ]*)+/, required: true },
   description: { type: String, default: "" },
- 
+  jobs: { 
+    type: [{ 
+      title: { type: String, required: true }, 
+      careerLevel: { type: String, required: true }, 
+      jobCategory: { type: String, required: true }, 
+      workplace: { type: String, required: true },
+      jobRequirements: { type: String, required: true },
+      description: { type: String, required: true },
+      companyId: { type: schema.Types.ObjectId, ref: 'Companies', required: true }
+    }], 
+    default: [] 
+  },
+
 }, { timestamps: true });
 
-const Company = mongoose.model('Company', CompanySchema);
-module.exports = Company;
+const Companies = mongoose.model('Companies', CompanySchema);
+module.exports = Companies;

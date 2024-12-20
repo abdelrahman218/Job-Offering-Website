@@ -1,7 +1,14 @@
-import { Component, inject, Input } from '@angular/core';
-import { type ApplicationType as Application} from '../../../app.model';
+//Angular Imports
+import { Component, inject, input } from '@angular/core';
+
+//Components
 import { ButtonComponent } from '../../shared/button/button.component';
+
+//Services
 import { UserService } from '../../users.service';
+
+//Models
+import { type ApplicationType as Application} from '../../../app.model';
 
 @Component({
   selector: 'app-application',
@@ -10,14 +17,15 @@ import { UserService } from '../../users.service';
   templateUrl: './application.component.html',
   styleUrl: './application.component.css'
 })
+
 export class ApplicationComponent {
-  @Input({required: true})application!: Application;
+  application = input.required<Application>();
   private userService=inject(UserService);
   get companylogoPath(){
-    return 'company-logo/'+this.application.companyLogo;
+    return this.userService.backendUrl.replace('user','company')+'getLogo?email='+this.application().companyEmail;
   }
   get companylogoAltText(){
-    return this.application.companyname+"'s logo";
+    return this.application().companyname+"'s logo";
   }
   withdrawApp(appId:string){
     this.userService.withdrawApp(appId);

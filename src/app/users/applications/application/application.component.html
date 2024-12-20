@@ -1,5 +1,5 @@
-<div [class]="{'accepted': application.state==='Accepted','rejected': application.state==='Rejected','status':true}">
-    {{application.state}}
+<div [class]="{'accepted': application().state==='Accepted','rejected': application().state==='Rejected','status':true}">
+    {{application().state}}
 </div>
 <div class="application">
     <div>
@@ -7,15 +7,15 @@
     </div>
     <div>
         <h1>
-            {{application.companyname}}
+            {{application().companyname}}
         </h1>
         <h2>
-            {{application.jobTitle}}
+            {{application().jobTitle}}
         </h2>
     </div>
-        @if (application.state==='Submitted') {
+        @if (application().state==='Submitted') {
             <div>
-                <button type="button" (click)='withdrawApp(application.post)' appButton>
+                <button type="button" (click)='withdrawApp(application().post)' appButton>
                     Withdraw
                 </button>
             </div>

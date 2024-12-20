@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
+
 const PostSchema = new schema({
+  id: { type: Number, unique: true}, 
   jobTitle: { type: String, match: /([A-ZÀ-ÿ-a-z. ']+[ ]*)+/, required: true },
   careerLevel: { 
     type: String, 
@@ -10,7 +12,7 @@ const PostSchema = new schema({
   },
   jobCategory: { 
     type: String, 
-    enum: ['Full time', 'Part-time', 'Freelance/Project'], 
+    enum: ['Full-Time', 'Part-Time', 'Freelance/Project'], 
     required: true 
   },
   workplace: { 
@@ -30,6 +32,5 @@ const PostSchema = new schema({
     default: []
   }
 }, { timestamps: true });
-
 const Post = mongoose.model('Post', PostSchema);
 module.exports = Post;
