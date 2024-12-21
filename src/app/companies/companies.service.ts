@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject,lastValueFrom,Observable } from 'rxjs';
 import { Company, posts,ApplicationType } from '../app.model';
-import { tap } from 'rxjs/operators';
+import { map,tap } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompaniesService {
-  private jobPostsSubject = new BehaviorSubject<posts[]>([]);
+  public jobPostsSubject = new BehaviorSubject<posts[]>([]);
+  public CompaniesSubject = new BehaviorSubject<Company[]>([]);
+  public Companies$ = this.CompaniesSubject.asObservable();
   public jobPosts$ = this.jobPostsSubject.asObservable();
   private apiUrl = 'http://localhost:8080/company';
 
@@ -21,6 +23,29 @@ export class CompaniesService {
   loadJobPosts() {
     this.http.get<posts[]>(`${this.apiUrl}/getPosts`).subscribe(posts => {
       this.jobPostsSubject.next(posts);
+    });
+  }
+  getCompanies(){
+    this.http.get<Company[]>(`${this.apiUrl}/getCompanies`).pipe(map(((companies : any[]) =>{
+      var temp:Company[]=[];
+      companies.forEach(company => {
+        temp.push({
+          UserType: 'Company',
+          User: {
+            Email: company.Email,
+            id: company._id,
+            name: company.name,
+            logo: company.logo ,
+            industry: company.industry ,
+            location: company.location ,
+            description: company.description ,
+            Password: company.Password
+          }
+        })
+      })
+      return temp;
+    }))).subscribe(companies => {
+      this.CompaniesSubject.next(companies);
     });
   }
   //Method to get Posts by companyEmail
