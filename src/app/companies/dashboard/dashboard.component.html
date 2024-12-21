@@ -3,18 +3,18 @@
     integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 
 <body>
-    <div *ngFor="let company of companies" class="company-card">
+    <div class="company-card">
         <div class="company-header">
-            <h3>{{ company.User.name }}</h3>
+            <h3>{{ companies.User.name }}</h3>
         </div>
         <div class="compImage">
             <img style="width: 361px;  border-radius: 3%;" src="\ales-nesetril-Im7lZjxeLhg-unsplash.jpg">
         </div>
         <div class="company-details">
-            <p><strong>Industry:</strong> {{ company.User.industry }}</p>
-            <p><strong>Location:</strong> {{ company.User.location }}</p>
-            <p><strong>Description:</strong> {{ company.User.description }}</p>
-            <p *ngFor="let job of company.User.jobs"><strong>Requirements:</strong> {{job.jobRequirements}}</p>
+            <p><strong>Industry:</strong> {{ companies.User.industry }}</p>
+            <p><strong>Location:</strong> {{ companies.User.location }}</p>
+            <p><strong>Description:</strong> {{ companies.User.description }}</p>
+            <p *ngFor="let job of companies.User.jobs"><strong>Requirements:</strong> {{job.jobRequirements}}</p>
         </div>
     </div>
 

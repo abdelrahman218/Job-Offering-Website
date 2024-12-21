@@ -3,7 +3,6 @@ import { Dropdown } from 'bootstrap';
 import { CompaniesService } from '../companies.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink,  Router } from '@angular/router';
-import { newCompany } from '../dummy-companies';
 import { Company, posts } from '../../app.model';
 
 @Component({
@@ -15,20 +14,33 @@ import { Company, posts } from '../../app.model';
 })
 export class DashboardComponent implements OnInit {
   jobPosts: posts[] = [];
-  companies: Company[] = newCompany;
+  companies!: Company;
   showDet() {
     document.getElementById("p1")!.style.display = "block";
     document.getElementById("p2")!.style.display = "block";
     document.getElementById("b1")!.style.display = "none";
   }
   constructor(private companiesService: CompaniesService, private router: Router) {}
-
+ 
   ngOnInit() {
     this.companiesService.jobPosts$.subscribe(posts => {
       this.jobPosts = posts; 
     });
     const companyEmail=this.companiesService.getCurrentCompany().User.Email;
     this.companiesService.getPosts(companyEmail);
+      this.companies={UserType:this.companiesService.getCurrentCompany().UserType,User:{
+      id:this.companiesService.getCurrentCompany().User.id,
+      Email:this.companiesService.getCurrentCompany().User.Email,
+      name:this.companiesService.getCurrentCompany().User.name,
+      industry:this.companiesService.getCurrentCompany().User.name,
+      location:this.companiesService.getCurrentCompany().User.location,
+      description:this.companiesService.getCurrentCompany().User.description,
+      Password:this.companiesService.getCurrentCompany().User.Password,
+      logo:this.companiesService.getCurrentCompany().User.logo,
+      jobs:[]
+    }
+
+    };
   }
 
   ngAfterViewInit(): void {

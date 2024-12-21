@@ -10,14 +10,13 @@ function login(req, res) {
       let companyResult=results[1];
       if (userResult != null) {
         userResult.Password='';
-        req.session.user = userResult;
         req.session.role = 'User';
         res.status(200).send({UserType: 'User',User: userResult});
       }else if(companyResult!=null){
         companyResult.Password='';
-req.session.user=companyResult;
-req.session.role='Company';
-res.status(200).send({UserType: 'Company',User: companyResult});
+        req.session.user=companyResult;
+        req.session.role='Company';
+        res.status(200).send({UserType: 'Company',User: companyResult});
       }
       else {
         res.status(401).send('Invalid credentials');

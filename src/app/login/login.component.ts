@@ -90,7 +90,6 @@ export class LoginComponent {
         });
         
         localStorage.setItem('userType', user.UserType);
-        
       }),
       tap((user) => {
         // Navigate based on user type
@@ -99,7 +98,18 @@ export class LoginComponent {
         }
       }),
       catchError((error) => {
-        this.errorService.emitError('Login Failed', false);
+        var errMessage=''
+        switch(error.status){
+          case 401:
+            errMessage='Incorrect Username Or Password';
+            break;
+          case 500:
+            errMessage='Internal Server Error';
+            break;
+          default:
+            errMessage='Something Went Wrong'
+        }
+        this.errorService.emitError(errMessage, true);
         return throwError(error);
       })
     ).subscribe();

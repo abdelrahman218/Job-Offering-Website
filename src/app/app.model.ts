@@ -49,9 +49,8 @@ export type Company = {UserType:string,User:{
     location: string;
     description: string;
     Password: string,
-    jobs: Job[];
-}
-}
+    jobs: posts[];
+}}
 
 export type Job = {
     id: string;
@@ -76,6 +75,7 @@ export type posts={
     location:string;
     companyEmail:string;
     tags:string[];
+    companyEmail:string;
 }
 
 //Admin Datatype

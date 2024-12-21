@@ -25,6 +25,7 @@ export class FindAJobComponent implements OnInit {
   isVisible = false;
   private categoryId!: string;
   private categoryName!: string;
+
   
   public posts: posts[] = [];
   public Companies: Company[] = [];
