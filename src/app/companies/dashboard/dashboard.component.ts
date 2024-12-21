@@ -36,8 +36,7 @@ export class DashboardComponent implements OnInit {
       location:this.companiesService.getCurrentCompany().User.location,
       description:this.companiesService.getCurrentCompany().User.description,
       Password:this.companiesService.getCurrentCompany().User.Password,
-      logo:this.companiesService.getCurrentCompany().User.logo,
-      jobs:[]
+      logo:this.companiesService.getCurrentCompany().User.logo
     }
 
     };

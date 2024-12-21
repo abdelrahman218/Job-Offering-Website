@@ -17,4 +17,7 @@ router.delete('/deletePost/:postId', companyController.deletePost);
 router.post('/login',indexController.login ); 
 router.get('/getPostsByCompanyEmail/:companyEmail',companyController.getPostsByCompanyEmail);
 router.get('/getPostById/:postId', companyController.getPostById);
+router.get('/applications/:postId', companyController.getApplicationsByPost); 
+router.put('/applications/updateState', companyController.updateApplicationState); 
+router.get('/applications/company/:companyEmail', companyController.getApplicationsByCompanyEmail); 
 module.exports = router;

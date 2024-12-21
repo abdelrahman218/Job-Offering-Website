@@ -4,26 +4,41 @@
   <div  *ngIf="jobPosts.length === 0">
     <h1 class="text-center">No Posts Available...!</h1>
   </div>
-  <div  *ngFor="let post of jobPosts" class="card mb-3">
+  <div *ngFor="let post of jobPosts" class="card mb-3">
     <div class="card-body">
       <h5 class="card-title">{{ post.jobTitle }}</h5>
-      <p class="card-text2"><strong>Career Level:</strong> {{ post.careerLevel }}<strong>Job Category:</strong> {{ post.jobCategory }}<i class="zmdi zmdi-pin mr-2"></i><strong>Workplace:</strong> {{ post.workplace }}
-
-      <p class="card-text" id="p1" ><strong>Description:</strong> {{ post.jobDescription }}</p>
-      <p class="card-text" id="p2" ><strong>Requirements:</strong> {{ post.jobRequirements }}</p>
-      <p class="card-text" id="p2" ><strong>Tags:</strong> {{ post.tags }}</p>
-      <button (click)="confirmDelete(post.id)" class="btn btn-primary">Delete</button> <button (click)="edit(post.id)" class="btn btn-primary">Edit Post</button>
-    </div>
-    
-  </div>
-  <!-- Confirmation Popup -->
-<div *ngIf="showDeleteConfirmation" class="overlay">
-  <div class="popup">
-    <h3>Are you sure you want to delete this post?</h3>
-    <div class="popup-actions">
-      <button (click)="delete(postToDelete)" class="btn btn-danger">Yes, Delete</button>
-      <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
+      <p><strong>Career Level:</strong> {{ post.careerLevel }}</p>
+      <p><strong>Workplace:</strong> {{ post.workplace }}</p>
+      <p><strong>Description:</strong> {{ post.jobDescription }}</p>
+      <button (click)="confirmDelete(post.id)" class="btn btn-danger">Delete</button>
+      <button (click)="edit(post.id)" class="btn btn-primary">Edit</button>
+      <button (click)="viewApplications(post.id)" class="btn btn-secondary">View Applications</button>
     </div>
   </div>
-</div>
-</div>
+  
+  <!-- Applications Popup -->
+  <div *ngIf="showApplicationsPopup" class="overlay">
+    <div class="popup">
+      <h3>Applications for Post: {{ selectedPost }}</h3>
+      <div *ngFor="let application of selectedPostApplications">
+        <p><strong>Applicant Email:</strong> {{ application.companyEmail }}</p>
+        <p><strong>Job Title:</strong> {{ application.jobTitle }}</p>
+        <p><strong>State:</strong> {{ application.state }}</p>
+        <button 
+          (click)="updateApplicationState(application, 'Accepted')" 
+          class="btn btn-success"
+          [disabled]="application.state === 'Accepted'">
+          Accept
+        </button>
+        <button 
+          (click)="updateApplicationState(application, 'Rejected')" 
+          class="btn btn-danger"
+          [disabled]="application.state === 'Rejected'">
+          Reject
+        </button>
+        <button (click)="viewApplicantCV(application)" class="btn btn-info">View CV</button>
+      </div>
+      <button (click)="closeApplicationsPopup()" class="btn btn-secondary">Close</button>
+    </div>
+  </div>
+  

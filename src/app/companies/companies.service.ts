@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject,lastValueFrom } from 'rxjs';
-import { Company, posts } from '../app.model';
+import { BehaviorSubject,lastValueFrom,Observable } from 'rxjs';
+import { Company, posts,ApplicationType } from '../app.model';
 import { tap } from 'rxjs/operators';
 
 
@@ -126,4 +126,19 @@ async getJobTitle(postId: number): Promise<string | undefined> {
     return undefined;
   }
 }
+// Method to get applications by post ID
+getApplicationsByPost(postId: number): Observable<ApplicationType[]> {
+  return this.http.get<ApplicationType[]>(`${this.apiUrl}/applications/${postId}`);
 }
+
+// Method to update application state
+updateApplicationState(application: ApplicationType): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/applications/updateState`, application);
+}
+
+// Optional: Add a method to get all applications for the current company
+getAllApplications(companyEmail: string): Observable<ApplicationType[]> {
+  return this.http.get<ApplicationType[]>(`${this.apiUrl}/applications/company/${companyEmail}`);
+}
+}
+

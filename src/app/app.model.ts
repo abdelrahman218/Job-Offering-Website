@@ -49,19 +49,7 @@ export type Company = {UserType:string,User:{
     description: string;
     Email: string,
     Password: string,
-    jobs: posts[];
 }}
-
-export type Job = {
-    id: string;
-    title: string;
-    careerLevel: CareerLevelType;
-    jobCategory: string;
-    workplace: WorkplaceType;
-    jobRequirements:string,
-    description: string;
-    companyId: string;
-};
 
 export type posts={
     id: number;
