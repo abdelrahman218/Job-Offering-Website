@@ -1,44 +1,69 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" />
 <div class="container mt-5">
   <h2>Job Posts</h2>
-  <div  *ngIf="jobPosts.length === 0">
-    <h1 class="text-center">No Posts Available...!</h1>
+
+  <!-- Display message if no posts are available -->
+  <div *ngIf="jobPosts.length === 0" class="text-center">
+    <h1>No Posts Available...!</h1>
   </div>
+
+  <!-- Iterate over job posts -->
   <div *ngFor="let post of jobPosts" class="card mb-3">
     <div class="card-body">
       <h5 class="card-title">{{ post.jobTitle }}</h5>
       <p><strong>Career Level:</strong> {{ post.careerLevel }}</p>
       <p><strong>Workplace:</strong> {{ post.workplace }}</p>
       <p><strong>Description:</strong> {{ post.jobDescription }}</p>
-      <button (click)="confirmDelete(post.id)" class="btn btn-danger">Delete</button>
-      <button (click)="edit(post.id)" class="btn btn-primary">Edit</button>
-      <button (click)="viewApplications(post.id)" class="btn btn-secondary">View Applications</button>
+
+      <!-- Action Buttons -->
+      <div class="btn-group">
+        <button (click)="confirmDelete(post.id)" class="btn btn-danger">
+          <i class="zmdi zmdi-delete"></i> Delete
+        </button>
+        <button (click)="edit(post.id)" class="btn btn-primary">
+          <i class="zmdi zmdi-edit"></i> Edit
+        </button>
+        <button (click)="viewApplications(post.id)" class="btn btn-secondary">
+          <i class="zmdi zmdi-accounts"></i> View Applications
+        </button>
+      </div>
     </div>
   </div>
-  
+
   <!-- Applications Popup -->
   <div *ngIf="showApplicationsPopup" class="overlay">
     <div class="popup">
-      <h3>Applications for Post: {{ selectedPost }}</h3>
-      <div *ngFor="let application of selectedPostApplications">
-        <p><strong>Applicant Email:</strong> {{ application.companyEmail }}</p>
-        <p><strong>Job Title:</strong> {{ application.jobTitle }}</p>
-        <p><strong>State:</strong> {{ application.state }}</p>
-        <button 
-          (click)="updateApplicationState(application, 'Accepted')" 
-          class="btn btn-success"
-          [disabled]="application.state === 'Accepted'">
-          Accept
+
+      <!-- List applications dynamically -->
+      <div *ngFor="let application of selectedPostApplications" class="application-card">
+        <h3>Application by </h3>
+        <p><strong>Applicant:</strong> {{ application.Applicant }}</p>
+        <p><strong>State:</strong> {{ application.State }}</p>
+        <!-- Application Action Buttons -->
+        <div class="btn-group">
+          <button (click)="updateApplicationState(application, 'In Review', application?.Post)" class="btn btn-warning"
+            [disabled]="application.State === 'In Review'">
+            <i class="zmdi zmdi-hourglass-alt"></i> In Review
+          </button>
+          <button (click)="updateApplicationState(application, 'Accepted',application?.Post)" class="btn btn-success"
+            [disabled]="application.State === 'Accepted'">
+            <i class="zmdi zmdi-check"></i> Accept
+          </button>
+          <button (click)="updateApplicationState(application, 'Rejected',application?.Post)" class="btn btn-danger"
+            [disabled]="application.State === 'Rejected'">
+            <i class="zmdi zmdi-close"></i> Reject
+          </button>
+          <button (click)="viewApplicantCV(application)" class="btn btn-info">
+            <i class="zmdi zmdi-file"></i> View CV
+          </button>
+        </div>
+        <br>
+        <div *ngIf="selectedPostApplications.length>1">---------------------------</div>
+        <!-- Close Popup -->
+        <button (click)="closeApplicationsPopup()" class="btn btn-secondary">
+          <i class="zmdi zmdi-close-circle"></i> Close
         </button>
-        <button 
-          (click)="updateApplicationState(application, 'Rejected')" 
-          class="btn btn-danger"
-          [disabled]="application.state === 'Rejected'">
-          Reject
-        </button>
-        <button (click)="viewApplicantCV(application)" class="btn btn-info">View CV</button>
       </div>
-      <button (click)="closeApplicationsPopup()" class="btn btn-secondary">Close</button>
     </div>
   </div>
-  

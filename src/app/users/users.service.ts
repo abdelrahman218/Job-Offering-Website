@@ -72,7 +72,7 @@ export class UserService{
                 post: app.Post,
                 companyname: companyName,
                 companyEmail: app.Company,
-                state: app.State,
+                state: app.State
               });
             });
           },

@@ -50,6 +50,13 @@ export type Company = {UserType:string,User:{
     description: string;
     Password: string,
 }}
+export type Application = {
+    Post: Number,
+    Company:string,
+    State: ApplicationStateType,
+    Cv:string,
+    Applicant:string
+}
 
 export type posts={
     id: number;
@@ -63,7 +70,6 @@ export type posts={
     location:string;
     companyEmail:string;
     tags:string[];
-    companyEmail:string;
 }
 
 //Admin Datatype

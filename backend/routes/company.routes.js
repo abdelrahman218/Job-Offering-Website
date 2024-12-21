@@ -19,6 +19,6 @@ router.get('/getPostsByCompanyEmail/:companyEmail',companyController.getPostsByC
 router.get('/getPostById/:postId', companyController.getPostById);
 router.get('/getCompanies',companyController.getCompanies);
 router.get('/applications/:postId', companyController.getApplicationsByPost); 
-router.put('/applications/updateState', companyController.updateApplicationState); 
+router.put('/applications/updateState/:post', companyController.updateApplicationState); 
 router.get('/applications/company/:companyEmail', companyController.getApplicationsByCompanyEmail); 
 module.exports = router;

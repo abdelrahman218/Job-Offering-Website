@@ -1,5 +1,6 @@
 const Company = require('../models/Company.model'); 
 const Post = require('../models/posts.model'); 
+const Application=require('../models/Application.model');
 exports.getCompanies = async (req,res) =>{
   try {
     const companies = await Company.find();
@@ -172,25 +173,68 @@ exports.getPostById = async (req, res) => {
     }
   };
   exports.updateApplicationState = async (req, res) => {
-    const { Applicant, Post, State } = req.body;
-
     try {
+      // Log the full request body and parameters
+      console.log('Request body:', req.body);
+      console.log('Request params:', req.params);
+      console.log('Post parameter type:', typeof req.params.post);
+      
+      const { Applicant, Post, State } = req.body;
+      
+      // Log each value and its type
+      console.log('Parsed values:', {
+        Applicant: { value: Applicant, type: typeof Applicant },
+        Post: { value: Post, type: typeof Post },
+        State: { value: State, type: typeof State }
+      });
+  
+      // Find the application first to see if it exists
+      const existingApplication = await Application.findOne({ 
+        Applicant, 
+        Post 
+      });
+      
+      console.log('Existing application:', existingApplication);
+  
+      if (!existingApplication) {
+        console.log('Application not found with criteria:', { Applicant, Post });
+        return res.status(404).json({ 
+          message: 'Application not found',
+          searchCriteria: { Applicant, Post }
+        });
+      }
+  
+      // Proceed with update
       const application = await Application.findOneAndUpdate(
         { Applicant, Post },
         { State },
-        { new: true } // Return the updated document
+        { 
+          new: true,
+          runValidators: true
+        }
       );
-
-      if (!application) {
-        return res.status(404).json({ message: 'Application not found' });
-      }
-
-      res.status(200).json({ message: 'Application state updated successfully', application });
+  
+      console.log('Updated application:', application);
+  
+      res.status(200).json({ 
+        message: 'Application state updated successfully', 
+        application 
+      });
+      console.log("Updated successfully");
+  
     } catch (error) {
-      console.error('Error updating application state:', error);
-      res.status(500).json({ message: 'Failed to update application state', error: error.message });
+      console.error('Error updating application state:', {
+        error: error.message,
+        stack: error.stack
+      });
+      res.status(500).json({ 
+        message: 'Failed to update application state', 
+        error: error.message,
+        details: error.stack
+      });
     }
   };
+  
   exports.getApplicationsByCompanyEmail = async (req, res) => {
     const { companyEmail } = req.params;
 

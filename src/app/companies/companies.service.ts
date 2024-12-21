@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject,lastValueFrom,Observable } from 'rxjs';
-import { Company, posts,ApplicationType } from '../app.model';
+import { Company, posts,Application } from '../app.model';
 import { map,tap } from 'rxjs/operators';
 
 
@@ -152,18 +152,18 @@ async getJobTitle(postId: number): Promise<string | undefined> {
   }
 }
 // Method to get applications by post ID
-getApplicationsByPost(postId: number): Observable<ApplicationType[]> {
-  return this.http.get<ApplicationType[]>(`${this.apiUrl}/applications/${postId}`);
+getApplicationsByPost(postId: number): Observable<Application[]> {
+  return this.http.get<Application[]>(`${this.apiUrl}/applications/${postId}`);
 }
 
 // Method to update application state
-updateApplicationState(application: ApplicationType): Observable<void> {
-  return this.http.put<void>(`${this.apiUrl}/applications/updateState`, application);
+updateApplicationState(application: any,post:any): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/applications/updateState/${post}`, application);
 }
 
 // Optional: Add a method to get all applications for the current company
-getAllApplications(companyEmail: string): Observable<ApplicationType[]> {
-  return this.http.get<ApplicationType[]>(`${this.apiUrl}/applications/company/${companyEmail}`);
+getAllApplications(companyEmail: string): Observable<Application[]> {
+  return this.http.get<Application[]>(`${this.apiUrl}/applications/company/${companyEmail}`);
 }
 }
 
