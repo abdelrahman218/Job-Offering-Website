@@ -197,7 +197,18 @@ export class UserService{
           },
         }),
         catchError((error) => {
-          this.errorService.emitError("Application couldn't be withdrawn");
+          var errMessage=''
+          switch(error.status){
+            case 406:
+              errMessage='Application doesn\'t exist';
+              break;
+            case 500:
+              errMessage='Internal Server Error';
+              break;
+            default:
+              errMessage='Something Went Wrong'
+          }
+          this.errorService.emitError(errMessage);
           throw new Error("Couldn't withdraw application");
         })
       )
@@ -224,8 +235,19 @@ export class UserService{
             this.updateUserInLocalStorage();
           },
         }),
-        catchError(() => {
-          this.errorService.emitError("Skill couldn't be added");
+        catchError((error) => {
+          var errMessage=''
+          switch(error.status){
+            case 400:
+              errMessage='Skill already exists';
+              break;
+            case 406:
+              errMessage='Internal Server Error';
+              break;
+            default:
+              errMessage='Something Went Wrong'
+          }
+          this.errorService.emitError(errMessage);
           throw new Error("Couldn't add skill");
         })
       )
@@ -250,8 +272,19 @@ export class UserService{
             this.updateUserInLocalStorage();
           },
         }),
-        catchError(() => {
-          this.errorService.emitError("Skill couldn't be added");
+        catchError((error) => {
+          var errMessage=''
+          switch(error.status){
+            case 400:
+              errMessage='Skill doesn\'t exist';
+              break;
+            case 406:
+              errMessage='Internal Server Error';
+              break;
+            default:
+              errMessage='Something Went Wrong'
+          }
+          this.errorService.emitError(errMessage);
           throw new Error("Couldn't delete skill");
         })
       )

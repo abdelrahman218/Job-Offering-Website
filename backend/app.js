@@ -8,9 +8,10 @@ const app = express();
 
 //Make server use cors middleware to bypass cors error so the front-end and back-end can be listening top different ports
 const cors = require('cors');
+const fileUpload=require("express-fileupload");
 app.use(cors());
-const DeleteRoutes = require('./routes/index.routes.js');
-app.use('/delete', DeleteRoutes);
+app.use(fileUpload());
+
 //Connecting to Database
 mongoose.connect(credentials.dbURL)
 .then(() => {
