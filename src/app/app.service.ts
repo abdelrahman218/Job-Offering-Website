@@ -50,9 +50,9 @@ export class AppService{
     this.userTypeSubject.next(null);
   }
     
-  login(userType: UserType,user: User){
+  login(userType: UserType,user: User, sessionId: string){
     this.userTypeSignal.set(userType);
-    this.userService.login(user);
+    this.userService.login(user, sessionId);
   }
   logout(){
     this.userTypeSignal.set(undefined);

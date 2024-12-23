@@ -40,7 +40,7 @@ export class HeaderComponent {
   }
   logout() {
     this.httpClientService
-      .get(this.userService.backendUrl.replace('user','logout'))
+      .get(this.userService.backendUrl.replace('user','logout'),this.userService.UserHttpHeader())
       .pipe(tap({
         complete: ()=>{
           this.appService.logout();
