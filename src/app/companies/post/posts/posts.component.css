@@ -27,8 +27,10 @@ font-weight: bold;
  margin-right: 80%; 
 }
 .btn-primary{
-  margin-top: 2%;
+  margin-left: 3%;
   background-color: #2f4156;
+  padding-right: 2%;
+  text-align: center;
 }
 .btn-primary:hover{
   transform: scale(1.1);
@@ -43,6 +45,7 @@ font-weight: bold;
 .btn-secondary{
   background-color: black;
   color: #ffffff;
+  margin-left: 58%;
 }
 .btn-secondary:hover{
   transform: scale(1.1);
@@ -105,7 +108,89 @@ font-weight: bold;
   background-color: white;
   padding: 20px;
   border-radius: 5px;
-  width: 500px;
+  width:fit-content;
+  height:fit-content ;
   text-align: center;
 }
+.popup .pagination button {
+  margin: 0 5px;
+}
 
+.popup .pagination button.active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+#fL p {
+  display: inline-flex;  
+  align-items: center;
+  margin-right: 20px;
+}
+
+#fL p strong, #fL p i {
+  margin-right: 5px;
+}
+
+#fL strong {
+ font-size:19px ;
+}
+.card-title{
+  font-size:21px ;
+}
+strong {
+  font-size:19px ;
+}
+.zmdi-case,
+.zmdi-layers
+,.zmdi-city-alt
+,.zmdi-file-text
+,.zmdi-label
+,.zmdi-check-square{
+margin-right: 0.5%;
+font-size: 16px;
+}
+.tag {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 100%; 
+  background-color: #f0f0f0; 
+  color: #000000; 
+  text-align: center;
+  font-size: 13px; 
+  border: 2px solid#ccc; 
+}
+
+.box p {
+  display: inline-flex;
+  gap: 10px; 
+}
+.zmdi-label{
+  margin-top: 8%;
+}
+.btn-danger:hover{
+  transform: scale(1.1);
+  transition: transform 0.5s ease;
+}
+.popup2 {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  text-align: center;
+}
+.overlay2{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.popup2.hidden {
+  display: none;
+}

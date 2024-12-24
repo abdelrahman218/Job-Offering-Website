@@ -161,7 +161,7 @@ updateApplicationState(application: any,post:any): Observable<void> {
   return this.http.put<void>(`${this.apiUrl}/applications/updateState/${post}`, application);
 }
 
-// Optional: Add a method to get all applications for the current company
+//Method to get all applications for the current company
 getAllApplications(companyEmail: string): Observable<Application[]> {
   return this.http.get<Application[]>(`${this.apiUrl}/applications/company/${companyEmail}`);
 }
