@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompaniesService } from '../../companies.service';
 import { CommonModule } from '@angular/common';
-import { posts, Application, ApplicationStateType } from '../../../app.model';
+import { posts, Application, ApplicationStateType,Company } from '../../../app.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class PostsComponent implements OnInit {
   jobPosts: posts[] = [];
+  companies?:Company;
   selectedPostApplications: Application[] = [];
   showDeleteConfirmation = false;
   showApplicationsPopup = false;
@@ -25,11 +26,25 @@ export class PostsComponent implements OnInit {
   constructor(private companyService: CompaniesService, private router: Router) { }
 
   async ngOnInit(): Promise<void> {
-    this.companyService.jobPosts$.subscribe(posts => {
-      this.jobPosts = posts;
-    });
+    this.companies={UserType:this.companyService.getCurrentCompany().UserType,User:{
+      id:this.companyService.getCurrentCompany().User.id,
+      Email:this.companyService.getCurrentCompany().User.Email,
+      name:this.companyService.getCurrentCompany().User.name,
+      industry:this.companyService.getCurrentCompany().User.name,
+      location:this.companyService.getCurrentCompany().User.location,
+      description:this.companyService.getCurrentCompany().User.description,
+      Password:this.companyService.getCurrentCompany().User.Password,
+      logo:this.companyService.getCurrentCompany().User.logo
+    }};
     const companyEmail = this.companyService.getCurrentCompany().User.Email;
     console.log(companyEmail);
+    this.companyService.getPosts(companyEmail);
+
+    // Subscribe to jobPosts$ to get the data when it changes
+    this.companyService.jobPosts$.subscribe(posts => {
+      this.jobPosts = posts; // Assign the fetched posts to jobPosts
+    });
+  
     this.companyService.getPosts(companyEmail);
   }
 
@@ -167,4 +182,7 @@ export class PostsComponent implements OnInit {
   viewApplicantCV(application: Application) {
     this.router.navigate(['company/application/cv', application.Post]);
   }
+  get hasNoPostsForCurrentCompany(): boolean {
+    return this.jobPosts?.length === 0 || !this.jobPosts.some(post => post.companyEmail === this.companies?.User?.Email);
+  }  
 }

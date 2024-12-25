@@ -13,7 +13,7 @@ export class CompaniesService {
   public CompaniesSubject = new BehaviorSubject<Company[]>([]);
   public Companies$ = this.CompaniesSubject.asObservable();
   public jobPosts$ = this.jobPostsSubject.asObservable();
-  private apiUrl = 'http://localhost:8080/company';
+  public apiUrl = 'http://localhost:8080/company';
 
   constructor(private http: HttpClient) {
    

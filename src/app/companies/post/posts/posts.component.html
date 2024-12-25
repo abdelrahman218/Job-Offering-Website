@@ -4,11 +4,12 @@
   <h1>Job Posts</h1>
 
   <!-- Display message if no posts are available -->
-  <div *ngIf="jobPosts.length === 0" class="text-center">
+  <div *ngIf="hasNoPostsForCurrentCompany" class="text-center">
     <h1>No Posts Available...!</h1>
   </div>
 
   <!-- Iterate over job posts -->
+  <div *ngIf="!hasNoPostsForCurrentCompany">
   <div *ngFor="let post of jobPosts" class="card mb-3">
     <div class="card-body">
       <h5 class="card-title"><i class="zmdi zmdi-case"></i> {{ post.jobTitle }}</h5>
@@ -109,3 +110,4 @@
         </div>
       </div>
     </div>
+  </div>
