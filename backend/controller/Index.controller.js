@@ -1,17 +1,18 @@
 const UserModel = require('../models/User.model')
-const companyModel=require('../models/Company.model')
+const companyModel=require('../models/Company.model');
+const sessions=require('./session.controller');
 function login(req, res) {
   var query = { Email: req.body.Email, Password: req.body.Password };
-  let companyPromise=companyModel.findOne(query);
+  let companyPromise= companyModel.findOne(query);
   let userPromise = UserModel.findOne(query);
-  Promise.all([userPromise ,companyPromise])
+  Promise.all([companyPromise, userPromise])
     .then(results => {
-      let userResult = results[0];
-      let companyResult=results[1];
+      let companyResult=results[0];
+      let userResult = results[1];
       if (userResult != null) {
         userResult.Password='';
-        req.session.role = 'User';
-        res.status(200).send({UserType: 'User',User: userResult});
+        sessions.openSessions.push({SessionID: req.sessionID, Role: 'User'});
+        res.status(200).send({UserType: 'User',User: userResult, SessionID: req.sessionID});
       }else if(companyResult!=null){
         companyResult.Password='';
         req.session.user=companyResult;
@@ -31,6 +32,7 @@ function login(req, res) {
 function logout(req, res){
   req.session.user = undefined;
   req.session.role = undefined;
+  sessions.removeSession(req.headers.sessionid);
   res.status(200).send();
 }
 function signup(req, res) {

@@ -1,5 +1,5 @@
 //Angular Imports
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
 
@@ -8,20 +8,26 @@ import { ErrorService } from '../error/error.service';
 import { CompaniesService } from '../companies/companies.service';
 
 //Models
-import {ApplicationType, EditProfileData, User, type ApplicationStateType} from '../app.model';
+import {
+  ApplicationType,
+  EditProfileData,
+  User,
+  type ApplicationStateType,
+} from '../app.model';
 
 @Injectable({
   providedIn: 'root',
 })
-
-export class UserService{
+export class UserService {
   //Dependency Injection
   private httpClientService = inject(HttpClient);
   private errorService = inject(ErrorService);
   private companyService = inject(CompaniesService);
-  
+
   //Private Attributes
-  private stateSignal = signal<'Editing Profile' | 'Adding Skill' | 'None'>('None');
+  private stateSignal = signal<'Editing Profile' | 'Adding Skill' | 'None'>(
+    'None'
+  );
   private userSignal = signal<User>({
     name: '',
     professionalTitle: '',
@@ -30,18 +36,25 @@ export class UserService{
     username: '',
   });
   private applicationSignal = signal<ApplicationType[]>([]);
-  
+  private sessionId = signal<string>('');
+
   //Read only Signal Public access
-  readonly backendUrl='http://localhost:8080/user/';
+  readonly backendUrl = 'http://localhost:8080/user/';
+  readonly UserHttpHeader = computed<{ headers: { [header: string]: string } }>(
+    () => {
+      return { headers: { ['SessionID']: this.sessionId() } };
+    }
+  );
+
   user = this.userSignal.asReadonly();
   applications = this.applicationSignal.asReadonly();
   state = this.stateSignal.asReadonly();
 
   //Private Methods
-  private updateUserInLocalStorage(){
+  private updateUserInLocalStorage() {
     localStorage.setItem('user', JSON.stringify(this.userSignal()));
   }
-  
+
   private isTheSame(edited: EditProfileData, original: EditProfileData) {
     if (
       edited.Name === original.Name &&
@@ -51,21 +64,26 @@ export class UserService{
     }
     return false;
   }
-  
+
   private filterAccordingToAppState(state: ApplicationStateType) {
     return this.applications().filter((app) => app.state === state).length;
   }
-  
+
   private getApps(userEmail: string) {
     var apps: ApplicationType[] = [];
     this.httpClientService
-      .get(this.backendUrl+'getApplications?email=' + userEmail)
+      .get(
+        this.backendUrl + 'getApplications?email=' + userEmail,
+        this.UserHttpHeader()
+      )
       .pipe(
         tap({
           next: (res: any) => {
-            let temp = res.Apps; 
+            let temp = res.Apps;
             temp.forEach(async (app: any) => {
-              let companyName = await this.companyService.getCompanyName(app.Company);
+              let companyName = await this.companyService.getCompanyName(
+                app.Company
+              );
               let jobTitle = await this.companyService.getJobTitle(app.Post);
               apps.push({
                 jobTitle: jobTitle,
@@ -83,9 +101,10 @@ export class UserService{
   }
 
   //Public Methods
-  login(user: User) {
+  login(user: User, sessionId: string) {
     this.userSignal.set(user);
     this.updateUserInLocalStorage();
+    this.sessionId.set(sessionId);
     this.applicationSignal.set(this.getApps(user.username));
   }
 
@@ -98,6 +117,8 @@ export class UserService{
       username: '',
     });
     this.updateUserInLocalStorage();
+    this.sessionId.set('');
+    localStorage.removeItem('sessionId');
     this.applicationSignal.set([]);
   }
 
@@ -116,19 +137,21 @@ export class UserService{
   getNumAppRejected() {
     return this.filterAccordingToAppState('Rejected');
   }
-  
-  editProfileTab(){
+
+  editProfileTab() {
     this.stateSignal.set('Editing Profile');
   }
-  
+
   editProfile(edited: EditProfileData, original: EditProfileData) {
     if (edited.PhotoFile) {
       const formData = new FormData();
       formData.append('Email', this.user().username);
       formData.append('Photo', edited.PhotoFile);
       this.httpClientService
-        .post(this.backendUrl+'editProfilePhoto', 
-          formData
+        .post(
+          this.backendUrl + 'editProfilePhoto',
+          formData,
+          this.UserHttpHeader()
         )
         .pipe(
           tap({
@@ -154,12 +177,16 @@ export class UserService{
     }
     if (!this.isTheSame(edited, original) || edited.Password) {
       this.httpClientService
-        .post(this.backendUrl+'editProfile', {
-          Email: this.user().username,
-          Name: edited.Name,
-          ProfessionalTitle: edited.ProfessionalTitle,
-          Password: edited.Password,
-        })
+        .post(
+          this.backendUrl + 'editProfile',
+          {
+            Email: this.user().username,
+            Name: edited.Name,
+            ProfessionalTitle: edited.ProfessionalTitle,
+            Password: edited.Password,
+          },
+          this.UserHttpHeader()
+        )
         .pipe(
           tap({
             complete: () => {
@@ -181,13 +208,17 @@ export class UserService{
         .subscribe();
     }
   }
-  
+
   withdrawApp(appPost: string) {
     this.httpClientService
-      .post(this.backendUrl+'removeApplication', {
-        Email: this.user().username,
-        Post: appPost,
-      })
+      .post(
+        this.backendUrl + 'removeApplication',
+        {
+          Email: this.user().username,
+          Post: appPost,
+        },
+        this.UserHttpHeader()
+      )
       .pipe(
         tap({
           complete: () => {
@@ -197,16 +228,16 @@ export class UserService{
           },
         }),
         catchError((error) => {
-          var errMessage=''
-          switch(error.status){
+          var errMessage = '';
+          switch (error.status) {
             case 406:
-              errMessage='Application doesn\'t exist';
+              errMessage = "Application doesn't exist";
               break;
             case 500:
-              errMessage='Internal Server Error';
+              errMessage = 'Internal Server Error';
               break;
             default:
-              errMessage='Something Went Wrong'
+              errMessage = 'Something Went Wrong';
           }
           this.errorService.emitError(errMessage);
           throw new Error("Couldn't withdraw application");
@@ -218,13 +249,17 @@ export class UserService{
   addSkillTab() {
     this.stateSignal.set('Adding Skill');
   }
-  
+
   addSkill(skill: string) {
     this.httpClientService
-      .post(this.backendUrl+'addSkill', {
-        Email: this.user().username,
-        Skill: skill,
-      })
+      .post(
+        this.backendUrl + 'addSkill',
+        {
+          Email: this.user().username,
+          Skill: skill,
+        },
+        this.UserHttpHeader()
+      )
       .pipe(
         tap({
           complete: () => {
@@ -236,16 +271,16 @@ export class UserService{
           },
         }),
         catchError((error) => {
-          var errMessage=''
-          switch(error.status){
+          var errMessage = '';
+          switch (error.status) {
             case 400:
-              errMessage='Skill already exists';
+              errMessage = 'Skill already exists';
               break;
             case 406:
-              errMessage='Internal Server Error';
+              errMessage = 'Internal Server Error';
               break;
             default:
-              errMessage='Something Went Wrong'
+              errMessage = 'Something Went Wrong';
           }
           this.errorService.emitError(errMessage);
           throw new Error("Couldn't add skill");
@@ -256,10 +291,14 @@ export class UserService{
 
   removeSkill(skill: string) {
     this.httpClientService
-      .post(this.backendUrl+'removeSkill', {
-        Email: this.user().username,
-        Skill: skill,
-      })
+      .post(
+        this.backendUrl + 'removeSkill',
+        {
+          Email: this.user().username,
+          Skill: skill,
+        },
+        this.UserHttpHeader()
+      )
       .pipe(
         tap({
           complete: () => {
@@ -273,16 +312,16 @@ export class UserService{
           },
         }),
         catchError((error) => {
-          var errMessage=''
-          switch(error.status){
+          var errMessage = '';
+          switch (error.status) {
             case 400:
-              errMessage='Skill doesn\'t exist';
+              errMessage = "Skill doesn't exist";
               break;
             case 406:
-              errMessage='Internal Server Error';
+              errMessage = 'Internal Server Error';
               break;
             default:
-              errMessage='Something Went Wrong'
+              errMessage = 'Something Went Wrong';
           }
           this.errorService.emitError(errMessage);
           throw new Error("Couldn't delete skill");
@@ -290,7 +329,7 @@ export class UserService{
       )
       .subscribe();
   }
-  
+
   closeTab() {
     this.stateSignal.set('None');
   }
