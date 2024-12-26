@@ -37,7 +37,7 @@
             </div>
             <div class="radio">
                 <input formControlName="careerLevel" id="rd2" type="radio" name="careerLevel" value="Senior">
-                <label id="lb" for="rd5">Senior Management</label>
+                <label id="lb" for="rd5">Senior</label>
             </div>
             <div *ngIf="postForm.get('careerLevel')?.invalid && postForm.get('careerLevel')?.touched">
                 <small class="text-danger">Career Level is required.</small>
@@ -99,12 +99,13 @@
             </div>
         </div>
         <div>
-            <label id="lab">
-                <h4 id="ta">Tags:</h4>
-            </label>
-            <button type="button" id="add" (click)="Show()" >Add Tag</button>
-
-            <ul>
+            <div class="d-flex align-items-center gap-3">
+                <label id="lab" class="mb-0"> 
+                    <h4 id="ta" class="mb-0">Tags:</h4> 
+                </label> 
+                <button type="button" class="btn btn-primary" id="add" (click)="Show()">Add Tag</button>
+            </div>
+            <ul class="ul">
                 <li *ngFor="let tag of tags.controls; let i = index">
                     {{ tag.value }}
                     <a type="button" id="rem" (click)="removeTag(i)">remove</a>
@@ -121,7 +122,7 @@
             <div class="popup-actions">
                 <input #tagInput type="text" id="pl" class="form-control" placeholder="Add a tag" />
             </div>
-            <button type="button" id="add" (click)="addTag(tagInput.value); tagInput.value = ''">Add Tag</button>
+            <button type="button" class="add btn-primary" id="add" (click)="addTag(tagInput.value); tagInput.value = ''">Add Tag</button>
         </div>
     </div>
 </form>

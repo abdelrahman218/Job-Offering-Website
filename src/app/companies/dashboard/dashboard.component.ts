@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
       id:this.companiesService.getCurrentCompany().User.id,
       Email:this.companiesService.getCurrentCompany().User.Email,
       name:this.companiesService.getCurrentCompany().User.name,
-      industry:this.companiesService.getCurrentCompany().User.name,
+      industry:this.companiesService.getCurrentCompany().User.industry,
       location:this.companiesService.getCurrentCompany().User.location,
       description:this.companiesService.getCurrentCompany().User.description,
       Password:this.companiesService.getCurrentCompany().User.Password,
@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
     }
 
     };
+    console.log(this.companies);
   }
 
   ngAfterViewInit(): void {

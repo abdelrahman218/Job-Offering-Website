@@ -3,12 +3,12 @@
     integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 
 <body>
-    <div class="company-card">
+    <div class="company-card" id="comp-card">
         <div class="company-header">
             <h3>{{ companies.User.name }}</h3>
         </div>
         <div class="compImage">
-            <img style="width: 361px;  border-radius: 3%;" [src]="companylogoPath" alt="Company Logo">
+            <img style="width: 361px;  border-radius: 3%;" [src]="companylogoPath" alt="Company Logo" class="imagecomp">
         </div>
         <div class="company-details">
             <p><strong>Industry:</strong> {{ companies.User.industry }}</p>
@@ -17,13 +17,14 @@
         </div>
     </div>
 
-    <div class="container ">
-        <a routerLink="/company/post/posts">
-            <h1 class="fixed-link text-center">View Posts Details </h1>
-        </a>
-        <div *ngIf="!hasNoPostsForCurrentCompany">
+    <div class="container">
+        <div *ngIf="hasNoPostsForCurrentCompany">
             <h1>No Posts Available....!</h1>
-
+        </div>
+        <div *ngIf="!hasNoPostsForCurrentCompany">
+            <a routerLink="/company/post/posts">
+                <h1 class="fixed-link text-center">View Posts Details </h1>
+            </a>
             <div class="d-flex row positions ">
 
                 <div *ngFor="let post of jobPosts" class=" card col-md-4 mb-3">
