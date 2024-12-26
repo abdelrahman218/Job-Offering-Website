@@ -15,15 +15,15 @@ import { AppService } from '../../app.service';
 })
 
 export class DropDownComponent {
-  private appService=inject(AppService);
   private userService=inject(UserService);
   OnSelect=output<void>();
+  OnLogOut=output<void>();
   editProfile(){
     this.OnSelect.emit();
     this.userService.editProfileTab();
   }
   logout(){
     this.OnSelect.emit();
-    this.appService.logout();
+    this.OnLogOut.emit();
   }
 }

@@ -39,7 +39,7 @@ export class AppComponent implements OnInit{
       this.appService.userTypeSignal.set("Company");
     }
     if(user&&userType){
-      this.appService.login(userType,user);
+      this.appService.login(userType,user,localStorage.getItem('sessionId')||'');
     }   
   }
 }

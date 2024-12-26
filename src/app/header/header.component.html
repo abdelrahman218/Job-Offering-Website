@@ -38,5 +38,5 @@
 }
 
 @if(isDropDown){
-    <app-drop-down (OnSelect)="toggleDropDownMenu()"/>
+    <app-drop-down (OnSelect)="toggleDropDownMenu()" (OnLogOut)="logout()"/>
 }

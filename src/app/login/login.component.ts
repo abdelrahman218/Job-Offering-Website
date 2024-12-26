@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, tap,EMPTY,throwError,switchMap } from 'rxjs';
+import { catchError, map, tap,throwError } from 'rxjs';
 
 //Services
 import { AppService } from '../app.service';
@@ -11,8 +11,6 @@ import { UserService } from '../users/users.service';
 import { CompaniesService } from '../companies/companies.service';
 import { ErrorService } from '../error/error.service';
 
-//Models
-import {type User, type UserType } from '../app.model';
 
 @Component({
   selector: 'app-login',
@@ -36,31 +34,16 @@ export class LoginComponent {
   password!: string;
 
   login() {
-    // Try Company Login First
-    this.companiesService.login({
+    this.httpClientService.post(this.userService.backendUrl.replace('user','login'), {
       Email: this.username,
-      Password: this.password
-    }).pipe(
-      switchMap((companyResponse: any) => {
-        if (companyResponse.UserType === 'Company') {
-          // Company login successful
-          this.appService.setUserType('Company');
-          this.appService.userTypeSignal.set("Company");
-          localStorage.setItem('userType', 'Company');
-          localStorage.setItem('company', JSON.stringify(companyResponse));
-          this.router.navigate(['/company/dashboard']);
-          return EMPTY; // Stop further processing
-        }
-        // If not a company, proceed to user login
-        return this.httpClientService.post(this.userService.backendUrl.replace('user','login'), {
-          Email: this.username,
-          Password: this.password,
-        });
-      }),
+      Password: this.password,
+    })
+    .pipe(
       map((res: any) => {
         // Process user details
+        var user: any=res;
         if (res.UserType === 'User') {
-          let user: User & { UserType: UserType } = {
+          user= {
             photo: res.User.ProfilePic,
             name: res.User.Name,
             professionalTitle: res.User.ProfessionalTitle,
@@ -68,6 +51,7 @@ export class LoginComponent {
             username: res.User.Email,
             UserType: 'User'
           };
+          localStorage.setItem('sessionId',res.SessionID);
           localStorage.setItem('user',JSON.stringify({
             photo: res.photo,
             name: res.name,
@@ -75,26 +59,35 @@ export class LoginComponent {
             skills: res.skills,
             username: res.username
           }));
-          return user;
         }
-        throw new Error('Invalid User Type');
+        return {user, SessionID: res.SessionID};
       }),
-      tap((user) => {
-        // Store user details
-        this.appService.login(user.UserType, {
-          photo: user.photo,
-          name: user.name,
-          professionalTitle: user.professionalTitle,
-          skills: user.skills,
-          username: user.username
-        });
+      tap((res) => {
+        // Store Login user details
+        if(res.user.UserType==='User'){
+          this.appService.login(res.user.UserType, {
+            photo: res.user.photo,
+            name: res.user.name,
+            professionalTitle: res.user.professionalTitle,
+            skills: res.user.skills,
+            username: res.user.username
+          },res.SessionID);
+        }
+        else if(res.user.UserType==='Company'){
+          localStorage.setItem('company', JSON.stringify(res.user));
+          this.appService.setUserType('Company');
+          this.appService.userTypeSignal.set("Company");
+        }
         
-        localStorage.setItem('userType', user.UserType);
+        localStorage.setItem('userType', res.user.UserType);
       }),
-      tap((user) => {
+      tap((res) => {
         // Navigate based on user type
-        if (user.UserType === 'User') {
+        if (res.user.UserType === 'User') {
           this.router.navigate(['/user']);
+        }
+        else if(res.user.UserType==='Company'){
+          this.router.navigate(['/company/dashboard']);
         }
       }),
       catchError((error) => {
