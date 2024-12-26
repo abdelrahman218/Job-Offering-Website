@@ -141,7 +141,6 @@ export class UserService {
   editProfileTab() {
     this.stateSignal.set('Editing Profile');
   }
-
   editProfile(edited: EditProfileData, original: EditProfileData) {
     if (edited.PhotoFile) {
       const formData = new FormData();
@@ -209,6 +208,22 @@ export class UserService {
     }
   }
 
+  submitCV(cv: File,postID:string,companyEmail:string) {
+    if (cv) {
+      const formData = new FormData();
+      formData.append('Email', this.user().username);
+      formData.append('CV', cv);
+      formData.append('PostID',postID);
+      formData.append('CompanyEmail',companyEmail);
+      this.httpClientService
+        .post(
+          this.backendUrl + 'submitCV',
+          formData,
+          this.UserHttpHeader()
+        )
+        .subscribe();
+    }
+  }
   withdrawApp(appPost: string) {
     this.httpClientService
       .post(
@@ -332,5 +347,15 @@ export class UserService {
 
   closeTab() {
     this.stateSignal.set('None');
+  }
+  getApplied() {
+    var arr:any=[];
+    this.httpClientService.get(this.backendUrl + 'getAppliedJobs?Email=' + this.user().username, this.UserHttpHeader()).pipe(tap({
+      next: (res:any) => {
+        arr.push(res.Posts);
+      }
+    })).subscribe();
+    console.log(arr);
+    return arr;
   }
 }
