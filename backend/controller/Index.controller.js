@@ -14,6 +14,11 @@ function login(req, res) {
         sessions.openSessions.push({SessionID: req.sessionID, Role: 'User'});
         res.status(200).send({UserType: 'User',User: userResult, SessionID: req.sessionID});
       }else if(companyResult!=null){
+        if (companyResult.status === 'pending') {
+          return res.status(403).send('Your company registration is pending approval.');
+        } else if (companyResult.status === 'rejected') {
+          return res.status(403).send('Your company registration has been rejected.');
+        }
         companyResult.Password='';
         req.session.user=companyResult;
         req.session.role='Company';

@@ -165,5 +165,9 @@ updateApplicationState(application: any,post:any): Observable<void> {
 getAllApplications(companyEmail: string): Observable<Application[]> {
   return this.http.get<Application[]>(`${this.apiUrl}/applications/company/${companyEmail}`);
 }
+// Add new method for company registration
+registerCompany(companyData: FormData): Observable<any> {
+  return this.http.post(`${this.apiUrl}/register`, companyData);
+}
 }
 

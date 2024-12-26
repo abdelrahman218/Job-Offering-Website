@@ -99,6 +99,9 @@ export class LoginComponent {
           case 500:
             errMessage='Internal Server Error';
             break;
+            case 403:
+              errMessage = 'Registration is pending or has been rejected.';
+              break;
           default:
             errMessage='Something Went Wrong'
         }

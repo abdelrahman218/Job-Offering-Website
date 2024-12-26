@@ -21,4 +21,5 @@ router.get('/getCompanies',companyController.getCompanies);
 router.get('/applications/:postId', companyController.getApplicationsByPost); 
 router.put('/applications/updateState/:post', companyController.updateApplicationState); 
 router.get('/applications/company/:companyEmail', companyController.getApplicationsByCompanyEmail); 
+router.post('/register', companyController.registerCompany);
 module.exports = router;

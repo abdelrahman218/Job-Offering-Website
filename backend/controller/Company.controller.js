@@ -250,4 +250,43 @@ exports.getPostById = async (req, res) => {
       res.status(500).json({ message: 'Failed to fetch applications', error: error.message });
     }
   };
-
+  exports.registerCompany = async (req, res) => {
+    try {
+      // Check if company with email already exists
+      const existingCompany = await Company.findOne({ Email: req.body.Email });
+      if (existingCompany) {
+        return res.status(400).json({ message: 'Company with this email already exists' });
+      }
+  
+      // Create new company in a pending state
+      const newCompany = new Company({
+        name: req.body.name,
+        Email: req.body.Email,
+        Password: req.body.Password,
+        industry: req.body.industry,
+        location: req.body.location,
+        description: req.body.description || '',
+        logo: req.body.logo || '',
+        status: 'pending' 
+      });
+  
+      // Save the company
+      await newCompany.save();
+      
+      res.status(201).json({ 
+        message: 'Company registration is pending approval. The admin will review it shortly.',
+        company: {
+          name: newCompany.name,
+          Email: newCompany.Email,
+          industry: newCompany.industry,
+          location: newCompany.location
+        }
+      });
+    } catch (error) {
+      console.error('Registration error:', error);
+      res.status(500).json({ 
+        message: 'Failed to register company', 
+        error: error.message 
+      });
+    }
+  };

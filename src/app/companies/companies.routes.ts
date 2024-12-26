@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { PostComponent } from './post/post.component';
 import { PostsComponent } from './post/posts/posts.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {CompanyRegistrationComponent} from './company-registration/company-registration.component' ;
 export const companyRoutes: Routes =[{
     path: 'post',
     component: PostComponent,
