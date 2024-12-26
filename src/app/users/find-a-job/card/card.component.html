@@ -26,13 +26,16 @@
         <div></div>
         @if (userType===undefined) {
             <button class="apply-btn" (click)="login()">Login to Apply</button>
-        }@else{
+        }@else if (!isAppliedBefore()) {
             <button class="apply-btn" type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#modal-' + post.id">Apply Now</button>
+        }@else {
+            <button class="apply-btn" type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#modal-' + post.id" disabled>Already Applied</button>
         }
         
     </div>
 </div>
 <div class="bootstrap-scope">
+    <form (ngSubmit)="submitCV()">
     <div class="modal fade" [id]="'modal-' + post.id" tabindex="-1" [attr.aria-labelledby]="'modalLabel-' + post.id" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -44,15 +47,16 @@
                     <h5>Job Requirements:</h5>
                     <p class="xyz">{{post.jobRequirements}}</p>
                     <label for="cv">Attach your CV</label><br>
-                    <input type="file" name="cv" id="cv" required>
+                    <input type="file" name="submittedCV" id="cv" required (change)="selectCV($event)">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary hhh" data-bs-dismiss="modal">Save changes</button>
+                    <button type="submit" class="btn btn-primary hhh" data-bs-dismiss="modal">Submit</button>
                 </div>
             </div>
         </div>
     </div>
+    </form>
 </div>
 
 <!-- Bootstrap JS (end of body) -->
