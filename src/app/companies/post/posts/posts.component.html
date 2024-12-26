@@ -1,29 +1,113 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" />
 <div class="container mt-5">
-  <h2>Job Posts</h2>
-  <div  *ngIf="jobPosts.length === 0">
-    <h1 class="text-center">No Posts Available...!</h1>
-  </div>
-  <div  *ngFor="let post of jobPosts" class="card mb-3">
-    <div class="card-body">
-      <h5 class="card-title">{{ post.jobTitle }}</h5>
-      <p class="card-text2"><strong>Career Level:</strong> {{ post.careerLevel }}<strong>Job Category:</strong> {{ post.jobCategory }}<i class="zmdi zmdi-pin mr-2"></i><strong>Workplace:</strong> {{ post.workplace }}
+  <h1>Job Posts</h1>
 
-      <p class="card-text" id="p1" ><strong>Description:</strong> {{ post.jobDescription }}</p>
-      <p class="card-text" id="p2" ><strong>Requirements:</strong> {{ post.jobRequirements }}</p>
-      <p class="card-text" id="p2" ><strong>Tags:</strong> {{ post.tags }}</p>
-      <button (click)="confirmDelete(post.id)" class="btn btn-primary">Delete</button> <button (click)="edit(post.id)" class="btn btn-primary">Edit Post</button>
-    </div>
-    
+  <!-- Display message if no posts are available -->
+  <div *ngIf="hasNoPostsForCurrentCompany" class="text-center">
+    <h1>No Posts Available...!</h1>
   </div>
-  <!-- Confirmation Popup -->
-<div *ngIf="showDeleteConfirmation" class="overlay">
-  <div class="popup">
-    <h3>Are you sure you want to delete this post?</h3>
-    <div class="popup-actions">
-      <button (click)="delete(postToDelete)" class="btn btn-danger">Yes, Delete</button>
-      <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
+
+  <!-- Iterate over job posts -->
+  <div *ngIf="!hasNoPostsForCurrentCompany">
+  <div *ngFor="let post of jobPosts" class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title"><i class="zmdi zmdi-case"></i> {{ post.jobTitle }}</h5>
+      <div id="fL">
+        <p><i class="zmdi zmdi-layers"></i> <strong>Career Level:</strong>{{ post.careerLevel }}</p>
+        <p><i class="zmdi zmdi-city-alt"></i> <strong>Workplace:</strong> {{ post.workplace }}</p>
+        <p><i class="zmdi zmdi-group"></i> <strong>Job Category:</strong> {{ post.jobCategory }}</p>
+      </div>
+      <p><i class="zmdi zmdi-file-text"></i> <strong>Description:</strong> {{ post.jobDescription }}</p>
+      <div class="box">
+        <p><i class="zmdi zmdi-label"></i> <strong>Tags:</strong></p> <span class="tag" *ngFor="let tag of post.tags">{{
+          tag }}</span>
+      </div>
+      <p><i class="zmdi zmdi-check-square"></i> <strong>Requirements:</strong> {{ post.jobRequirements }}</p>
+
+      <!-- Action Buttons -->
+      <button (click)="confirmDelete(post.id)" class="btn btn-danger">
+        <i class="zmdi zmdi-delete"></i> Delete
+      </button>
+      <button (click)="edit(post.id)" class="btn btn-primary">
+        <i class="zmdi zmdi-edit"></i> Edit
+      </button>
+      <button (click)="viewApplications(post.id)" class="btn btn-secondary">
+        <i class="zmdi zmdi-accounts"></i> View Applications
+      </button>
+    </div>
+    <!-- Overlay for No Applications Popup -->
+    <div *ngIf="showNoApplicationsPopup" class="overlay2">
+      <div class="popup2">
+        <p>No applications to show for this post.</p>
+      </div>
+    </div>
+    <!-- Applications Popup -->
+    <div *ngIf="showApplicationsPopup" class="overlay">
+      <div class="popup3">
+        <div class="pagination mt-3 text-center">
+          <button (click)="setCurrentApplicationPage(currentApplicationPage - 1)" class="btn btn-outline-primary mx-1"
+            [disabled]="currentApplicationPage === 0">
+            Previous
+          </button>
+
+          <ng-container *ngFor="let page of getVisiblePageNumbers()">
+            <ng-container *ngIf="!isNumber(page)">
+              <span class="mx-1">...</span>
+            </ng-container>
+
+            <button *ngIf="isNumber(page)" class="btn btn-outline-primary mx-1"
+              [class.active]="currentApplicationPage === getPageNumber(page)"
+              (click)="setCurrentApplicationPage(getPageNumber(page))">
+              {{ getPageNumber(page) + 1 }}
+            </button>
+          </ng-container>
+
+          <button (click)="setCurrentApplicationPage(currentApplicationPage + 1)" class="btn btn-outline-primary mx-1"
+            [disabled]="currentApplicationPage === totalPages - 1">
+            Next
+          </button>
+        </div>
+        <h3>Applications for Post</h3>
+        <!-- List applications dynamically for the current page -->
+        <div *ngFor="let application of getCurrentPageApplications()" class="application-card">
+          <p><strong>Applicant:</strong> {{ application.Applicant }}</p>
+          <p><strong>State:</strong> {{ application.State }}</p>
+
+          <!-- Application Action Buttons -->
+          <div id="gr">
+            <button (click)="updateApplicationState(application, 'In Review', application?.Post)"
+              class="btn btn-warning" [disabled]="application.State === 'In Review'">
+              <i class="zmdi zmdi-hourglass-alt"></i> In Review
+            </button>
+            <button (click)="updateApplicationState(application, 'Accepted', application?.Post)" class="btn btn-success"
+              [disabled]="application.State === 'Accepted'">
+              <i class="zmdi zmdi-check"></i> Accept
+            </button>
+            <button (click)="updateApplicationState(application, 'Rejected', application?.Post)" class="btn btn-danger"
+              [disabled]="application.State === 'Rejected'">
+              <i class="zmdi zmdi-close"></i> Reject
+            </button>
+            <button (click)="viewApplicantCV(application)" class="btn btn-info">
+              <i class="zmdi zmdi-file"></i> View CV
+            </button>
+          </div>
+
+        </div>
+        <!-- Close Popup -->
+        <button (click)="closeApplicationsPopup()" id="close" class="btn btn-secondary">
+          <i class="zmdi zmdi-close-circle"></i> Close
+        </button>
+      </div>
+    </div>
+    <!-- Confirmation Popup -->
+    <div *ngIf="showDeleteConfirmation" class="overlay">
+      <div class="popup">
+        <h3>Are you sure you want to delete this post?</h3>
+        <div class="popup-actions">
+          <button (click)="delete(postToDelete)" class="btn btn-danger">Yes, Delete</button>
+          <button (click)="cancelDelete()" class="btn btn-secondary">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>

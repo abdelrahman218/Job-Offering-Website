@@ -4,7 +4,6 @@ import { CompaniesService } from '../companies.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink,  Router } from '@angular/router';
 import { Company, posts } from '../../app.model';
-
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -21,7 +20,9 @@ export class DashboardComponent implements OnInit {
     document.getElementById("b1")!.style.display = "none";
   }
   constructor(private companiesService: CompaniesService, private router: Router) {}
- 
+  get companylogoPath(){
+    return this.companiesService.apiUrl+'/getLogo?email='+this.companiesService.getCurrentCompany().User.Email;
+  }
   ngOnInit() {
     this.companiesService.jobPosts$.subscribe(posts => {
       this.jobPosts = posts; 
@@ -36,8 +37,7 @@ export class DashboardComponent implements OnInit {
       location:this.companiesService.getCurrentCompany().User.location,
       description:this.companiesService.getCurrentCompany().User.description,
       Password:this.companiesService.getCurrentCompany().User.Password,
-      logo:this.companiesService.getCurrentCompany().User.logo,
-      jobs:[]
+      logo:this.companiesService.getCurrentCompany().User.logo
     }
 
     };
@@ -49,7 +49,9 @@ export class DashboardComponent implements OnInit {
       return new Dropdown(dropdownToggleEl);
     });
   }
-
+  get hasNoPostsForCurrentCompany(): boolean {
+    return this.jobPosts?.length === 0 || !this.jobPosts.some(post => post.companyEmail === this.companies?.User?.Email);
+  } 
   show() {
     this.router.navigate(['company/post']);
   }

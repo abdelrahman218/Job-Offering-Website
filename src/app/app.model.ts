@@ -49,19 +49,14 @@ export type Company = {UserType:string,User:{
     location: string;
     description: string;
     Password: string,
-    jobs: posts[];
 }}
-
-export type Job = {
-    id: string;
-    title: string;
-    careerLevel: CareerLevelType;
-    jobCategory: string;
-    workplace: WorkplaceType;
-    jobRequirements:string,
-    description: string;
-    companyId: string;
-};
+export type Application = {
+    Post: Number,
+    Company:string,
+    State: ApplicationStateType,
+    Cv:string,
+    Applicant:string
+}
 
 export type posts={
     id: number;
@@ -75,7 +70,6 @@ export type posts={
     location:string;
     companyEmail:string;
     tags:string[];
-    companyEmail:string;
 }
 
 //Admin Datatype

@@ -1,5 +1,6 @@
 const Company = require('../models/Company.model'); 
 const Post = require('../models/posts.model'); 
+const Application=require('../models/Application.model');
 exports.getCompanies = async (req,res) =>{
   try {
     const companies = await Company.find();
@@ -11,36 +12,36 @@ exports.getCompanies = async (req,res) =>{
 }
 //Get Posts
 exports.getPosts = async (req, res) => {
-    try {
-      const posts = await Post.find();
-      res.status(200).json(posts);
-    } catch (error) {
-      res.status(500).json({ message: 'Failed to fetch posts', error: error.message });
-    }
-  };
-  
-  // Add a new post
-  exports.addPost = async (req, res) => {
-     let  newPost = new Post({
-      id:Date.now(),
-      jobTitle:req.body.jobTitle,
-      careerLevel:req.body.careerLevel,
-      workplace:req.body.workplace,
-      jobCategory:req.body.jobCategory,
-      jobDescription:req.body.jobDescription,
-      jobRequirements:req.body.jobRequirements,
-      companyEmail:req.body.companyEmail,
-      tags:req.body.tags
-      });
-      console.log(newPost)
-       newPost.save().catch(err => {
-        console.log(err);
-      }); // Save to the database
-      res.status(201).json({ message: 'Post created successfully', post: newPost });
-    };
- 
-  
-  // Edit an existing post by numerical ID
+  try {
+    const posts = await Post.find();
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch posts', error: error.message });
+  }
+};
+
+// Add a new post
+exports.addPost = async (req, res) => {
+  let newPost = new Post({
+    id: Date.now(),
+    jobTitle: req.body.jobTitle,
+    careerLevel: req.body.careerLevel,
+    workplace: req.body.workplace,
+    jobCategory: req.body.jobCategory,
+    jobDescription: req.body.jobDescription,
+    jobRequirements: req.body.jobRequirements,
+    companyEmail: req.body.companyEmail,
+    tags: req.body.tags
+  });
+  console.log(newPost)
+  newPost.save().catch(err => {
+    console.log(err);
+  }); // Save to the database
+  res.status(201).json({ message: 'Post created successfully', post: newPost });
+};
+
+
+// Edit an existing post by numerical ID
 exports.editPost = async (req, res) => {
   const { postId } = req.params;
   const updates = req.body;
@@ -57,8 +58,8 @@ exports.editPost = async (req, res) => {
   }
 };
 
-  
-  // Delete a post by Id
+
+// Delete a post by Id
 exports.deletePost = async (req, res) => {
   const { postId } = req.params;
 
@@ -75,7 +76,7 @@ exports.deletePost = async (req, res) => {
   }
 };
 
-  // Get Posts by Company Email
+// Get Posts by Company Email
 exports.getPostsByCompanyEmail = async (req, res) => {
   const { companyEmail } = req.params;
 
@@ -127,7 +128,7 @@ exports.getCompanyLogo = async (req, res) => {
 
 // Get Job Title by Post ID
 exports.getJobTitle = async (req, res) => {
- const { postId } = req.params;
+  const { postId } = req.params;
 
   try {
     const post = await Post.findOne({ id: postId });
@@ -157,3 +158,96 @@ exports.getPostById = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+  exports.getApplicationsByPost = async (req, res) => {
+    const { postId } = req.params;
+
+    try {
+      const applications = await Application.find({ Post: postId });
+      if (!applications.length) {
+        return res.status(404).json({ message: 'No applications found for this post' });
+      }
+      res.status(200).json(applications);
+    } catch (error) {
+      console.error('Error fetching applications:', error);
+      res.status(500).json({ message: 'Failed to fetch applications', error: error.message });
+    }
+  };
+  exports.updateApplicationState = async (req, res) => {
+    try {
+      // Log the full request body and parameters
+      console.log('Request body:', req.body);
+      console.log('Request params:', req.params);
+      console.log('Post parameter type:', typeof req.params.post);
+      
+      const { Applicant, Post, State } = req.body;
+      
+      // Log each value and its type
+      console.log('Parsed values:', {
+        Applicant: { value: Applicant, type: typeof Applicant },
+        Post: { value: Post, type: typeof Post },
+        State: { value: State, type: typeof State }
+      });
+  
+      // Find the application first to see if it exists
+      const existingApplication = await Application.findOne({ 
+        Applicant, 
+        Post 
+      });
+      
+      console.log('Existing application:', existingApplication);
+  
+      if (!existingApplication) {
+        console.log('Application not found with criteria:', { Applicant, Post });
+        return res.status(404).json({ 
+          message: 'Application not found',
+          searchCriteria: { Applicant, Post }
+        });
+      }
+  
+      // Proceed with update
+      const application = await Application.findOneAndUpdate(
+        { Applicant, Post },
+        { State },
+        { 
+          new: true,
+          runValidators: true
+        }
+      );
+  
+      console.log('Updated application:', application);
+  
+      res.status(200).json({ 
+        message: 'Application state updated successfully', 
+        application 
+      });
+      console.log("Updated successfully");
+  
+    } catch (error) {
+      console.error('Error updating application state:', {
+        error: error.message,
+        stack: error.stack
+      });
+      res.status(500).json({ 
+        message: 'Failed to update application state', 
+        error: error.message,
+        details: error.stack
+      });
+    }
+  };
+  
+  exports.getApplicationsByCompanyEmail = async (req, res) => {
+    const { companyEmail } = req.params;
+
+    try {
+      const applications = await Application.find({ Company: companyEmail });
+      if (!applications.length) {
+        return res.status(404).json({ message: 'No applications found for this company' });
+      }
+
+      res.status(200).json(applications);
+    } catch (error) {
+      console.error('Error fetching applications:', error);
+      res.status(500).json({ message: 'Failed to fetch applications', error: error.message });
+    }
+  };
+

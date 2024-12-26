@@ -70,8 +70,6 @@ export class PostComponent {
         companyEmail: currentCompany.User.Email,
         tags: this.postForm.value.tags,
       };
-      this.companyService.getCurrentCompany().User.jobs.push(newPost);
-      console.log(newPost);
       if (postId) {
         // Edit existing post
         this.companyService.editPost(newPost, Number(postId));
