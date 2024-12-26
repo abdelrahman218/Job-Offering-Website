@@ -62,7 +62,6 @@ export class FindAJobComponent implements OnInit {
           }
         }
       }
-      console.log(this.filteredPosts);
       this.applyFiltersAndSearch();
     });
     window.scrollTo(0, 0);
