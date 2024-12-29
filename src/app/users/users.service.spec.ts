@@ -1,11 +1,11 @@
+//Angular Testing Package Imports
 import { provideHttpClient } from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+
+//App Imports
 import { UserService } from './users.service';
-import { ApplicationType, type User } from '../app.model';
+import { type ApplicationType,type EditProfileData, type User } from '../app.model';
 
 describe('User Service Unit Test (Not Logged In)', () => {
   beforeEach(() => {
@@ -13,6 +13,7 @@ describe('User Service Unit Test (Not Logged In)', () => {
       providers: [provideHttpClient(), provideHttpClientTesting()],
     });
   });
+
   it('user signal should intailize as an object with no data', () => {
     const service = TestBed.inject(UserService);
     expect(service.user()).toEqual({
@@ -23,14 +24,17 @@ describe('User Service Unit Test (Not Logged In)', () => {
       username: '',
     });
   });
+
   it('applications signal should intailize as an empty array', () => {
     const service = TestBed.inject(UserService);
     expect(service.applications()).toEqual([]);
   });
+
   it('state signal should intailize as "None"', () => {
     const service = TestBed.inject(UserService);
     expect(service.state()).toEqual('None');
   });
+
   it('login function Works Successfully', fakeAsync(() => {
     const TestUser: User = {
       name: 'Test',
@@ -65,7 +69,7 @@ describe('User Service Unit Test (Not Logged In)', () => {
       service.backendUrl + 'getApplications?email=' + TestUser.username
     );
     expect(userReq.request.method).toBe('GET');
-    expect(userReq.request.headers.has('SessionID')).toBeTruthy();
+    expect(userReq.request.headers.has('SessionID')).toBeTrue();
     expect(userReq.request.headers.get('SessionID')).toEqual(sessionID);
     userReq.flush({ Apps: backendMockApps });
     const companyNameReq = httpTesting.expectOne(
@@ -86,16 +90,19 @@ describe('User Service Unit Test (Not Logged In)', () => {
     expect(service.user()).toEqual(TestUser);
     expect(service.applications()).toEqual(mockApps);
   }));
+
   it('addSkillTab function works correctly', () => {
     const service = TestBed.inject(UserService);
-    service.addSkillTab()
+    service.addSkillTab();
     expect(service.state()).toEqual('Adding Skill');
   });
+
   it('editProfileTab function works correctly', () => {
     const service = TestBed.inject(UserService);
     service.editProfileTab();
     expect(service.state()).toEqual('Editing Profile');
   });
+
   it('closeTab function works correctly', () => {
     const service = TestBed.inject(UserService);
     service.addSkillTab();
@@ -166,8 +173,12 @@ describe('User Service Unit Test (Logged In)', () => {
       jobTitleReq.flush({ companyName: 'testCompany' });
       tick();
     }
-    httpTesting.verify();
   }));
+
+  afterEach(()=>{
+    const httpTesting=TestBed.inject(HttpTestingController);
+    httpTesting.verify();
+  });
 
   it('Signout Function works correctly', () => {
     const service = TestBed.inject(UserService);
@@ -182,5 +193,115 @@ describe('User Service Unit Test (Logged In)', () => {
     expect(service.applications()).toEqual([]);
   });
 
+  it('getNum... functions work correctly',()=>{
+    const service=TestBed.inject(UserService);
+    expect(service.getNumAppSubmitted()).toEqual(1);
+    expect(service.getNumAppInReview()).toEqual(1);
+    expect(service.getNumAppAccepted()).toEqual(1);
+    expect(service.getNumAppRejected()).toEqual(1);
+  });
+
+  it('Edit Profile Picture works correctly',()=>{
+    const mockOriginalData: EditProfileData={
+      Name: 'test',
+      ProfessionalTitle: 'testTitle',
+      Photo: '',
+      Password: ''
+    };
+    const mockEditedData: EditProfileData={
+      Name: 'test',
+      ProfessionalTitle: 'testTitle',
+      Photo: '',
+      Password: '',
+      PhotoFile: new File([''],'test.jpg')
+    };
+    const httpTesting=TestBed.inject(HttpTestingController);
+    const service=TestBed.inject(UserService);
+    service.editProfile(mockEditedData,mockOriginalData);
+    const photoReq=httpTesting.expectOne(service.backendUrl+'editProfilePhoto');
+    expect(photoReq.request.headers.has('SessionID')).toBeTrue();
+    photoReq.flush(null);
+    httpTesting.expectNone(service.backendUrl+'editProfile');
+    expect(service.user().photo).toEqual('test.jpg');
+  });
+
+  it('Edit Profile works correctly (Data is changed)',()=>{
+    const mockOriginalData: EditProfileData={
+      Name: 'test',
+      ProfessionalTitle: 'testTitle',
+      Photo: '',
+      Password: ''
+    };
+    const mockEditedData: EditProfileData={
+      Name: 'test1',
+      ProfessionalTitle: 'testTitle',
+      Photo: '',
+      Password: '',
+    };
+    const httpTesting=TestBed.inject(HttpTestingController);
+    const service=TestBed.inject(UserService);
+    service.editProfile(mockEditedData,mockOriginalData);
+    httpTesting.expectNone(service.backendUrl+'editProfilePhoto');
+    const editProfileReq=httpTesting.expectOne(service.backendUrl+'editProfile');
+    expect(editProfileReq.request.headers.has('SessionID')).toBeTrue();
+    editProfileReq.flush(null);
+    expect(service.user().name).toEqual(mockEditedData.Name);
+  });
   
+  it('Edit Profile works correctly (Password is changed)',()=>{
+    const mockOriginalData: EditProfileData={
+      Name: 'test',
+      ProfessionalTitle: 'testTitle',
+      Photo: '',
+      Password: ''
+    };
+    const mockEditedData: EditProfileData={
+      Name: 'test',
+      ProfessionalTitle: 'testTitle',
+      Photo: '',
+      Password: 'ljdk;afadhs',
+    };
+    const httpTesting=TestBed.inject(HttpTestingController);
+    const service=TestBed.inject(UserService);
+    service.editProfile(mockEditedData,mockOriginalData);
+    httpTesting.expectNone(service.backendUrl+'editProfilePhoto');
+    const editProfileReq=httpTesting.expectOne(service.backendUrl+'editProfile');
+    expect(editProfileReq.request.headers.has('SessionID')).toBeTrue();
+    editProfileReq.flush(null);
+    expect(service.user().name).toEqual(mockEditedData.Name);
+    expect(service.user().professionalTitle).toEqual(mockEditedData.ProfessionalTitle);
+  });
+
+  it('WithdrawApp function works correctly', ()=>{
+    const httpTesting=TestBed.inject(HttpTestingController);
+    const service=TestBed.inject(UserService);
+    service.withdrawApp('13728737296');
+    const req=httpTesting.expectOne(service.backendUrl+'removeApplication');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.headers.has('SessionID')).toBeTrue();
+    req.flush(null);
+    expect(service.applications().find((app)=>app.post==='13728737296')).toBeFalsy();
+  });
+
+  it('addSkill function works correctly', ()=>{
+    const httpTesting=TestBed.inject(HttpTestingController);
+    const service=TestBed.inject(UserService);
+    service.addSkill('testSkill');
+    const req=httpTesting.expectOne(service.backendUrl+'addSkill');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.headers.has('SessionID')).toBeTrue();
+    req.flush(null);
+    expect(service.user().skills.find((skill)=>skill==='testSkill')).toBeTruthy();
+  });
+
+  it('removeSkill function works correctly', ()=>{
+    const httpTesting=TestBed.inject(HttpTestingController);
+    const service=TestBed.inject(UserService);
+    service.removeSkill('Node JS');
+    const req=httpTesting.expectOne(service.backendUrl+'removeSkill');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.headers.has('SessionID')).toBeTrue();
+    req.flush(null);
+    expect(service.user().skills.find((skill)=>skill==='Node JS')).toBeFalsy();
+  });
 });
