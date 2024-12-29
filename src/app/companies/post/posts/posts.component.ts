@@ -126,7 +126,7 @@ export class PostsComponent implements OnInit {
   }
 
   edit(postId: number) {
-    this.router.navigate(['company/post/edit', postId]); // Assuming there's an edit-post route
+    this.router.navigate(['company/post/edit', postId]); 
   }
   // Fetch and display applications for a selected job post
   viewApplications(postId: number) {
@@ -179,8 +179,14 @@ export class PostsComponent implements OnInit {
   }
 
   // View CV for an application
-  viewApplicantCV(application: Application) {
-    this.router.navigate(['company/application/cv', application.Post]);
+  viewApplicantCV(application: Application) { 
+      const filename = application.CV; 
+      const downloadUrl = this.companyService.viewCV(filename);
+
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = filename; 
+      link.click();
   }
   get hasNoPostsForCurrentCompany(): boolean {
     return this.jobPosts?.length === 0 || !this.jobPosts.some(post => post.companyEmail === this.companies?.User?.Email);

@@ -54,7 +54,7 @@ export type Application = {
     Post: Number,
     Company:string,
     State: ApplicationStateType,
-    Cv:string,
+    CV:string,
     Applicant:string
 }
 

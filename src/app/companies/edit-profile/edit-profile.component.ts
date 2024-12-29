@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 import { CompaniesService } from '../companies.service';
 
 @Component({
-  selector: 'app-company-registration',
+  selector: 'app-edit-profile',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './company-registration.component.html',
-  styleUrls: ['./company-registration.component.css']
+  templateUrl: './edit-profile.component.html',
+  styleUrl: './edit-profile.component.css'
 })
-export class CompanyRegistrationComponent {
-  registrationForm: FormGroup;
+export class EditProfileComponent {
+  editForm: FormGroup;
   isSubmitting = false;
   errorMessage = '';
   selectedLogo: File | null = null;
@@ -23,7 +23,7 @@ export class CompanyRegistrationComponent {
     private companiesService: CompaniesService,
     private router: Router
   ) {
-    this.registrationForm = this.fb.group({
+    this.editForm = this.fb.group({
       name: ['', [
         Validators.required,
         Validators.pattern(/([A-ZÀ-ÿ-a-z. ']+[ ]*)+/)
@@ -45,6 +45,18 @@ export class CompanyRegistrationComponent {
       description: ['']
     }, { validator: this.passwordMatchValidator });
   }
+  ngOnInit(): void {
+    const company = this.companiesService.getCurrentCompany().User;
+    this.editForm.patchValue({
+      name: company.name,
+      Email: company.Email,
+      Password: company.Password,
+      confirmPassword: company.Password,
+      industry: company.industry,
+      location: company.location,
+      description: company.description
+    });
+  }
 
   passwordMatchValidator(g: FormGroup) {
     return g.get('Password')?.value === g.get('confirmPassword')?.value
@@ -54,7 +66,7 @@ export class CompanyRegistrationComponent {
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      if (file.size > 2 * 1024 * 1024) { 
+      if (file.size > 2 * 1024 * 1024) {
         this.logoError = 'File size should not exceed 2MB.';
         this.selectedLogo = null;
       } else {
@@ -65,28 +77,28 @@ export class CompanyRegistrationComponent {
   }
 
   submitForm() {
-    if (this.registrationForm.valid && !this.isSubmitting) {
+    if (this.editForm.valid && !this.isSubmitting) {
       this.isSubmitting = true;
       this.errorMessage = '';
 
       const formData = new FormData();
-      formData.append('name', this.registrationForm.value.name);
-      formData.append('Email', this.registrationForm.value.Email);
-      formData.append('Password', this.registrationForm.value.Password);
-      formData.append('industry', this.registrationForm.value.industry);
-      formData.append('location', this.registrationForm.value.location);
-      formData.append('description', this.registrationForm.value.description || '');
+      formData.append('name', this.editForm.value.name);
+      formData.append('Email', this.editForm.value.Email);
+      formData.append('Password', this.editForm.value.Password);
+      formData.append('industry', this.editForm.value.industry);
+      formData.append('location', this.editForm.value.location);
+      formData.append('description', this.editForm.value.description || '');
       if (this.selectedLogo) {
         formData.append('logo', this.selectedLogo, this.selectedLogo.name);
       }
-
-      this.companiesService.registerCompany(formData).subscribe({
+      const company = this.companiesService.getCurrentCompany().User;
+      this.companiesService.editProfile(formData,company.Email).subscribe({
         next: (response) => {
-          console.log('Registration successful:', response);
-          this.router.navigate(['/login']);
+          console.log('Edit profile successful:', response);
+          this.router.navigate(['company/dashboard']);
         },
         error: (error) => {
-          console.error('Registration error:', error);
+          console.error('edit profile error:', error);
           this.errorMessage = error.error.message || 'Registration failed. Please try again.';
           this.isSubmitting = false;
         },
@@ -95,7 +107,8 @@ export class CompanyRegistrationComponent {
         }
       });
     } else {
-      this.registrationForm.markAllAsTouched();
+      this.editForm.markAllAsTouched();
     }
   }
-}
+  }
+

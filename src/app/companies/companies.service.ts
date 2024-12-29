@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject,lastValueFrom,Observable } from 'rxjs';
-import { Company, posts,Application } from '../app.model';
-import { map,tap } from 'rxjs/operators';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { Company, posts, Application } from '../app.model';
+import { map, tap } from 'rxjs/operators';
+
 
 
 @Injectable({
@@ -16,7 +17,7 @@ export class CompaniesService {
   public apiUrl = 'http://localhost:8080/company';
 
   constructor(private http: HttpClient) {
-   
+
   }
 
   // Load job posts from the backend
@@ -25,9 +26,9 @@ export class CompaniesService {
       this.jobPostsSubject.next(posts);
     });
   }
-  getCompanies(){
-    this.http.get<Company[]>(`${this.apiUrl}/getCompanies`).pipe(map(((companies : any[]) =>{
-      var temp:Company[]=[];
+  getCompanies() {
+    this.http.get<Company[]>(`${this.apiUrl}/getCompanies`).pipe(map(((companies: any[]) => {
+      var temp: Company[] = [];
       companies.forEach(company => {
         temp.push({
           UserType: 'Company',
@@ -35,10 +36,10 @@ export class CompaniesService {
             Email: company.Email,
             id: company._id,
             name: company.name,
-            logo: company.logo ,
-            industry: company.industry ,
-            location: company.location ,
-            description: company.description ,
+            logo: company.logo,
+            industry: company.industry,
+            location: company.location,
+            description: company.description,
             Password: company.Password
           }
         })
@@ -49,8 +50,8 @@ export class CompaniesService {
     });
   }
   //Method to get Posts by companyEmail
-  getPosts(companyEmail:string):any{
-     if (companyEmail) {
+  getPosts(companyEmail: string): any {
+    if (companyEmail) {
       this.http.get<posts[]>(`${this.apiUrl}/getPostsByCompanyEmail/${companyEmail}`).subscribe(posts => {
         this.jobPostsSubject.next(posts);
       });
@@ -89,7 +90,7 @@ export class CompaniesService {
     return localStorage.getItem('userType') === 'Company';
   }
 
-  getCurrentCompany(): Company  {
+  getCurrentCompany(): Company {
     const company = localStorage.getItem('company');
     return company ? JSON.parse(company) : null;
   }
@@ -111,7 +112,7 @@ export class CompaniesService {
       this.jobPostsSubject.next(updatedPosts);
     });
   }
-    // Method to get Company Name by Email
+  // Method to get Company Name by Email
   async getCompanyName(companyEmail: string): Promise<string | undefined> {
     try {
       const response = await lastValueFrom(
@@ -123,51 +124,62 @@ export class CompaniesService {
       return undefined;
     }
   }
- // Method to get Company Logo by Email
- async getCompanyLogo(companyEmail: string): Promise<string | undefined> {
-  try {
-    const response = await lastValueFrom(
-      this.http.get<{ logo: string }>(`${this.apiUrl}/getLogo/${companyEmail}`)
-    );
-    return response?.logo;  // Use optional chaining to handle undefined
-  } catch (error) {
-    console.error('Error fetching company logo:', error);
-    return undefined;
+  // Method to get Company Logo by Email
+  async getCompanyLogo(companyEmail: string): Promise<string | undefined> {
+    try {
+      const response = await lastValueFrom(
+        this.http.get<{ logo: string }>(`${this.apiUrl}/getLogo/${companyEmail}`)
+      );
+      return response?.logo;  // Use optional chaining to handle undefined
+    } catch (error) {
+      console.error('Error fetching company logo:', error);
+      return undefined;
+    }
+  }
+
+  // Method to get Job Title by Post ID
+  async getJobTitle(postId: number): Promise<string | undefined> {
+    if (!postId) {
+      throw new Error('Invalid Post ID');
+    }
+    try {
+      const response = await lastValueFrom(
+        this.http.get<{ jobTitle: string }>(`${this.apiUrl}/posts/getJobTitle/${postId}`)
+      );
+      return response?.jobTitle;  // Use optional chaining to handle undefined
+    } catch (error) {
+      console.error('Error fetching job title:', error);
+      return undefined;
+    }
+  }
+  // Method to get applications by post ID
+  getApplicationsByPost(postId: number): Observable<Application[]> {
+    return this.http.get<Application[]>(`${this.apiUrl}/applications/${postId}`);
+  }
+
+  // Method to update application state
+  updateApplicationState(application: any, post: any): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/applications/updateState/${post}`, application);
+  }
+
+  //Method to get all applications for the current company
+  getAllApplications(companyEmail: string): Observable<Application[]> {
+    return this.http.get<Application[]>(`${this.apiUrl}/applications/company/${companyEmail}`);
+  }
+  // Method for company registration
+  registerCompany(companyData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, companyData);
+  }
+  // Method To view Cv
+  viewCV(filename: string): string {
+    const downloadUrl = `${this.apiUrl}/downloadCV/${filename}`;
+    return downloadUrl;
+  }
+  //Method to edit Profile
+  editProfile(companyData: FormData, companyEmail: string): Observable<any> {
+    return this.http.put<{ message: string, Company: Company }>(
+      `${this.apiUrl}/editProfile/${companyEmail}`,
+      companyData
+    )
   }
 }
-
-// Method to get Job Title by Post ID
-async getJobTitle(postId: number): Promise<string | undefined> {
-  if (!postId) {
-    throw new Error('Invalid Post ID');
-  }
-  try {
-    const response = await lastValueFrom(
-      this.http.get<{ jobTitle: string }>(`${this.apiUrl}/posts/getJobTitle/${postId}`)
-    );
-    return response?.jobTitle;  // Use optional chaining to handle undefined
-  } catch (error) {
-    console.error('Error fetching job title:', error);
-    return undefined;
-  }
-}
-// Method to get applications by post ID
-getApplicationsByPost(postId: number): Observable<Application[]> {
-  return this.http.get<Application[]>(`${this.apiUrl}/applications/${postId}`);
-}
-
-// Method to update application state
-updateApplicationState(application: any,post:any): Observable<void> {
-  return this.http.put<void>(`${this.apiUrl}/applications/updateState/${post}`, application);
-}
-
-//Method to get all applications for the current company
-getAllApplications(companyEmail: string): Observable<Application[]> {
-  return this.http.get<Application[]>(`${this.apiUrl}/applications/company/${companyEmail}`);
-}
-// Add new method for company registration
-registerCompany(companyData: FormData): Observable<any> {
-  return this.http.post(`${this.apiUrl}/register`, companyData);
-}
-}
-
