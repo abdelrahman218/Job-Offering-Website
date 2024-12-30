@@ -46,6 +46,13 @@ export class DashboardComponent implements OnInit {
   get hasNoPostsForCurrentCompany(): boolean {
     return this.jobPosts?.length === 0 || !this.jobPosts.some(post => post.companyEmail === this.companies?.User?.Email);
   } 
+  
+  ngAfterViewInit(): void {
+    const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+    dropdownElementList.map(function (dropdownToggleEl) {
+      return new Dropdown(dropdownToggleEl);
+    });
+  }
   show() {
     this.router.navigate(['company/post']);
   }
