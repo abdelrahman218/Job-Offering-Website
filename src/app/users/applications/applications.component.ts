@@ -1,8 +1,15 @@
+//Angular Imports
 import { Component, inject, OnInit , Signal ,computed} from '@angular/core';
-import { UserService } from '../users.service';
+
+//Components
 import { ApplicationComponent } from './application/application.component';
-import { type ApplicationType as Application} from '../../app.model';
 import { CardComponent } from "../shared/card/card.component";
+
+//Services
+import { UserService } from '../users.service';
+
+//Models
+import { type ApplicationType as Application} from '../../app.model';
 
 type ToggleType = 'active' | 'archived';
 @Component({
@@ -12,32 +19,26 @@ type ToggleType = 'active' | 'archived';
   templateUrl: './applications.component.html',
   styleUrl: './applications.component.css',
 })
-export class ApplicationsComponent implements OnInit {
+export class ApplicationsComponent implements OnInit{
   private toggle!: ToggleType;
   private userService = inject(UserService);
   applications!: Signal<Application[]>;
   ngOnInit(): void {
     this.switchTo('active');
   }
-
+  
   switchTo(target: ToggleType) {
     switch (target) {
       case 'active':
-        this.applications = computed(()=>this.userService
-        .user()
-        .applications.filter(
+        this.applications = computed(()=>this.userService.applications().filter(
           (app) => app.state === 'Submitted' || app.state === 'In Review'
         )); 
         break;
       case 'archived':
-        this.applications = computed(()=>this.userService
-        .user()
-        .applications.filter(
+        this.applications = computed(()=>this.userService.applications().filter(
           (app) => app.state === 'Accepted' || app.state === 'Rejected'
         ));
         break;
-      default:
-        this.applications = computed(()=>this.userService.user().applications)
     }
     this.toggle = target;
   }

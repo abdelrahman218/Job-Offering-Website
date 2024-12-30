@@ -10,10 +10,10 @@ export type UserType = 'Admin' | 'Company' | 'User';
 export type ApplicationStateType='Submitted'|'In Review'|'Accepted'|'Rejected';
 
 export type ApplicationType = {
-    id: string,
-    jobTitle: string,
-    companyname: string,
-    companyLogo:string, 
+    post: string,
+    jobTitle?: string,
+    companyname?: string,
+    companyEmail:string,
     state: ApplicationStateType
 };
 
@@ -25,53 +25,51 @@ export type signup={
     PTitle: string
 }
 
+export type EditProfileData={PhotoFile?: File, Name: string,ProfessionalTitle: string, Photo:string, Password: string};
+
 export type User = {
-    id: string,
     name: string,
     professionalTitle: string,
     photo: string,
-    applications: ApplicationType[],
     skills: string[],
-    username: string,
-    password: string
+    username: string
 };
 
 //Company-related Datatypes
 
 export type CareerLevelType="Internship" | "Junior" | "Experienced" | "Manager" | "Senior Management";
-export type JobCategoryType="Full time" | "Part time" | "Freelance/Project";
+export type JobCategoryType="Full-time" | "Part-time" | "Freelance/Project";
 export type WorkplaceType="On-site" | "Remote" | "Hybrid";
-export type Company = {
+export type Company = {UserType:string,User:{    
+    Email: string,
     id: string;
     name: string;
     logo: string;
     industry: string;
     location: string;
     description: string;
-    username: string,
-    password: string,
-    jobs: Job[];
+    Password: string,
+}}
+export type Application = {
+    Post: Number,
+    Company:string,
+    State: ApplicationStateType,
+    CV:string,
+    Applicant:string
 }
-
-export type Job = {
-    id: string;
-    title: string;
-    careerLevel: CareerLevelType;
-    jobCategory: JobCategoryType;
-    workplace: WorkplaceType;
-    jobRequirements:string,
-    description: string;
-    companyId: string;
-};
 
 export type posts={
     id: number;
     jobTitle: string;
-    careerLevel: CareerLevelType;
-    jobCategory: JobCategoryType;
-    workplace: WorkplaceType;
+    companyName:string;
+    careerLevel: string;
+    jobCategory: string;
+    workplace: string;
     jobDescription: string;
     jobRequirements:string;
+    location:string;
+    companyEmail:string;
+    tags:string[];
 }
 
 //Admin Datatype

@@ -17,7 +17,7 @@ div{
     text-align: center;
 }
 img{
-    width:5%;
+    width:50%;
 }
 button{
     font-size: inherit;
@@ -44,7 +44,7 @@ button:hover{
     position: relative;
     top:3%;
     right: -10%;
-    transform:rotate(30deg);
+    transform:rotate(35deg);
     
 }
 .accepted{

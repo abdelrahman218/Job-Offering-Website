@@ -69,14 +69,56 @@ async function removeApplication(req, res) {
     res.status(406).send("Application Not Found");
     return;
   }
-
+  var applicationCV=application.CV;
   await applications
     .deleteOne({ Applicant: userEmail, Post: post })
+    .then(
+      ()=>{
+        const fsExtra= require('fs-extra');
+        fsExtra.removeSync(__dirname.replace('\\controller','\\Multimedia\\CVs\\')+applicationCV)
+      }
+    )
     .catch(() => {
       res.status(500).send("Application Couldn't be deleted");
       return;
     });
     res.status(200).send();
+}
+async function editProfile(req,res){
+  const users = require("../models/User.model");
+  const userEmail = req.body.Email;
+  const Name = req.body.Name;
+  const ProfessionalTitle=req.body.ProfessionalTitle;
+  var Password=req.body.Password;
+
+  let user = await users.findOne({ Email: userEmail });
+  //Responds with an error if User is not in the database
+  if (!user) {
+    res.status(406).send("User Not Found");
+    return;
+  }
+  if(!Password){
+    Password=user.Password;
+  }
+  await users.findOneAndUpdate({ Email: userEmail }, { Name: Name, ProfessionalTitle: ProfessionalTitle, Password: Password });
+  res.status(200).send();
+}
+async function editProfilePhoto(req,res){
+  const fsExtra= require('fs-extra');
+  const users = require("../models/User.model");
+  const userEmail = req.body.Email;
+  const photo = req.files.Photo;
+
+  let user = await users.findOne({ Email: userEmail });
+  //Responds with an error if User is not in the database
+  if (!user) {
+    res.status(406).send("User Not Found");
+    return;
+  }
+  fsExtra.removeSync(__dirname.replace('\\controller','\\Multimedia\\profile-pics\\')+user.ProfilePic)
+  await photo.mv(__dirname.replace('\\controller','\\Multimedia\\profile-pics\\')+photo.name);
+  await users.findOneAndUpdate({ Email: userEmail }, { ProfilePic: photo.name });
+  res.status(200).send();
 }
 module.exports = {
   getProfilePicture,
@@ -84,4 +126,6 @@ module.exports = {
   addSkill,
   removeSkill,
   removeApplication,
+  editProfile,
+  editProfilePhoto
 };

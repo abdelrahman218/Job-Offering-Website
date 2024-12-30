@@ -1,6 +1,4 @@
-import { Component, Output, Input} from '@angular/core';
-import { CareerLevelType } from '../../../app.model';
-
+import { Component, Output,EventEmitter} from '@angular/core';
 @Component({
   selector: 'app-filters',
   standalone: true,
@@ -8,45 +6,69 @@ import { CareerLevelType } from '../../../app.model';
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.css'
 })
-export class FiltersComponent {
-   isWorkplaceDisplayed= true;
-   isExperienceDisplayed= true;
-   isLocationDisplayed= true;
-   // Available options for each section (you can later fetch these from an API)
-   workplaceOptions = [
-      'Remote',
-      'On-site',
-      'Hybrid'
-   ];
- 
-   experienceOptions = [
-     'Entry Level',
-     'Management',
-     'Expertised',
-     'Internship'
-   ];
- 
-   locationOptions = [
-     'Cairo',
-     'Alexandria',
-     'Giza',
-     'Sharm El Sheikh',
-     'Hurghada',
-     'Aswan'
-   ];
+export class FiltersComponent{
+  @Output() selectedFilter=new EventEmitter<{ [key: string]: string[] }>();
+  isDisplayed: any[]= [true,true,true];
+  toggleDisplay(section: string): void {
+    switch(section) {
+      case 'workplace':
+        this.isDisplayed[0] = !this.isDisplayed[0];
+        break;
+      case 'careerLevel':
+        this.isDisplayed[1] = !this.isDisplayed[1];
+        break;
+      case 'location':
+        this.isDisplayed[2] = !this.isDisplayed[2];
+        break;
+    }
+  }
+  openCategoryDropdown(categoryId: string) {
+   const categoryDropdown = document.getElementById(categoryId);
+   categoryDropdown?.click();
+ }
 
-   // Toggle display for each section
-   toggleDisplay(section: string): void {
-     switch(section) {
-       case 'workplace':
-         this.isWorkplaceDisplayed = !this.isWorkplaceDisplayed;
-         break;
-       case 'experience':
-         this.isExperienceDisplayed = !this.isExperienceDisplayed;
-         break;
-       case 'location':
-         this.isLocationDisplayed = !this.isLocationDisplayed;
-         break;
-     }
+ checkCategoryCheckbox(categoryName: string) {
+   const checkbox = document.querySelector(`input[value="${categoryName}"]`) as HTMLInputElement;
+   if (checkbox) {
+     checkbox.checked = true;
+     checkbox.dispatchEvent(new Event('change'));
    }
+ }
+ filterGroups = [
+  {
+    id: 0,
+    name: 'workplace',
+    options: ['Remote', 'Hybrid', 'On-site'],
+    isOpen: false
+  },
+  {
+    id: 2,
+    name: 'location',
+    options: ['Cairo','Alexandria','Giza','Sharm El Sheikh','Hurghada','Aswan'],
+    isOpen: false
+  },
+  {
+    id: 1,
+    name: 'careerLevel',
+    options: ["Internship", "Junior Level/Fresh Grad", "Experienced", "Manager", "Senior"],
+    isOpen: false
+  }
+];
+selectedFilters: { [key: string]: string[] } = {
+  'workplace': [],
+  'location': [],
+  'careerLevel': []
+};
+isFilterSelected(filterName: string, option: string): boolean {
+  return this.selectedFilters[filterName].includes(option);
+}
+toggleFilter(filterName: string, option: string): void {
+  if (this.isFilterSelected(filterName, option)) {
+    this.selectedFilters[filterName] = this.selectedFilters[filterName]
+      .filter(item => item !== option);
+  } else {
+    this.selectedFilters[filterName].push(option);
+  }
+  this.selectedFilter.emit(this.selectedFilters);
+}
 }

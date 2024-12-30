@@ -1,0 +1,53 @@
+*{
+    color: #2f4156;
+}
+div{
+    display: inline-block;
+    background-color: #f5efeb;
+    margin-top: 15%;
+    padding: 2% 5%;
+}
+h1{
+    margin: 0px;
+    font-size: 4em;
+    padding: 2px 0px;
+}
+input{
+    width: 100%;
+    margin-bottom: 10%;
+    font-size: 1.2em;
+    padding: 0.8rem;
+    border: 2px solid #292929;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+span{
+    display: inline-block;
+    position: relative;
+    width: 60%;
+    right: -36%;
+}
+button{
+    font-size: 1.5em;
+    border: 2px solid #292929;
+    margin-right: 4px;
+    &:hover{
+        background-color: #292929c2;
+        color: #f5efeb;
+    }
+}
+.required{
+    border-color: red;
+}
+.submit{
+    background-color: #2f4156;
+    color: #f5efeb;
+    &:hover{
+        background-color: #2f415613;
+        color: #2f4156;
+    }
+}
+.cancel:hover{
+    background-color: #562f2fd7;
+    color: #f5efeb;
+}

@@ -145,7 +145,16 @@
     cursor: pointer;
     transition: background-color 0.2s;
 }
-
+.applied-btn {
+    background-color: #2F4156;
+    color: #FFFFFF;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
 .apply-btn:hover {
     background-color: #2F4156;
 }

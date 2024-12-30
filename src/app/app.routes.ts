@@ -1,3 +1,5 @@
+//Angular Imports
+import { inject } from '@angular/core';
 import { CanMatchFn, Router, Routes } from '@angular/router';
 
 //Main Pages Componanets
@@ -10,13 +12,16 @@ import { Error404Component } from './error404/error404.component';
 import { FindAJobComponent } from './users/find-a-job/find-a-job.component';
 import { LoginComponent } from './login/login.component';
 import { SingupComponent } from './singup/singup.component';
-
+import { CardComponent } from './users/find-a-job/card/card.component';
+import {CompanyRegistrationComponent} from './companies/company-registration/company-registration.component'
 //Routers
 import { userRoutes } from './users/users.routes';
 import { companyRoutes } from './companies/companies.routes';
 import { adminRoutes } from './admins/admins.routes';
+
+//Services
 import { AppService } from './app.service';
-import { inject } from '@angular/core';
+
 
 const isUser : CanMatchFn = ()=>{
     const appService=inject(AppService);
@@ -29,17 +34,18 @@ const isUser : CanMatchFn = ()=>{
         return false;
     }
 }
-const isCompany : CanMatchFn = ()=>{
-    const appService=inject(AppService);
-    const routerService=inject(Router);
-    if(appService.userTypeSignal()==='Company'){
+const isCompany: CanMatchFn = () => {
+
+    const router = inject(Router);
+    const userType = localStorage.getItem('userType');
+  
+    if (userType === 'Company') {
         return true;
-    }
-    else{
-        routerService.navigate(['unauthorized']);
+    } else {
+        router.navigate(['/unauthorized']);
         return false;
     }
-}
+  };
 const isAdmin : CanMatchFn = ()=>{
     const appService=inject(AppService);
     const routerService=inject(Router);
@@ -59,6 +65,12 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    
+    {
+    path:'company-registration',
+    component:CompanyRegistrationComponent,
+    title:"Company Registration"
     },
     {
         path: 'signup',
@@ -90,6 +102,22 @@ export const routes: Routes = [
         path: 'unauthorized',
         component: UnauthorizedComponent,
         title: 'Unauthorized Access'
+    },
+    {
+        path: 'login',
+        component:  LoginComponent,
+        title: 'Login'
+
+    },
+    {
+        path: 'signup',
+        component: SingupComponent,
+        title: 'Signup'
+    },
+    {
+        path: 'card',
+        component: CardComponent,
+        title: 'Card'
     },
     {
         path: '**',

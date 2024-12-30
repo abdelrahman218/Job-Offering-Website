@@ -8,7 +8,7 @@
     </button>
 </div>
 <div class="applications">
-    @for (application of applications(); track application.id) {
+    @for (application of applications(); track application.post) {
         <app-card class="app">
             <app-application [application]="application"/>
         </app-card>

@@ -1,4 +1,7 @@
-import { Component, inject, computed } from '@angular/core';
+//Angular Imports
+import { Component, inject } from '@angular/core';
+
+//Services
 import { UserService } from '../../users.service';
 
 @Component({
@@ -8,15 +11,16 @@ import { UserService } from '../../users.service';
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
+
 export class UserProfileComponent {
-  private usersService = inject(UserService);
-  user = this.usersService.user;
-  submitted = computed(()=>this.usersService.getNumAppSubmitted());
-  inReview =  this.usersService.getNumAppInReview();
-  accepted = this.usersService.getNumAppAccepted();
-  rejected = this.usersService.getNumAppRejected();
+  private userService = inject(UserService);
+  user = this.userService.user;
+  submitted = ()=>this.userService.getNumAppSubmitted();
+  inReview =  ()=>this.userService.getNumAppInReview();
+  accepted = ()=>this.userService.getNumAppAccepted();
+  rejected = ()=>this.userService.getNumAppRejected();
 
   get profilePicPath(){
-    return 'http://localhost:8080/user/image?email='+this.usersService.user().username;
+    return this.userService.backendUrl+'image?email='+this.userService.user().username;
   }
 }

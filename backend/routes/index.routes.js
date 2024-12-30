@@ -1,7 +1,7 @@
 //Importing Router
 const express = require('express');
 const router = express.Router();
-
+const mongoose = require('mongoose');
 //Importing Controller for Index
 const index=require('../controller/Index.controller');
 

@@ -43,3 +43,5 @@ Thumbs.db
 
 #Backend Credentials
 /backend/credentials.js
+#Backend Test
+/backend/test.js

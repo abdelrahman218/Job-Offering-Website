@@ -3,68 +3,57 @@
     integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 
 <body>
-    <div *ngFor="let company of companies" class="company-card">
+    <div class="company-card" id="comp-card">
         <div class="company-header">
-            <h3>{{ company.name }}</h3>
+            <h3>{{ companies.User.name }}</h3>
         </div>
         <div class="compImage">
-            <img style="width: 361px;  border-radius: 3%;" src="\ales-nesetril-Im7lZjxeLhg-unsplash.jpg">
+            <img style="width: 361px;  border-radius: 3%;" [src]="companylogoPath" alt="Company Logo" class="imagecomp">
         </div>
         <div class="company-details">
-            <p><strong>Industry:</strong> {{ company.industry }}</p>
-            <p><strong>Location:</strong> {{ company.location }}</p>
-            <p><strong>Description:</strong> {{ company.description }}</p>
-            <p *ngFor="let job of company.jobs"><strong>Requirements:</strong> {{job.jobRequirements}}</p>
+            <p><strong>Industry:</strong> {{ companies.User.industry }}</p>
+            <p><strong>Location:</strong> {{ companies.User.location }}</p>
+            <p><strong>Description:</strong> {{ companies.User.description }}</p>
         </div>
     </div>
 
-    <div class="container ">
-        <a routerLink="/company/post/posts"><h1 class="fixed-link text-center">View Posts Details </h1></a>
-        <div *ngIf="jobPosts.length === 0">
+    <div class="container">
+        <div *ngIf="hasNoPostsForCurrentCompany">
             <h1>No Posts Available....!</h1>
-          </div>
-        <div class="d-flex row positions ">
+        </div>
+        <div *ngIf="!hasNoPostsForCurrentCompany">
+            <a routerLink="/company/post/posts">
+                <h1 class="fixed-link text-center">View Posts Details </h1>
+            </a>
+            <div class="d-flex row positions ">
 
-            <div *ngFor="let post of jobPosts" class=" card col-md-4 mb-3">
+                <div *ngFor="let post of jobPosts" class=" card col-md-4 mb-3">
 
-                <div class="card-body">
-                    <h5 class="card-title">{{ post.jobTitle }}</h5>
-                    <p class="card-text2"><strong>Career Level:</strong> {{ post.careerLevel }} <br><strong>Job
-                            Category:</strong> {{ post.jobCategory }}<br><i
-                            class="zmdi zmdi-pin mr-2"></i><strong>Workplace:</strong> {{ post.workplace }}
-                    <p class="card-text" id="p1" style="display: none;"><strong>Description:</strong> {{
-                        post.jobDescription }}</p>
-                    <p class="card-text" id="p2" style="display: none;"><strong>Requirements:</strong> {{
-                        post.jobRequirements }}</p>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.jobTitle }}</h5>
+                        <p class="card-text2"><strong>Career Level:</strong> {{ post.careerLevel }} <br><strong>Job
+                                Category:</strong> {{ post.jobCategory }}<br><i
+                                class="zmdi zmdi-pin mr-2"></i><strong>Workplace:</strong> {{ post.workplace }}
+                        <p class="card-text" id="p1" style="display: none;"><strong>Description:</strong> {{
+                            post.jobDescription }}</p>
+                        <p class="card-text" id="p2" style="display: none;"><strong>Requirements:</strong> {{
+                            post.jobRequirements }}</p>
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
-       
     </div>
     <div class="Actions">
-        <h4 class="txt">Company Manager</h4>
-        <div *ngFor="let company of companies" class="offcanvas offcanvas-start" id="demo">
-            <div class="offcanvas-header">
-                <h1 class="offcanvas-title">Profile</h1>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-            </div>
-            <div class="offcanvas-body">
-                <p><strong>Industry:</strong> {{ company.industry }}</p>
-                <p><strong>Location:</strong> {{ company.location }}</p>
-                <p><strong>Description:</strong> {{ company.description }}</p>
-                <button class="btn btn-secondary" type="button">Sign Out</button>
-                <a href="#" class="position-relative">
-                    <i class="fas fa-bell" style="font-size: 1.5rem;"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">1</span>
-                </a>
-            </div>
-        </div>
-        <button  class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+        <h3 class="txt">Company Manager</h3>
+
+        <button (click)="show()" class="btn btn-primary" type="button">
             <h2>Add post</h2>
         </button>
-        <!-- <div class="dropdown">
+    </div>
+    <!-- <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 Actions
@@ -75,6 +64,6 @@
                 </li>
             </ul>
         </div> -->
-    </div>
+
 
 </body>
