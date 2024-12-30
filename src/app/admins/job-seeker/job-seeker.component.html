@@ -1,19 +1,31 @@
 <div class="adminMainDiv">
     <p class="title">Job Seekers View</p>
-
-    <div class="jobseeker-list">
-        <div *ngFor="let jobseeker of jobseekersList" class="jobseeker-card">
-            <!-- Displaying first letter of name in the avatar circle -->
-            <div class="jobseeker-avatar">
-                {{ jobseeker.name.charAt(0).toUpperCase() }}
-            </div>
-            <div class="jobseeker-info">
-                <span class="jobseeker-name">{{ jobseeker.name }}</span>
-                <span class="jobseeker-details">Age: {{ jobseeker.age }}</span>
-                <span class="jobseeker-details">Degree: {{ jobseeker.degree }}</span>
-            </div>
-            <svg class = "trash" xmlns="http://www.w3.org/2000/svg" height="24" width="21" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#eb0a0a" d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
-        </div>
+  
+    <div *ngIf="isLoading">
+      <p>Loading...</p>
     </div>
-</div>
-
+  
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+  
+    <div class="list-container" *ngIf="!isLoading && !error">
+      <div *ngFor="let user of jobSeekers" class="list-item">
+        <div class="list-content">
+          <h3 class="list-title">{{ user.name }}</h3>
+          <p class="list-detail">Email: {{ user.email }}</p>
+          <p class="list-detail">Phone: {{ user.phone }}</p>
+          <p class="list-detail">Location: {{ user.location }}</p>
+          <p class="list-detail">Skills:</p>
+          <ul>
+            <li *ngFor="let skill of user.skills">{{ skill }}</li>
+          </ul>
+        </div>
+        <button class="delete-button" (click)="deleteUser(user.id)">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="21" viewBox="0 0 448 512">
+            <path fill="#eb0a0a" d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>

@@ -1,84 +1,88 @@
 import { Component } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
-import { Admin } from '../../models/admin';
-
+import { AdminService } from '../admin.service'; // Assuming AdminService is in the correct location
+import { Admin } from '../../models/admin'; // Assuming you have an Admin interface
 
 @Component({
   selector: 'app-super-admin',
   standalone: true,
-  imports: [NgIf, FormsModule],
+  imports: [NgIf, FormsModule], // Include FormsModule
   templateUrl: './super-admin.component.html',
   styleUrls: ['./super-admin.component.css']
 })
 export class SuperAdminComponent {
 
-  admins: Admin[] = []; // Array to hold admins
-  adminData: Admin = { name: '', email: '', role: '' }; // Initialize as an empty Admin object
+  admins: Admin[] = []; // Array to hold admins (optional for local display)
+  adminData: Admin = { name: '', email: '', role: 'admin' }; // Initialize with default role
   selectedContent: string = 'add'; // Default to "add" content
+  errorMessage: string | null = null;
+
+  constructor(private adminService: AdminService) { }
 
   // Function to add a new admin
   addAdmin() {
     const { name, email, role } = this.adminData; // Destructure adminData
     const newAdmin = new Admin(name, email, role); // Create a new Admin object
-    this.admins.push(newAdmin); // Add the new admin to the list
-    this.resetForm(); // Reset the form after adding
+
+    this.adminService.addAdmin(newAdmin) // Call AdminService for registration
+      .subscribe({
+        next: () => {
+          // Optional: Update local admins array (if used for display)
+          // this.admins.push(newAdmin);
+          this.resetForm(); // Reset the form after adding
+          console.log('Admin Added Successfully'); // Use console.log for success message
+        },
+        error: (err) => {
+          console.error('Error adding admin:', err.message || 'Error'); // Use console.error for error message
+        }
+      });
   }
 
-  // Function to update the admin
+  // Function to update the admin (assuming super admin can update)
   updateAdmin() {
     const email = this.adminData.email; // Safely access the email
-    const index = this.admins.findIndex(admin => admin.email === email);
-    
+    const index = this.admins.findIndex(admin => admin.email === email); // Assuming admins array is used
+
     if (index !== -1) {
-      this.admins[index] = { ...this.adminData }; // Update admin data
-      this.resetForm(); // Reset adminData after updating
-      alert("Info Updated Successfully");
+      this.adminService.updateAdmin(this.adminData.email, this.adminData) // Update using email as identifier
+        .subscribe({
+          next: () => {
+            this.admins[index] = { ...this.adminData }; // Update local admin data (optional)
+            this.resetForm(); // Reset adminData after updating
+            console.log('Admin Updated Successfully'); // Use console.log for success message
+          },
+          error: (err) => {
+            console.error('Error updating admin:', err.message || 'Error'); // Use console.error for error message
+          }
+        });
     } else {
-      alert("Admin not found."); // Handle case where admin is not found
+      console.error("Admin not found."); // Use console.error for error message
     }
   }
 
   // Function to edit an admin
   editAdmin(admin: Admin) {
     // Manually clone admin for editing
-    this.adminData = { name: admin.name, email: admin.email, role: admin.role };
+    this.adminData = { ...admin }; // Use spread operator for proper cloning
     this.selectedContent = 'edit'; // Switch to edit view
   }
 
   // Function to reset the form
   resetForm() {
-    this.adminData = { name: '', email: '', role: '' }; // Reset admin data
+    this.adminData = { name: '', email: '', role: 'admin' }; // Reset admin data with default role
     this.selectedContent = 'add'; // Switch back to add view
   }
 
+  toggleContent(content: string) {
+    this.selectedContent = content;
 
-  
-  toggleContent(event: any, content: string) {
-    this.selectedContent = content; // Update to show selected content
-    const button = event.currentTarget as HTMLElement;
-
-    // Get all button divs with class 'Button'
     const allButtons = document.querySelectorAll('.Button');
+    allButtons.forEach(btn => btn.classList.remove('selected'));
 
-    // Reset all buttons to default style
-    allButtons.forEach((icon: any) => {
-      const path = icon.querySelector('path');
-      if (path) {
-        path.setAttribute('fill', '#DADDD9'); // Reset icon color
-      }
-      icon.style.backgroundColor = '#1E3050'; // Reset background color
-      icon.style.color = '#DADDD9'; // Reset font color to light
-    });
-
-    // Apply styles to the selected button
-    const path = button.querySelector('path');
-    if (path) {
-      path.setAttribute('fill', '#1E3050'); // Set icon color for the selected button
+    const selectedButton = document.getElementById(content + 'Button');
+    if (selectedButton) {
+      selectedButton.classList.add('selected');
     }
-    button.style.backgroundColor = '#DADDD9'; // Dark blue background for the selected button
-    button.style.color = '#1E3050'; // Light color for the text
   }
-
-  
 }

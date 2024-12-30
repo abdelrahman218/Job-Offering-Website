@@ -12,7 +12,7 @@ export class Joblister{
     establishedDate: Date; // When the company was established*/
   
     constructor(
-        public id: number,
+        public id: string,
         public name: string,
         public location: string,
         public industry: string,

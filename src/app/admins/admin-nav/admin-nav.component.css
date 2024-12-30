@@ -1,63 +1,35 @@
 .adminNav {
-    position: fixed;
-    left: 20px;
-    top: 352px;
-    width: 60px;
-    height: 250px;
-    background-color: rgba(47, 65, 87, 1);
-    border-radius: 45px;
+  position: fixed;
+  left: 20px;
+  top: 150px;
+  width: 60px;
+  height: 250px; /* Adjust height as needed */ 
+  background-color: rgba(47, 65, 87, 1);
+  border-radius: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .adminNav svg {
-    position: absolute; 
-    width: 37px; /* Set size for all SVG icons */
-    height: 37px;
-    left: 6px; 
-    margin-bottom: 20px; /* Space between the icons */
-    padding: 5px;
-    border-radius: 17px;
-    transition: transform 0.3s ease; /* Add transition for zoom effect */
-    fill:#dedada;
-    background-color: none;
+  width: 45px;
+  height: 45px;
+  padding: 5px;
+  border-radius: 17px;
+  transition: transform 0.3s ease;
+  fill: #dedada;
 }
 
-.active{
-    fill: #2F4157;
-    background-color: #DADDD9;
+.active {
+  fill: #2F4157;
+  background-color: #DADDD9;
 }
+
 /* Adjust the hover effect for all icons */
-.companyIcon:hover, 
-.personIcon:hover, 
+.companyIcon:hover,
+.personIcon:hover,
 .homeIcon:hover,
 .superAdminIcon:hover {
-    transform: scale(1.1); /* Zoom in effect */
-}
-
-/*normal admins*/
-/*.companyIcon {
-    top: 80px;
-}
-
-.personIcon {
-    top: 15px;
-}
-
-.homeIcon {
-    top: 145px;
-}*/
-
-/*super admin*/
-.companyIcon {
-    top: 135px;
-}
-
-.personIcon {
-    top: 75px;
-}
-
-.homeIcon {
-    top: 195px;
-}
-.superAdminIcon{
-    top:15px
+  transform: scale(1.1);
 }

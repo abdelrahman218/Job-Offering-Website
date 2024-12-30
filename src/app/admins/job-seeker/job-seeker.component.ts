@@ -1,25 +1,46 @@
-import { Component } from '@angular/core';
-import { NgFor } from '@angular/common';
-import { Jobseeker } from '../../models/Jobseeker';
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../admin.service';
+import { User } from '../../app.model'; // Assuming you have a User model
 
 @Component({
-  selector: 'app-job-seeker',
-  standalone: true,
-  imports: [NgFor],
+  selector: 'app-job-seekers',
   templateUrl: './job-seeker.component.html',
-  styleUrl: './job-seeker.component.css'
+  styleUrls: ['./job-seeker.component.css']
 })
-export class JobSeekerComponent {
-  jobseekersList = [
-    new Jobseeker('Ahmed Ali', 28, 'Bachelor’s Degree in Computer Science'),
-    new Jobseeker('Sara Mahmoud', 25, 'Bachelor’s Degree in Business Administration'),
-    new Jobseeker('Mohamed Hassan', 30, 'Master’s Degree in Mechanical Engineering'),
-    new Jobseeker('Nour ElDin', 22, 'Diploma in Graphic Design'),
-    new Jobseeker('Lina Youssef', 27, 'Bachelor’s Degree in Marketing'),
-    new Jobseeker('Karim Nabil', 24, 'Bachelor’s Degree in Information Technology'),
-    new Jobseeker('Fatma Omar', 29, 'Master’s Degree in Data Science'),
-    new Jobseeker('Hassan Ibrahim', 26, 'Bachelor’s Degree in Finance'),
-    new Jobseeker('Rania Salah', 23, 'Diploma in Web Development'),
-    new Jobseeker('Youssef Ezzat', 32, 'Master’s Degree in Electrical Engineering')
-  ];
+export class JobSeekerComponent implements OnInit {
+  jobSeekers: User[] = [];
+  isLoading: boolean = true;
+  error: string | null = null;
+
+  constructor(private adminService: AdminService) { }
+
+  ngOnInit(): void {
+    this.adminService.getAllUsers().subscribe({
+      next: (users) => {
+        this.jobSeekers = users;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.error = 'Error fetching job seekers.';
+        console.error('Error fetching job seekers:', err);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  deleteUser(userId: string) {
+    if (confirm("Are you sure you want to delete this user?")) {
+      this.adminService.deleteUser(userId)
+        .subscribe({
+          next: () => {
+            console.log('User deleted successfully.');
+            this.jobSeekers = this.jobSeekers.filter(user => user.id !== userId);
+          },
+          error: (err) => {
+            this.error = 'Error deleting user.';
+            console.error('Error deleting user:', err);
+          }
+        });
+    }
+  }
 }

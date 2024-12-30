@@ -83,7 +83,7 @@ export const routes: Routes = [
     {
         path: 'admin',
         children: adminRoutes,
-        canMatch:[isAdmin],
+        //canMatch:[isAdmin],
         component: AdminsComponent
     },
     {
