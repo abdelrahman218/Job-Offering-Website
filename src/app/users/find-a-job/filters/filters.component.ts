@@ -50,7 +50,7 @@ export class FiltersComponent{
   {
     id: 1,
     name: 'careerLevel',
-    options: ['entry-level', 'expertised-level', 'senior-manager'],
+    options: ["Internship", "Junior Level/Fresh Grad", "Experienced", "Manager", "Senior"],
     isOpen: false
   }
 ];
@@ -69,7 +69,6 @@ toggleFilter(filterName: string, option: string): void {
   } else {
     this.selectedFilters[filterName].push(option);
   }
-  console.log(this.selectedFilters);
   this.selectedFilter.emit(this.selectedFilters);
 }
 }

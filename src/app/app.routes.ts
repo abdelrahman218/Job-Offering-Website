@@ -38,7 +38,6 @@ const isCompany: CanMatchFn = () => {
 
     const router = inject(Router);
     const userType = localStorage.getItem('userType');
-    console.log('Guard Check - UserType:', userType);
   
     if (userType === 'Company') {
         return true;
