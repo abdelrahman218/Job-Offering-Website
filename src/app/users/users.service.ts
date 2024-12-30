@@ -1,7 +1,7 @@
 //Angular Imports
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, tap } from 'rxjs';
+import { catchError, map, Observable, tap } from 'rxjs';
 
 //Services
 import { ErrorService } from '../error/error.service';
@@ -348,14 +348,10 @@ export class UserService {
   closeTab() {
     this.stateSignal.set('None');
   }
-  getApplied() {
-    var arr:any=[];
-    this.httpClientService.get(this.backendUrl + 'getAppliedJobs?Email=' + this.user().username, this.UserHttpHeader()).pipe(tap({
-      next: (res:any) => {
-        arr.push(res.Posts);
-      }
-    })).subscribe();
-    console.log(arr);
-    return arr;
+  getApplied(): Observable<any[]> {
+    return this.httpClientService.get(
+      this.backendUrl + 'getAppliedJobs?Email=' + this.user().username, 
+      this.UserHttpHeader()
+    ).pipe(map((res: any) => res));
   }
 }

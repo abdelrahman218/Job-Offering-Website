@@ -19,9 +19,15 @@ export class CardComponent {
   @Input({ required: true }) post !: posts;
   appliedJobs?:Number[];
   constructor(private router: Router, private userService: UserService, private httpClient: HttpClient) { }
-  ngOnInit(): void {
-    this.appliedJobs=this.userService.getApplied();
-    console.log(this.appliedJobs);
+  ngOnInit(){
+    this.userService.getApplied().subscribe({
+      next: (jobs) => {
+        this.appliedJobs = jobs;
+      },
+      error: (error) => {
+        console.error('Error fetching applied jobs:', error);
+      }
+    });
   }
   login() {
     this.router.navigate(["/login"]);
@@ -36,6 +42,13 @@ export class CardComponent {
   }
   submitCV() {
     this.userService.submitCV(this.cv, this.post.id.toString(), this.post.companyEmail);
+    this.reloadComponent();
+  }
+  reloadComponent() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 
 }
