@@ -37,7 +37,6 @@ export class PostsComponent implements OnInit {
       logo:this.companyService.getCurrentCompany().User.logo
     }};
     const companyEmail = this.companyService.getCurrentCompany().User.Email;
-    console.log(companyEmail);
     this.companyService.getPosts(companyEmail);
 
     // Subscribe to jobPosts$ to get the data when it changes
@@ -132,7 +131,6 @@ export class PostsComponent implements OnInit {
   viewApplications(postId: number) {
     this.selectedPost = postId;
     this.companyService.getApplicationsByPost(postId).subscribe((applications: Application[]) => {
-      console.log('Applications received:', applications);
       this.selectedPostApplications = applications;
       this.totalPages = Math.ceil(applications.length / this.applicationsPerPage);
       this.currentApplicationPage = 0;
@@ -140,7 +138,6 @@ export class PostsComponent implements OnInit {
     },
       (error: any) => {
         if (error.status === 404) {
-          console.log("Nooooooo");
           // Handle 'No applications found' scenario
           this.showNoApplicationsPopup = true;
           setTimeout(() => {
@@ -175,7 +172,6 @@ export class PostsComponent implements OnInit {
         this.selectedPostApplications[appIndex].State = newState;
       }
     });
-    console.log(this.selectedPostApplications);
   }
 
   // View CV for an application

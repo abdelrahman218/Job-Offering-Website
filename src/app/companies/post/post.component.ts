@@ -82,7 +82,6 @@ export class PostComponent {
       this.cdr.detectChanges();
       this.router.navigate(['company/post/posts']);
     } else {
-      console.log('Form is invalid');
       this.postForm.markAllAsTouched();
     }
   }
@@ -110,7 +109,6 @@ export class PostComponent {
  sub(){
   const tagValue = this.postForm.get('tags')?.value;
   this.postForm.get('tags')?.setValue(tagValue);
-  console.log(tagValue);
   this.showAddTag=false;
   
  }

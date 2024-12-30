@@ -94,7 +94,6 @@ export class EditProfileComponent {
       const company = this.companiesService.getCurrentCompany().User;
       this.companiesService.editProfile(formData,company.Email).subscribe({
         next: (response) => {
-          console.log('Edit profile successful:', response);
           this.router.navigate(['company/dashboard']);
         },
         error: (error) => {

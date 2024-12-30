@@ -82,7 +82,6 @@ export class CompanyRegistrationComponent {
 
       this.companiesService.registerCompany(formData).subscribe({
         next: (response) => {
-          console.log('Registration successful:', response);
           this.router.navigate(['/login']);
         },
         error: (error) => {

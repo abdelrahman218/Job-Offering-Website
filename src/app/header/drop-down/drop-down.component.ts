@@ -21,7 +21,6 @@ export class DropDownComponent {
   OnLogOut=output<void>();
   editProfile(){
     const userType=localStorage.getItem("userType");
-    console.log(userType);
     if(userType=="Company"){
       this.OnSelect.emit();
       this.router.navigate(['company/edit-profile']);

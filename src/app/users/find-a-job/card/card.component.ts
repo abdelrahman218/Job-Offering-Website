@@ -38,7 +38,6 @@ export class CardComponent {
   }
   selectCV(event: any) {
     this.cv = event.target.files[0];
-    console.log(this.cv);
   }
   submitCV() {
     this.userService.submitCV(this.cv, this.post.id.toString(), this.post.companyEmail);

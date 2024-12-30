@@ -40,7 +40,6 @@ export class AppService{
   }
   
   setUserType(newType: UserType) {
-    console.log('Setting UserType:', newType);  
     this.userTypeSubject.next(newType);
   }
   getUserType(){

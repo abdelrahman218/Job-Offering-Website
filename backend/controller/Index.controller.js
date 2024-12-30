@@ -26,7 +26,6 @@ function login(req, res) {
       }
       else {
         res.status(401).send('Invalid credentials');
-        console.log("invalid email or pass");
       }
     })
     .catch(err => {
