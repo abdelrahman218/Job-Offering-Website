@@ -20,23 +20,23 @@
             </label>
             <div class="radio">
                 <input formControlName="careerLevel" id="rd2" type="radio" name="careerLevel" value="Internship">
-                <label id="lb" for="rd7">Internship</label>
+                <label id="lb" for="rd2">Internship</label>
             </div>
             <div class="radio ">
                 <input formControlName="careerLevel" id="rd3" type="radio" name="careerLevel"
                     value="Junior Level/Fresh Grad">
-                <label id="lb" for="rd6">Junior Level/Fresh Grad</label>
+                <label id="lb" for="rd3">Junior Level/Fresh Grad</label>
             </div>
             <div class="radio">
                 <input formControlName="careerLevel" type="radio" name="careerLevel" id="rd1" value="Experienced">
-                <label id="lb" for="rd4">Experienced</label>
+                <label id="lb" for="rd1">Experienced</label>
             </div>
             <div class="radio ">
-                <input formControlName="careerLevel" id="rd3" type="radio" name="careerLevel" value="Manager">
-                <label id="lb" for="rd8">Manager</label>
+                <input formControlName="careerLevel" id="rd4" type="radio" name="careerLevel" value="Manager">
+                <label id="lb" for="rd4">Manager</label>
             </div>
             <div class="radio">
-                <input formControlName="careerLevel" id="rd2" type="radio" name="careerLevel" value="Senior">
+                <input formControlName="careerLevel" id="rd5" type="radio" name="careerLevel" value="Senior">
                 <label id="lb" for="rd5">Senior</label>
             </div>
             <div *ngIf="postForm.get('careerLevel')?.invalid && postForm.get('careerLevel')?.touched">
@@ -46,16 +46,16 @@
                 <h4>Job Category:</h4>
             </label>
             <div class="radio">
-                <input formControlName="jobCategory" type="radio" name="jobCategory" id="rd1" value="Full-Time">
-                <label id="lb" for="rd1">Full-Time</label>
+                <input formControlName="jobCategory" type="radio" name="jobCategory" id="rd6" value="Full-Time">
+                <label id="lb" for="rd6">Full-Time</label>
             </div>
             <div class="radio">
-                <input formControlName="jobCategory" id="rd2" type="radio" name="jobCategory" value="Part-Time">
-                <label id="lb" for="rd2">Part-Time</label>
+                <input formControlName="jobCategory" id="rd7" type="radio" name="jobCategory" value="Part-Time">
+                <label id="lb" for="rd7">Part-Time</label>
             </div>
             <div class="radio ">
-                <input formControlName="jobCategory" id="rd3" type="radio" name="jobCategory" value="Freelance/Project">
-                <label id="lb" for="rd3">Freelance/Project</label>
+                <input formControlName="jobCategory" id="rd8" type="radio" name="jobCategory" value="Freelance/Project">
+                <label id="lb" for="rd8">Freelance/Project</label>
             </div>
             <div *ngIf="postForm.get('jobCategory')?.invalid && postForm.get('jobCategory')?.touched">
                 <small class="text-danger">Job Category is required.</small>
@@ -64,16 +64,16 @@
                 <h4>Workplace:</h4>
             </label>
             <div class="radio">
-                <input formControlName="workplace" type="radio" name="workplace" id="rd1" value="On-site">
-                <label id="lb" for="rd1">On-site</label>
+                <input formControlName="workplace" type="radio" name="workplace" id="rd9" value="On-site">
+                <label id="lb" for="rd9">On-site</label>
             </div>
             <div class="radio">
-                <input formControlName="workplace" id="rd2" type="radio" name="workplace" value="Remote">
-                <label id="lb" for="rd2">Remote</label>
+                <input formControlName="workplace" id="rd10" type="radio" name="workplace" value="Remote">
+                <label id="lb" for="rd10">Remote</label>
             </div>
             <div class="radio ">
-                <input formControlName="workplace" id="rd3" type="radio" name="workplace" value="Hybrid">
-                <label id="lb" for="rd3">Hybrid</label>
+                <input formControlName="workplace" id="rd11" type="radio" name="workplace" value="Hybrid">
+                <label id="lb" for="rd11">Hybrid</label>
             </div>
             <div *ngIf="postForm.get('workplace')?.invalid && postForm.get('workplace')?.touched">
                 <small class="text-danger">Workplace is required.</small>
