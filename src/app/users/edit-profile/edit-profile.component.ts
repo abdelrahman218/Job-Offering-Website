@@ -67,11 +67,13 @@ export class EditProfileComponent implements OnInit{
     };
     fr.readAsDataURL(event.target.files[0]);
   }
-  editProfile(){
+  editProfile() : boolean{
     if(this.isValid()){
       this.userService.closeTab();
       this.userService.editProfile(this.editedData,this.orginalData);
+      return true;
     }
+    return false;
   }
   closeDialog(){
     this.userService.closeTab();

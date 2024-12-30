@@ -69,9 +69,15 @@ async function removeApplication(req, res) {
     res.status(406).send("Application Not Found");
     return;
   }
-
+  var applicationCV=application.CV;
   await applications
     .deleteOne({ Applicant: userEmail, Post: post })
+    .then(
+      ()=>{
+        const fsExtra= require('fs-extra');
+        fsExtra.removeSync(__dirname.replace('\\controller','\\Multimedia\\CVs\\')+applicationCV)
+      }
+    )
     .catch(() => {
       res.status(500).send("Application Couldn't be deleted");
       return;
