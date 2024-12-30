@@ -91,8 +91,18 @@ export class EditProfileComponent {
       if (this.selectedLogo) {
         formData.append('logo', this.selectedLogo, this.selectedLogo.name);
       }
-      const company = this.companiesService.getCurrentCompany().User;
-      this.companiesService.editProfile(formData,company.Email).subscribe({
+      const company = this.companiesService.getCurrentCompany();
+      if (company) {
+        company.User.name = this.editForm.value.name;
+        company.User.Email = this.editForm.value.Email;
+        company.User.Password = this.editForm.value.Password;
+        company.User.industry = this.editForm.value.industry;
+        company.User.location = this.editForm.value.location;
+        company.User.description = this.editForm.value.description || '';
+      }
+      company.UserType = company.UserType || company.UserType;
+      localStorage.setItem('company', JSON.stringify(company));
+      this.companiesService.editProfile(formData, company.User.Email).subscribe({
         next: (response) => {
           this.router.navigate(['company/dashboard']);
         },
@@ -109,5 +119,5 @@ export class EditProfileComponent {
       this.editForm.markAllAsTouched();
     }
   }
-  }
+}
 
