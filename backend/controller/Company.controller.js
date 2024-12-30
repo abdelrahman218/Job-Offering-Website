@@ -6,7 +6,6 @@ const fs = require("fs");
 exports.getCompanies = async (req, res) => {
   try {
     const companies = await Company.find();
-    console.log(companies);
     res.json(companies);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching companies' });
@@ -35,7 +34,6 @@ exports.addPost = async (req, res) => {
     companyEmail: req.body.companyEmail,
     tags: req.body.tags
   });
-  console.log(newPost)
   newPost.save().catch(err => {
     console.log(err);
   }); // Save to the database
@@ -195,27 +193,13 @@ exports.getApplicationsByPost = async (req, res) => {
 };
 exports.updateApplicationState = async (req, res) => {
   try {
-    // Log the full request body and parameters
-    console.log('Request body:', req.body);
-    console.log('Request params:', req.params);
-    console.log('Post parameter type:', typeof req.params.post);
-
+    // Find the application first to see if it exists
     const { Applicant, Post, State } = req.body;
 
-    // Log each value and its type
-    console.log('Parsed values:', {
-      Applicant: { value: Applicant, type: typeof Applicant },
-      Post: { value: Post, type: typeof Post },
-      State: { value: State, type: typeof State }
-    });
-
-    // Find the application first to see if it exists
     const existingApplication = await Application.findOne({
       Applicant,
       Post
     });
-
-    console.log('Existing application:', existingApplication);
 
     if (!existingApplication) {
       console.log('Application not found with criteria:', { Applicant, Post });
@@ -235,13 +219,10 @@ exports.updateApplicationState = async (req, res) => {
       }
     );
 
-    console.log('Updated application:', application);
-
     res.status(200).json({
       message: 'Application state updated successfully',
       application
     });
-    console.log("Updated successfully");
 
   } catch (error) {
     console.error('Error updating application state:', {

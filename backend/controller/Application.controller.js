@@ -17,13 +17,10 @@ async function submitCV(req, res) {
 }
 async function getAppliedJobs(req, res) {
     const Email = req.query.Email;
-    console.log(Email);
     let Posts = await Application.find({
         Applicant: Email
     });
-    console.log(Posts);
     Posts=Posts.flatMap((ele)=>ele.Post)
-    console.log(Posts);
     res.status(200).send(Posts);
 }
 module.exports = {

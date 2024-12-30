@@ -11,7 +11,7 @@ import { AppService } from '../app.service';
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent {
   categories1 = [
     { id: 'careerLevelOptions', name: 'expertised-level' },
     { id: 'careerLevelOptions', name: 'entry-level' },
@@ -30,9 +30,6 @@ export class LandingPageComponent implements OnInit {
   private appService=inject(AppService);
   userType=this.appService.userTypeSignal.asReadonly();
   constructor(private router: Router) {}
-  ngOnInit(): void {
-    console.log(this.userType());
-  }
   signup(){
     this.router.navigate(["/signup"]);
   }
