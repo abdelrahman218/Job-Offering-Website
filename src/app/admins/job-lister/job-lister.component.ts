@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { Company } from "../../app.model";
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-job-lister',
   templateUrl: './job-lister.component.html',
+  imports: [NgFor, NgIf],
   styleUrls: ['./job-lister.component.css'],
 })
 export class JobListerComponent implements OnInit {
-  jobListers: Company[] = [];
+  jobListers = signal<Company[]>([]);
   isLoading: boolean = true;
   error: string | null = null;
 
@@ -17,7 +20,7 @@ export class JobListerComponent implements OnInit {
   ngOnInit() {
     this.adminService.getAllCompanies().subscribe({
       next: (companies) => {
-        this.jobListers = companies;
+        this.jobListers.set(companies);
         this.isLoading = false;
       },
       error: (err) => {
@@ -34,7 +37,7 @@ export class JobListerComponent implements OnInit {
         .subscribe({
           next: () => {
             console.log('Company deleted successfully.');
-            this.jobListers = this.jobListers.filter(company => company.id !== companyId); 
+            this.jobListers.set(this.jobListers().filter(company => company.id !== companyId)); 
           },
           error: (err) => {
             this.error = 'Error deleting company.';

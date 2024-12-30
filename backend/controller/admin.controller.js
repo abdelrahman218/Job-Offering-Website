@@ -1,8 +1,8 @@
-const Admin = require('../models/Admin');
-const User = require('../models/User');
-const Company = require('../models/Company');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const Admin = require('../models/Admin.model.js');
+const User = require('../models/User.model.js');
+//const Company = require('../models/Company.model.js');
+//const bcrypt = require('bcrypt');
+//const jwt = require('jsonwebtoken');
 
 // Helper function to handle errors
 const handleError = (res, error, message) => {

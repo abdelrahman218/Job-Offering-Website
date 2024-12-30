@@ -10,7 +10,7 @@
     </div>
   
     <div class="list-container" *ngIf="!isLoading && !error">
-      <div *ngFor="let jobLister of jobListers" class="list-item">
+      <div *ngFor="let jobLister of jobListers()" class="list-item">
         <div class="list-content">
           <h3 class="list-title">{{ jobLister.name }}</h3>
           <img class="list-logo" [src]="jobLister.logo" alt="{{ jobLister.name }} Logo" />

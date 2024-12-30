@@ -34,9 +34,11 @@ app.use(session({
 //Setting up routing
 const IndexRoutes=require('./routes/index.routes.js');
 const UserRoutes=require('./routes/user.routes.js');
+const AdminRoutes=require('./routes/admin.routes.js')
 
 app.use('/',IndexRoutes);
 app.use('/user',UserRoutes);
+app.use('/admin',AdminRoutes);
 
 app.use((req,res)=>{
     res.sendStatus(404);

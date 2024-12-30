@@ -5,7 +5,7 @@ import { Company } from '../app.model';
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
-  private apiUrl = '/api/admin'; // Base URL for admin-related endpoints (replace with actual URL)
+  private apiUrl = 'http://localhost:8080/admin'; // Base URL for admin-related endpoints (replace with actual URL)
 
   constructor(private http: HttpClient) {}
 

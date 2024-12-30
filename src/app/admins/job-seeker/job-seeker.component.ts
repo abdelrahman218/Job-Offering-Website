@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { User } from '../../app.model'; // Assuming you have a User model
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-job-seekers',
   templateUrl: './job-seeker.component.html',
+  imports: [NgFor,NgIf],
   styleUrls: ['./job-seeker.component.css']
 })
 export class JobSeekerComponent implements OnInit {

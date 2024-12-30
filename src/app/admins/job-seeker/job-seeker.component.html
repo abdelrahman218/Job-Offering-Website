@@ -13,9 +13,8 @@
       <div *ngFor="let user of jobSeekers" class="list-item">
         <div class="list-content">
           <h3 class="list-title">{{ user.name }}</h3>
-          <p class="list-detail">Email: {{ user.email }}</p>
-          <p class="list-detail">Phone: {{ user.phone }}</p>
-          <p class="list-detail">Location: {{ user.location }}</p>
+          <p class="list-detail">Email: {{ user.username }}</p>
+          <p class="list-detail">Professional Title: {{ user.professionalTitle }}</p>
           <p class="list-detail">Skills:</p>
           <ul>
             <li *ngFor="let skill of user.skills">{{ skill }}</li>
