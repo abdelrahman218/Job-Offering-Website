@@ -26,7 +26,6 @@ export class ApplicationsComponent implements OnInit{
   ngOnInit(): void {
     this.switchTo('active');
   }
-
   
   switchTo(target: ToggleType) {
     switch (target) {
