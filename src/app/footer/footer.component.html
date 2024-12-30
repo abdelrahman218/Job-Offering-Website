@@ -10,9 +10,11 @@
         <div class="head">Links</div>
         <div class="details" id="links">
             <a routerLink="/contactus" class="link">Contact Us</a>
-            <a routerLink="/find-a-job" class="link">Find a Job</a>
-            <a routerLink="/company-registration" class="link">Advertise with Us</a>
-        </div>
+            @if (userType===undefined) {
+                <a routerLink="/company-registration" class="link">Advertise with Us</a>
+            }
+                <a routerLink="/find-a-job" class="link">Find a Job</a>
+            </div>
     </div>
     <div class="sections">
         <div class="head">Follow Us</div>

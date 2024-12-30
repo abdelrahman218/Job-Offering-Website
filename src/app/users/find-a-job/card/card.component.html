@@ -26,7 +26,7 @@
         <div></div>
         @if (userType===undefined) {
             <button class="apply-btn" (click)="login()">Login to Apply</button>
-        }@else if (!isAppliedBefore()) {
+        }@else if(userType==='Company'){}@else if (!isAppliedBefore()) {
             <button class="apply-btn" type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#modal-' + post.id">Apply Now</button>
         }@else {
             <button class="applied-btn" type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#modal-' + post.id" disabled>Already Applied</button>
