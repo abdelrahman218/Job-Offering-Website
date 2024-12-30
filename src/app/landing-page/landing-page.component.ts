@@ -13,9 +13,9 @@ import { AppService } from '../app.service';
 })
 export class LandingPageComponent {
   categories1 = [
-    { id: 'careerLevelOptions', name: 'expertised-level' },
-    { id: 'careerLevelOptions', name: 'entry-level' },
-    {id:'careerLevelOptions',name:'senior-manager'}
+    { id: 'careerLevelOptions', name: 'Experienced',photoName: 'expertised-level' },
+    { id: 'careerLevelOptions',  name: 'Internship', photoName: 'entry-level' },
+    {id:'careerLevelOptions', name: 'Senior', photoName:'senior-manager'}
   ];
   categories2 = [
     { id: 'workplaceOptions', name: 'Remote' },
