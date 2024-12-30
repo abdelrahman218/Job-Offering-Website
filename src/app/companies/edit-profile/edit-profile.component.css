@@ -1,0 +1,16 @@
+select {
+    appearance: none;
+    background-color: white;
+    padding-right: 30px;
+}
+.card-header{
+    background-color:#2f4156 ;
+    color: white;
+}
+.card{
+    background-color: #F5EFEB;
+}
+.btn{
+    background-color:#2f4156 ;
+    color: white;
+}
