@@ -13,7 +13,7 @@ import { FindAJobComponent } from './users/find-a-job/find-a-job.component';
 import { LoginComponent } from './login/login.component';
 import { SingupComponent } from './singup/singup.component';
 import { CardComponent } from './users/find-a-job/card/card.component';
-
+import {CompanyRegistrationComponent} from './companies/company-registration/company-registration.component'
 //Routers
 import { userRoutes } from './users/users.routes';
 import { companyRoutes } from './companies/companies.routes';
@@ -66,6 +66,12 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    
+    {
+    path:'company-registration',
+    component:CompanyRegistrationComponent,
+    title:"Company Registration"
     },
     {
         path: 'signup',

@@ -18,6 +18,11 @@ const CompanySchema = new schema({
   industry: { type: String, required: true },
   location: { type: String, match: /([A-ZÀ-ÿ-a-z. ']+[ ]*)+/, required: true },
   description: { type: String, default: "" },
+  status: { 
+    type: String, 
+    enum: ['pending', 'approved', 'rejected'],
+    default: 'pending' 
+  }
 }, { timestamps: true });
 
 const Companies = mongoose.model('Companies', CompanySchema);

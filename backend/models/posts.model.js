@@ -7,7 +7,7 @@ const PostSchema = new schema({
   jobTitle: { type: String, match: /([A-ZÀ-ÿ-a-z. ']+[ ]*)+/, required: true },
   careerLevel: { 
     type: String, 
-    enum: ['Internship', 'Junior Level/Fresh Grad', 'Experienced', 'Manager', 'Senior Management'], 
+    enum: ['Internship', 'Junior Level/Fresh Grad', 'Experienced', 'Manager', 'Senior'], 
     required: true 
   },
   jobCategory: { 

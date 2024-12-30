@@ -74,24 +74,27 @@
           <p><strong>Applicant:</strong> {{ application.Applicant }}</p>
           <p><strong>State:</strong> {{ application.State }}</p>
 
-          <!-- Application Action Buttons -->
-          <div id="gr">
+          <div id="gr" class="d-inline-flex">
             <button (click)="updateApplicationState(application, 'In Review', application?.Post)"
-              class="btn btn-warning" [disabled]="application.State === 'In Review'">
-              <i class="zmdi zmdi-hourglass-alt"></i> In Review
+                class="btn btn-warning mx-1" 
+                [disabled]="application.State === 'In Review'">
+                <i class="zmdi zmdi-hourglass-alt"></i> In Review
             </button>
-            <button (click)="updateApplicationState(application, 'Accepted', application?.Post)" class="btn btn-success"
-              [disabled]="application.State === 'Accepted'">
-              <i class="zmdi zmdi-check"></i> Accept
+            <button (click)="updateApplicationState(application, 'Accepted', application?.Post)" 
+                class="btn btn-success mx-1"
+                [disabled]="application.State === 'Accepted'">
+                <i class="zmdi zmdi-check"></i> Accept
             </button>
-            <button (click)="updateApplicationState(application, 'Rejected', application?.Post)" class="btn btn-danger"
-              [disabled]="application.State === 'Rejected'">
-              <i class="zmdi zmdi-close"></i> Reject
+            <button (click)="updateApplicationState(application, 'Rejected', application?.Post)" 
+                class="btn btn-danger mx-1"
+                [disabled]="application.State === 'Rejected'">
+                <i class="zmdi zmdi-close"></i> Reject
             </button>
-            <button (click)="viewApplicantCV(application)" class="btn btn-info">
-              <i class="zmdi zmdi-file"></i> View CV
+            <button (click)="viewApplicantCV(application)" 
+                class="btn btn-info mx-1">
+                <i class="zmdi zmdi-file"></i> View CV
             </button>
-          </div>
+        </div>
 
         </div>
         <!-- Close Popup -->

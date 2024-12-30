@@ -1,0 +1,101 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Company Profile</h2>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="editForm" (ngSubmit)="submitForm()">
+                        <!-- Error Message -->
+                        <div *ngIf="errorMessage" class="alert alert-danger">
+                            {{ errorMessage }}
+                        </div>
+
+                        <!-- Company Name -->
+                        <div class="form-group mb-3">
+                            <label class="form-label">Company Name</label>
+                            <input formControlName="name" type="text" class="form-control">
+                            <div *ngIf="editForm.get('name')?.invalid && editForm.get('name')?.touched">
+                                <small class="text-danger">Please enter a valid company name.</small>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group mb-3">
+                            <label class="form-label">Business Email</label>
+                            <input formControlName="Email" type="email" class="form-control">
+                            <div
+                                *ngIf="editForm.get('Email')?.invalid && editForm.get('Email')?.touched">
+                                <small class="text-danger">Please enter a valid business email.</small>
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group mb-3">
+                            <label class="form-label">Password</label>
+                            <input formControlName="Password" type="password" class="form-control">
+                            <div
+                                *ngIf="editForm.get('Password')?.invalid && editForm.get('Password')?.touched">
+                                <small class="text-danger">Password must contain at least 8 characters, including
+                                    uppercase, lowercase, number and special character.</small>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="form-group mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            <input formControlName="confirmPassword" type="password" class="form-control">
+                            <div
+                                *ngIf="editForm.get('confirmPassword')?.invalid && editForm.get('confirmPassword')?.touched">
+                                <small class="text-danger">Passwords must match.</small>
+                            </div>
+                        </div>
+
+                        <!-- Industry -->
+                        <div class="form-group mb-3">
+                            <label class="form-label">Industry</label>
+                            <input formControlName="industry" type="text" class="form-control">
+                            <div
+                                *ngIf="editForm.get('industry')?.invalid && editForm.get('industry')?.touched">
+                                <small class="text-danger">Industry is required.</small>
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="form-group mb-3">
+                            <label class="form-label">Location</label>
+                            <input formControlName="location" type="text" class="form-control">
+                            <div
+                                *ngIf="editForm.get('location')?.invalid && editForm.get('location')?.touched">
+                                <small class="text-danger">Please enter a valid location.</small>
+                            </div>
+                        </div>
+                        <!-- Logo Upload -->
+                        <div class="form-group mb-3">
+                            <label class="form-label">Company Logo</label>
+                            <input type="file" (change)="onFileSelected($event)" class="form-control"
+                                accept=".png, .jpg, .jpeg">
+                            <div *ngIf="logoError" class="text-danger">{{ logoError }}</div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group mb-3">
+                            <label class="form-label">Company Description</label>
+                            <textarea formControlName="description" class="form-control" rows="3"
+                                placeholder="Tell us about your company..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary"
+                                [disabled]="editForm.invalid || isSubmitting">
+                                {{ isSubmitting ? 'Editing...' : 'Edit Profile' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
