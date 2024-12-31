@@ -25,8 +25,7 @@
                         <div class="form-group mb-3">
                             <label class="form-label">Business Email</label>
                             <input formControlName="Email" type="email" class="form-control">
-                            <div
-                                *ngIf="editForm.get('Email')?.invalid && editForm.get('Email')?.touched">
+                            <div *ngIf="editForm.get('Email')?.invalid && editForm.get('Email')?.touched">
                                 <small class="text-danger">Please enter a valid business email.</small>
                             </div>
                         </div>
@@ -35,8 +34,7 @@
                         <div class="form-group mb-3">
                             <label class="form-label">Password</label>
                             <input formControlName="Password" type="password" class="form-control">
-                            <div
-                                *ngIf="editForm.get('Password')?.invalid && editForm.get('Password')?.touched">
+                            <div *ngIf="editForm.get('Password')?.invalid && editForm.get('Password')?.touched">
                                 <small class="text-danger">Password must contain at least 8 characters, including
                                     uppercase, lowercase, number and special character.</small>
                             </div>
@@ -56,8 +54,7 @@
                         <div class="form-group mb-3">
                             <label class="form-label">Industry</label>
                             <input formControlName="industry" type="text" class="form-control">
-                            <div
-                                *ngIf="editForm.get('industry')?.invalid && editForm.get('industry')?.touched">
+                            <div *ngIf="editForm.get('industry')?.invalid && editForm.get('industry')?.touched">
                                 <small class="text-danger">Industry is required.</small>
                             </div>
                         </div>
@@ -65,12 +62,20 @@
                         <!-- Location -->
                         <div class="form-group mb-3">
                             <label class="form-label">Location</label>
-                            <input formControlName="location" type="text" class="form-control">
-                            <div
-                                *ngIf="editForm.get('location')?.invalid && editForm.get('location')?.touched">
-                                <small class="text-danger">Please enter a valid location.</small>
+                            <select formControlName="location" class="form-control" style="appearance: auto;">
+                                <option value="" disabled selected>Select a location</option>
+                                <option value="Cairo">Cairo</option>
+                                <option value="Alexandria">Alexandria</option>
+                                <option value="Giza">Giza</option>
+                                <option value="Sharm El Sheikh">Sharm El Sheikh</option>
+                                <option value="Hurghada">Hurghada</option>
+                                <option value="Aswan">Aswan</option>
+                            </select>
+                            <div *ngIf="editForm.get('location')?.invalid && editForm.get('location')?.touched">
+                                <small class="text-danger">Please select a valid location.</small>
                             </div>
                         </div>
+
                         <!-- Logo Upload -->
                         <div class="form-group mb-3">
                             <label class="form-label">Company Logo</label>
@@ -88,8 +93,7 @@
 
                         <!-- Submit Button -->
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary"
-                                [disabled]="editForm.invalid || isSubmitting">
+                            <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid || isSubmitting">
                                 {{ isSubmitting ? 'Editing...' : 'Edit Profile' }}
                             </button>
                         </div>
