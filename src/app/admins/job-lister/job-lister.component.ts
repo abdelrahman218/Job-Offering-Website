@@ -22,6 +22,13 @@ export class JobListerComponent implements OnInit {
       next: (companies) => {
         this.jobListers.set(companies);
         this.isLoading = false;
+        this.jobListers().forEach(company => {
+          console.log('User Name:', company.name); 
+          console.log('User Email:', company.location); 
+          console.log('User Job:', company.industry); 
+
+          // Log other user properties as needed
+        });
       },
       error: (err) => {
         this.error = 'Error fetching job listers.';
@@ -31,13 +38,13 @@ export class JobListerComponent implements OnInit {
     });
   }
 
-  deleteUser(companyId: string) {
+  deleteUser(companyName: string) { 
     if (confirm("Are you sure you want to delete this company?")) {
-      this.adminService.deleteCompany(companyId)
+      this.adminService.deleteCompany(companyName)
         .subscribe({
           next: () => {
             console.log('Company deleted successfully.');
-            this.jobListers.set(this.jobListers().filter(company => company.id !== companyId)); 
+            this.jobListers.set(this.jobListers().filter(company => company.name !== companyName)); 
           },
           error: (err) => {
             this.error = 'Error deleting company.';

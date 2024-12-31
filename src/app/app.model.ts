@@ -45,6 +45,7 @@ export type Company = {
     id: string;
     name: string;
     logo: string;
+    email: string;
     industry: string;
     location: string;
     description: string;
@@ -76,8 +77,8 @@ export type posts={
 
 //Admin Datatype
 export type AdminType={
-    id: string,
     name: string,
-    username: string,
-    password: string
+    email: string,
+    password: string,
+    role: string,
 }

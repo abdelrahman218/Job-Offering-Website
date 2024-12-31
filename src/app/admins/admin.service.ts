@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Company } from '../app.model';
+import { User } from '../app.model';
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
-  private apiUrl = 'http://localhost:8080/admin'; // Base URL for admin-related endpoints (replace with actual URL)
+  private apiUrl = 'http://localhost:8080/admin'; 
 
   constructor(private http: HttpClient) {}
 
   // Admin related methods
   addAdmin(adminData: any): Observable<any> {
+    console.log('Received admin data:', adminData);
     return this.http.post<any>(`${this.apiUrl}/addAdmin`, adminData);
   }
 
@@ -52,7 +54,7 @@ export class AdminService {
     return this.http.put<any>(`${this.apiUrl}/companies/${companyId}`, companyData);
   }
 
-  deleteCompany(companyId: string): Observable<Company> {
-    return this.http.delete<any>(`${this.apiUrl}/companies/${companyId}`);
+  deleteCompany(companyName: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/companies/name/${companyName}`);
   }
 }

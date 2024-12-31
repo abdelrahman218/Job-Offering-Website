@@ -3,6 +3,7 @@ export const newCompany: Company[] = [{
     id: '1',
     name: 'Tech Corp',
     logo: 'logo-url',
+    email: "",
     industry: 'Technology',
     location: 'San Francisco',
     description: 'A tech company',

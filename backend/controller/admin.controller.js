@@ -1,8 +1,8 @@
 const Admin = require('../models/Admin.model.js');
 const User = require('../models/User.model.js');
-//const Company = require('../models/Company.model.js');
-//const bcrypt = require('bcrypt');
-//const jwt = require('jsonwebtoken');
+const Company = require('../models/Company.model.js');
+//const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Helper function to handle errors
 const handleError = (res, error, message) => {
@@ -13,25 +13,21 @@ const handleError = (res, error, message) => {
 // Add a new admin
 async function addAdmin(req, res) {
   try {
-    const { name, username, password } = req.body;
-
+    const { name, email, password, role } = req.body;
+    console.log('Received admin email in controller:', email);
+    const newAdmin = new Admin({ name, email, password, role });    
+    const savedAdmin = await newAdmin.save();
     // Data Validation 
-    if (!name || !username || !password) {
+    if (!name || !email || !password) {
       return res.status(400).json({ message: 'Please provide all required fields' });
     }
 
-    // Check for username existence (assuming usernames are unique)
-    const existingAdmin = await Admin.findOne({ username });
+    const existingAdmin = await Admin.findOne({ email });
     if (existingAdmin) {
-      return res.status(409).json({ message: 'Username already exists' });
+      return res.status(409).json({ message: 'email already exists' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
-
-    const newAdmin = new Admin({ name, username, password: hashedPassword });
-    const savedAdmin = await newAdmin.save();
-
-    res.status(201).json({ message: 'Admin registered successfully', admin: savedAdmin });
+    res.status(200).json({ message: 'Admin registered successfully', admin: savedAdmin });
   } catch (error) {
     handleError(res, error, 'Error creating admin');
   }
@@ -41,9 +37,9 @@ async function addAdmin(req, res) {
 async function updateAdmin(req, res) {
   try {
     const adminId = req.params.adminId;
-    const { name, username } = req.body; // Only update modifiable fields
+    const { name, email } = req.body; // Only update modifiable fields
 
-    const updatedAdmin = await Admin.findByIdAndUpdate(adminId, { name, username }, { new: true });
+    const updatedAdmin = await Admin.findByIdAndUpdate(adminId, { name, email }, { new: true });
 
     if (!updatedAdmin) {
       return res.status(404).json({ message: 'Admin not found' });
@@ -61,40 +57,40 @@ async function login(req, res) {
   try {
     const { username, password } = req.body;
 
-    const admin = await Admin.findOne({ username });
+    const admin = await Admin.findOne({ email: username }); 
 
     if (!admin) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: 'Invalid admin credentials' });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, admin.password);
+    
 
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-
+    // Generate JWT and send success response 
     const token = jwt.sign({ id: admin._id, role: admin.role }, 'your_secret_key');
+    res.json({ token, admin: { id: admin._id, name: admin.name, password: admin.password,role: admin.role } }); 
 
-    res.json({ token, admin: { id: admin._id, name: admin.name, role: admin.role } });
   } catch (error) {
-    handleError(res, error, 'Login failed');
+    console.error('Error during admin login:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 }
 
 // Get All Users
 async function getAllUsers(req, res) {
-  try {
-    const users = await User.find();
-    res.status(200).json(users);
-  } catch (error) {
-    handleError(res, error, 'Error fetching users');
+    try {
+      const users = await User.find(); 
+      console.log('Users from database:', users); 
+      res.status(200).json(users);
+    } catch (error) {
+      handleError(res, error, 'Error fetching users');
+    }
   }
-}
 
 // Get All Companies
 async function getAllCompanies(req, res) {
   try {
-    const companies = await Company.find();
+    const companies = await Company.find(); 
+    console.log('Companies from database:', companies); 
     res.status(200).json(companies);
   } catch (error) {
     handleError(res, error, 'Error fetching companies');
@@ -207,21 +203,26 @@ async function updateCompany(req, res) {
 }
 
 // Delete Company (with caution and proper safeguards)
-async function deleteCompany(req, res) {
-  try {
-    const companyId = req.params.companyId;
-
-    const deletedCompany = await Company.findByIdAndDelete(companyId);
-
-    if (!deletedCompany) {
-      return res.status(404).json({ message: 'Company not found' });
+async function deleteCompanyByName(req, res) {
+    try {
+      const companyName = req.params.companyName; 
+  
+      if (!companyName) {
+        return res.status(400).json({ message: 'Company name is missing' });
+      }
+  
+      const deletedCompany = await Company.findOneAndDelete({ name: companyName });
+  
+      if (!deletedCompany) {
+        return res.status(404).json({ message: 'Company not found' });
+      }
+  
+      res.status(200).json({ message: 'Company deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting company:', error); 
+      return res.status(500).json({ message: 'Internal server error' }); 
     }
-
-    res.status(200).json({ message: 'Company deleted successfully' });
-  } catch (error) {
-    handleError(res, error, 'Error deleting company');
   }
-}
 
 module.exports = {
   addAdmin,
@@ -235,5 +236,5 @@ module.exports = {
   updateUserStatus,
   deleteUser,
   updateCompany,
-  deleteCompany,
+  deleteCompanyByName,
 };

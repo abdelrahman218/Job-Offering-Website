@@ -6,7 +6,7 @@ const router = express.Router();
 const admin = require('../controller/admin.controller.js'); 
 
 router.post('/login', admin.login);
-router.post('/', admin.addAdmin); // Add a new admin
+router.post('/addAdmin', admin.addAdmin); // Add a new admin
 router.put('/:adminId', admin.updateAdmin); // Update an existing admin
 
 router.get('/users', admin.getAllUsers);
@@ -20,6 +20,6 @@ router.put('/users/:userId/status', admin.updateUserStatus);
 router.delete('/users/:userId', admin.deleteUser);
 
 router.put('/companies/:companyId', admin.updateCompany); // Update specific company info
-router.delete('/companies/:companyId', admin.deleteCompany);
+router.delete('/companies/name/:companyName', admin.deleteCompanyByName); 
 
 module.exports = router;
