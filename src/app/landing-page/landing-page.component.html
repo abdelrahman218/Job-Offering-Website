@@ -23,7 +23,7 @@
 <section class="section-2">
 <h1 id="gs-head">Browse Jobs by Carrer Level</h1>
 <div class="carrer-levels">
-    <a *ngFor="let category of categories1" [routerLink]="['/find-a-job']" [queryParams]="{ categoryID: category.id, categoryName:category.name , triggerCategory: 'true' }" class="carrer"><div class="image-container"><img src="/{{ category.name }}.jpg" alt="" id="pic"></div><p id="t"> {{ category.name }}</p></a>
+    <a *ngFor="let category of categories1" [routerLink]="['/find-a-job']" [queryParams]="{ categoryID: category.id, categoryName:category.name , triggerCategory: 'true' }" class="carrer"><div class="image-container"><img src="/{{ category.photoName }}.jpg" alt="" id="pic"></div><p id="t"> {{ category.name }}</p></a>
     <a routerLink="/find-a-job" class="carrer"><div class="image-container"id="seemore"><img src="/internship.jpg" alt="" id="pic"></div><p class="see-more">See More</p></a>
 
 </div>
